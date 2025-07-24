@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Complete - PinterPal</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Zelfde stijl als de login-/signup-pagina */
+        .form-container {
+            background-color: #0a7082;
+            color: #000;
+            padding: 2vw;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 2px solid #ffc107;
+            border-radius: 5px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+            margin: 5vw auto;
+        }
+
+        .form-container h2 {
+            margin-bottom: 1rem;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .form-container p {
+            color: #fff;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .form-container button {
+            background-color: #8c52ff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 1vw;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .form-container button:hover {
+            background-color: #7ae614;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="index.html">
+            <h1>PINTERPAL.</h1>
+        </a>
+        <div class="login-signup">
+            <img src="img/pinterpal-logo.jpg" alt="PinterPal Logo" class="header-logo">
+        </div>
+    </div>
+
+    <!-- Registration Complete -->
+    <div class="form-container">
+        <h2>Registration Complete</h2>
+        <p>Congratulations! Your PinterPal account has been successfully created.</p>
+        <p>You can now start exploring, or return to the home page.</p>
+        
+        <!-- Knop om naar pinterpalbot.html te gaan -->
+        <button onclick="window.location.href='pinterpalbot.html'">Return to Home Page</button>
+    </div>
+</body>
+</html>
