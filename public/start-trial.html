@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Trial - PinterPal</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #0a7082;
+            color: #000;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .trial-container {
+            background-color: #ffc107;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .trial-container h2 {
+            margin-bottom: 1.5rem;
+            color: #0a7082;
+            font-weight: bold;
+        }
+
+        .trial-container p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .trial-container .register-btn {
+            background-color: #8c52ff;
+            color: #fff;
+            padding: 0.8rem 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease;
+        }
+
+        .trial-container .register-btn:hover {
+            background-color: #7ae614;
+        }
+
+        .trial-container a {
+            display: block;
+            margin-top: 1.5rem;
+            color: #0a7082;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .trial-container a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="trial-container">
+        <h2>Trial Subscription Activated!</h2>
+        <p>You've successfully activated your 1-month free trial of PinterPal's Pro Plan. Enjoy all premium features for 30 days, free of charge!</p>
+        <!-- Button to navigate to the registration page -->
+        <button class="register-btn" onclick="window.location.href='registration-page.html'">Complete Registration</button>
+        <!-- Link to return to the home page -->
+        <a href="index.html">Return to Home Page</a>
+    </div>
+</body>
+</html>

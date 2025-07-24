@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PinterPal Bot Explained</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <a href="index.html">
+            <h1>PINTERPAL.</h1>
+        </a>
+        <p class="subtitle">PinterPal Bot</p>
+        <div class="login-signup">
+            <a href="login.html">Log in</a> | <a href="signup.html">Sign up</a>
+            <img src="pinterpal-logo.jpg" alt="PinterPal Logo" class="header-logo">
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <a class="start-trial-btn" href="pinterpalbot.html">PINTERPAL BOT</a>
+        <a href="assistance.html">ASSISTANCE</a> <!-- Active class toegevoegd -->
+        <a href="pricing.html">PRICING</a>
+        <a href="about.html">ABOUT US</a>
+    </nav>
+    
+
+   <!-- Content sectie -->
+<main class="content">
+    <!-- Flexbox sectie: Introductie en Pricing -->
+    <section class="info-section">
+        <!-- Introductie sectie -->
+        <div class="intro2">
+            <h2>PinterPal bot Explained</h2>
+            _________________________________________________________________________________________________________________________________________________________
+            <p>Our product is an intelligent widget designed to help customers find the perfect product match through a personalized questionnaire. This widget, which can be integrated into e-commerce websites via API (offered as a monthly subscription), guides users step-by-step through a tailored set of questions about their specific needs and preferences. The questionnaire, typically between 5-10 questions, adapts dynamically based on each user’s responses, leading them to the product(s) that best meets their criteria.</p>
+            <p>For instance, if a customer is searching for a vacuum cleaner, the widget will ask targeted questions—whether they prefer a cordless model, quiet operation, bagless design, affordability, etc. By understanding these preferences, the widget narrows down the options to present the best-suited products.</p>
+            <p>Our AI-driven system generates these questions using data from the webshop itself, including product descriptions, specifications, and other relevant details thst can be found on the website. This makes the experience highly customized, with each survey tailored to the unique offerings and inventory of the business. Whether for electronics, home goods, vacations, or other categories, the widget provides a seamless, guided shopping experience that benefits both the customer and the retailer.</p>
+        </div>
+
+        <!-- Pricing Info sectie -->
+        <div class="pricing-info">
+            <h3>GET ONE MONTH FOR FREE</h3>
+            <div class="start-trial-container">
+                <img src="pp-start-trial.jpg" alt="Start trial icon" class="start-trial-img">
+                <button class="start-trial-btn" onclick="window.location.href='start-trial.html'">Start Now</button>
+
+            </div>
+            <p>€ 29,99 Per month</p>
+        </div>
+    </section>
+</main>
+
+
+        <!-- Process sectie -->
+        <section class="process">
+            <h2>The PinterPal Process:</h2>
+            <div class="process-image">
+                <img src="pinterpal-onit.jpg" alt="The PinterPal Process">
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get the current page from the URL (only the last part)
+            const currentPage = window.location.pathname.split('/').pop();
+    
+            // Select all links in the navigation bar
+            const navbarLinks = document.querySelectorAll('.navbar a');
+    
+            // Remove 'active' class from all links initially
+            navbarLinks.forEach(link => link.classList.remove('active'));
+    
+            // Add 'active' class to the correct link based on the href match
+            navbarLinks.forEach(link => {
+                const linkPage = link.getAttribute('href');
+                if (linkPage === currentPage || (linkPage === "index.html" && currentPage === "")) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+    
+    
+</body>
+</html>
