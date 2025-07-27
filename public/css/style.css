@@ -30,7 +30,7 @@ body, html {
     font-family: Arial, sans-serif;
     color: var(--font-color);
     font-weight: bold;
-    background-image: url('img/back-site.png'); /* Pad naar je achtergrondafbeelding */
+    background: url("/img/back-site.png") no-repeat center; /* Pad naar je achtergrondafbeelding */
     background-size: cover; /* Zorg dat de afbeelding de hele viewport bedekt */
     background-position: center; /* Plaats de afbeelding gecentreerd */
     background-repeat: no-repeat; /* Voorkom dat de afbeelding wordt herhaald */
