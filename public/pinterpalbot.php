@@ -33,6 +33,38 @@ session_start();
         <a href="pinterpalbot.php" class="active">PINTERPAL BOT</a>
     </nav>
 
+<div class="content">
+        <div class="intro">
+            <h2>"PinterPal: Your go-to assistant for understanding online shoppers' wants and needs, offering expert assistance across almost all categories</h2>
+            <p>___________________________________________________________________________________________________________________________________________________________</p>
+            <p>
+            <strong style="font-size: 24px;">The Problem:</strong><br><br>
+                Webshop owners face the challenge of converting visitors into customers. Many shoppers get overwhelmed by too many choices...
+            </p>
+            <br>
+            <p>
+            <strong style="font-size: 24px;">The Solution:</strong><br><br>
+            PinterPal is your smart assistant, designed to guide customers effortlessly through their shopping journey:
+            </p>
+            <ul><br>
+                <li><strong>Personalize the experience</strong> with tailored product recommendations.</li>
+                <li><strong>Boost conversions</strong> by making it easier for customers to find what they need.</li>
+                <li><strong>Save time</strong> by automating product suggestions based on customer input.</li>
+            </ul>
+            <br>
+            <p>Seamlessly integrated into your webshop, PinterPal turns indecisive visitors into loyal buyers...</p>
+            <p><strong>Take your webshop to the new Era.</strong></p>
+            <br>
+            <p>Push the button and upgrade your website! The first month is on the house!</p>
+            <p>___________________________________________________________________________________________________________________________________________________________</p>
+
+            <!-- Start-knop -->
+            <button class="start-trial-btn" onclick="window.location.href='company-registration.php'">
+                Start Now
+            </button>
+        </div>
+
+
     <!-- Content sectie -->
     <main class="content">
         <!-- Flexbox sectie: Introductie en Pricing -->

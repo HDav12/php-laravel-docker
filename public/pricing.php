@@ -45,28 +45,17 @@ session_start();
         <!-- Pricing Options Section -->
         <section class="pricing-options">
             <section class="assistance">
-                <div class="option">
-                    <h3>Premium</h3>
-                    <p>More capabilities. eg. webshop with more than 50 webshop visitors per day.</p>
-                    <p>€xx,xx per month</p>
-                    <br>
-                    <button class="start-trial-btn">Start Trial</button>
-                </div>
+              
 
                 <div class="option">
-                    <h3>Plus</h3>
+                    <h3>PinterPal</h3>
                     <p>Take your webshop to the next level.</p>
                     <p>€29.90 per month</p>
                     <br>
                     <button class="start-trial-btn" onclick="window.location.href='company-registration.php'">Start Trial</button>
                 </div>
               
-                <div class="option">
-                    <h3>Become Allie</h3>
-                    <p>Discuss advanced possibilities. Tailored advice.</p>
-                    <br>
-                    <button class="start-trial-btn">Plan Appointment</button>
-                </div>
+           
             </section>
         </section>
     </main>

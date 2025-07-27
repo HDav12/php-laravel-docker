@@ -15,7 +15,6 @@ session_start();
         <a href="index.php">
             <h1>PINTERPAL.</h1>
         </a>
-        <p class="subtitle">Take your webshop to the new Era</p>
         <div class="login-signup">
             <!-- Dynamische login/signup of uitlog-knoppen -->
             <?php include 'navbar.php'; ?>
@@ -35,36 +34,53 @@ session_start();
         <a href="pinterpalbot.php">PINTERPAL BOT</a>
     </nav>
     
-    <div class="content">
-        <div class="intro">
-            <h2>"PinterPal: Your go-to assistant for understanding online shoppers' wants and needs, offering expert assistance across almost all categories</h2>
-            <p>___________________________________________________________________________________________________________________________________________________________</p>
-            <p>
-            <strong style="font-size: 24px;">The Problem:</strong><br><br>
-                Webshop owners face the challenge of converting visitors into customers. Many shoppers get overwhelmed by too many choices...
-            </p>
-            <br>
-            <p>
-            <strong style="font-size: 24px;">The Solution:</strong><br><br>
-            PinterPal is your smart assistant, designed to guide customers effortlessly through their shopping journey:
-            </p>
-            <ul><br>
-                <li><strong>Personalize the experience</strong> with tailored product recommendations.</li>
-                <li><strong>Boost conversions</strong> by making it easier for customers to find what they need.</li>
-                <li><strong>Save time</strong> by automating product suggestions based on customer input.</li>
-            </ul>
-            <br>
-            <p>Seamlessly integrated into your webshop, PinterPal turns indecisive visitors into loyal buyers...</p>
-            <p><strong>Take your webshop to the new Era.</strong></p>
-            <br>
-            <p>Push the button and upgrade your website! The first month is on the house!</p>
-            <p>___________________________________________________________________________________________________________________________________________________________</p>
+   <div class="content">
+  <div class="intro">
+    <div class="intro-flex">
+      
+      <!-- Text block -->
+      <div class="intro-text">
+        <h2>PinterPal: Your AI‑powered assistant that guides online shoppers to the right product — fast, personal, and effective.</h2>
+        <hr>
+<br>
+        <p>
+          <strong style="font-size:24px;">The Problem:</strong><br><br>
+          Online store owners struggle to convert visitors into paying customers. Many shoppers get lost or overwhelmed by too many options, causing them to leave without buying.
+        </p>
+<br><br>
 
-            <!-- Start-knop -->
-            <button class="start-trial-btn" onclick="window.location.href='company-registration.php'">
-                Start Now
-            </button>
-        </div>
+        <p>
+          <strong style="font-size:24px;">The Solution:</strong><br><br>
+          PinterPal is your AI‑powered assistant, designed to guide each visitor through their shopping journey in under a minute:
+        </p>
+
+        <ul>
+          <li><strong>Delivers personalized experiences</strong> with smart product recommendations.</li>
+          <li><strong>Boosts conversion rates</strong> by helping customers find what they truly need — fast.</li>
+          <li><strong>Saves time</strong> by automating product selection through intelligent Q&A.</li>
+        </ul>
+<br><br><br>
+        <p>
+          PinterPal is fully integrated into your webshop, acting like a digital shop assistant that turns unsure browsers into confident buyers. It’s fast, friendly, and built to enhance the customer experience.
+        </p>
+
+        <p><strong>Step into the future of eCommerce with PinterPal.</strong></p>
+        <p>Hit the button and take your webshop to the new Era.</p>
+<br><br>
+        <button class="start-trial-btn" onclick="window.location.href='company-registration.php'">
+          Start Now
+        </button>
+      </div>
+
+      <!-- Yellow logo on the right -->
+      <div class="intro-image">
+        <img src="img/foto-index.png" alt="Index-foto" class="index-logo">
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
         <div class="feedback-news-container">
     <!-- Feedback sectie -->
@@ -73,7 +89,9 @@ session_start();
         <p>
             We are committed to continuously enhancing PinterPal and greatly value your input. 
             Thank you in advance for sharing your valuable feedback!
+           
         </p>
+         <br>
         <?php if (isset($successMessage)) : ?>
             <p class="success-message"><?php echo $successMessage; ?></p>
         <?php endif; ?>

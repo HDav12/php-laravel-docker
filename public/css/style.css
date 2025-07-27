@@ -74,6 +74,32 @@ body, html {
     color: inherit;
 }
 
+.intro-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.intro-text {
+  flex: 2;
+}
+
+.intro-image {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end; /* ← Zorgt dat hij rechts staat */
+  align-items: flex-start;
+}
+
+.index-logo {
+  max-width: 150px;
+  height: auto;
+  margin-top: 20px;
+}
+
+
+
 .header-logo {
     max-width: 80px;
     height: auto;
@@ -522,6 +548,86 @@ body.iframe-page .navbar a.active {
     border-radius: 8px;
 }
 
+/* ===== TEAM-SECTIE ===== */
+.team {
+  padding: 2rem 1rem;
+}
+
+.team h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Grid: 2 kolommen, responsive */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 2000px;
+  margin: 0 auto;
+}
+
+/* Op kleinere schermen 1 kolom */
+@media (max-width: 600px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Vakje styling */
+.team-member {
+  background-color: #0a7082;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  color: #fff;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Foto rond en uniform formaat */
+.team-photo {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 0;  
+  border: 3px solid #ffc107;
+  margin-bottom: 1rem;
+}
+
+/* Naam */
+.team-member h3 {
+  margin: 0.5rem 0 0.25rem;
+  font-size: 1.3rem;
+}
+
+/* Rol */
+.role {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+/* Bio-tekst */
+.bio {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  text-align: left;
+  margin-top: auto;
+}
+.linkedin-icon {
+  width: 100px;
+  height: 100px;
+  margin-top: 1rem;
+  /* optioneel: centreren */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 
 /* Zorg dat de body en html de volledige hoogte innemen */
 html, body {
@@ -579,4 +685,7 @@ main {
     .image-container img {
         max-width: 100%;
     }
+
+
+
 }
