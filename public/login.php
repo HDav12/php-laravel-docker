@@ -1,7 +1,11 @@
 <?php
 // Start de sessie om inlogstatus op te slaan
 session_start();
+
+// DB‑connectie
 include __DIR__ . '/database.php';
+
+// Haal rol uit session als die er is
 $role = $_SESSION['user_role'] ?? 'onbekend';
 
 // Initialiseer foutmelding
@@ -10,48 +14,51 @@ $error = '';
 // Controleer of het formulier is ingediend
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // 1. Haal de gegevens op van het formulier
-    $email = trim($_POST['emailadress'] ?? ''); // trim verwijdert spaties voor/na het emailadres
-    $password = trim($_POST['password'] ?? '');
+    $email    = trim($_POST['emailaddress'] ?? ''); // let op: match 'name="emailaddress"' in je form
+    $password = trim($_POST['password']     ?? '');
 
-    // 2. Controleer of velden niet leeg zijn
-    if (empty($email) || empty($password)) {
+    // 2. Check of velden niet leeg zijn
+    if ($email === '' || $password === '') {
         $error = "Vul zowel je e-mailadres als wachtwoord in.";
     } else {
         // 3. Zoek de gebruiker op in de database
-        $sql = "SELECT * FROM users WHERE user_email = ?";
+        $sql  = "SELECT id, user_email, password, role FROM users WHERE user_email = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
 
-        if ($result->num_rows > 0) {
-            // Gebruiker gevonden: haal de data op
+        if ($result && $result->num_rows > 0) {
             $row = $result->fetch_assoc();
 
-            // 4. Vergelijk het ingevoerde wachtwoord met de gehashte versie
+            // 4. Vergelijk ingevoerd wachtwoord met de gehashte versie
             if (password_verify($password, $row['password'])) {
-                // Login succesvol
+                // Login is gelukt: sessions vullen
                 $_SESSION['user_logged_in'] = true;
-                $_SESSION['user_id'] = $row['id'];
-                $_SESSION['user_email'] = $row['user_email'];
-                $_SESSION['user_role'] = $user['role'];
-                
+                $_SESSION['user_id']        = $row['id'];
+                $_SESSION['user_email']     = $row['user_email'];
+                $_SESSION['user_role']      = $row['role'];
 
-                // Doorsturen naar index.php
+                // Sluit statement en connection
+                $stmt->close();
+                $conn->close();
+
+                // Redirect
                 header("Location: index.php");
                 exit;
             } else {
-                // Wachtwoord is onjuist
                 $error = "Ongeldige combinatie e-mailadres/wachtwoord.";
             }
         } else {
-            // Geen gebruiker gevonden met dit e-mailadres
             $error = "Geen account gevonden met dit e-mailadres.";
         }
+
+        // Sluit statement
+        $stmt->close();
     }
 }
 
-// Sluit de databaseverbinding
+// Sluit connection als je verderop nog geen exit hebt gedaan
 $conn->close();
 ?>
 

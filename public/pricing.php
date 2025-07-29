@@ -37,7 +37,7 @@ session_start();
     <!-- Content -->
     <main class="content">
         <!-- Pricing Intro Section -->
-        <section class="intro">
+        <section class="intro3">
             <h2>Choose the Right Plan for You</h2>
             <p>We offer flexible plans designed to cater to different needs. Whether you're a small, concentrated business or an enterprise, PinterPal has the perfect plan for you. Browse our options and select the one that fits your needs.</p>
         </section>
@@ -52,7 +52,7 @@ session_start();
                     <p>Take your webshop to the next level.</p>
                     <p>€29.90 per month</p>
                     <br>
-                    <button class="start-trial-btn" onclick="window.location.href='company-registration.php'">Start Trial</button>
+                    <button class="start-trial-btn" onclick="window.location.href='company-registration.php'">Start Now</button>
                 </div>
               
            

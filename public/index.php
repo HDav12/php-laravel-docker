@@ -1,6 +1,30 @@
 <?php
 // Start sessie (voor toegang tot $_SESSION['user_logged_in'])
 session_start();
+// Feedback versturen per e-mail
+$successMessage = '';
+$errorMessage = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
+    // Sanitiseer de invoer
+    $feedback = strip_tags(trim($_POST['feedback']));
+
+    // E-mailgegevens
+    $to      = 'info@pinterpal.com';
+    $subject = 'Nieuwe feedback van de website';
+    $message = "Er is nieuwe feedback binnengekomen:\n\n" . $feedback;
+    $headers = [];
+    $headers[] = 'From: no-reply@pinterpal.com';
+    $headers[] = 'Reply-To: no-reply@pinterpal.com';
+    $headers[] = 'X-Mailer: PHP/' . phpversion();
+
+    // Mail verzenden
+    if (mail($to, $subject, $message, implode("\r\n", $headers))) {
+        $successMessage = 'Bedankt voor je feedback!';
+    } else {
+        $errorMessage = 'Er ging iets mis bij het verzenden. Probeer het later nog eens.';
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,71 +59,87 @@ session_start();
     </nav>
     
    <div class="content">
-  <div class="intro">
+  <section class="intro4">
     <div class="intro-flex">
       
-      <!-- Text block -->
-      <div class="intro-text">
-        <h2>PinterPal: Your AI‑powered assistant that guides online shoppers to the right product — fast, personal, and effective.</h2>
-        <hr>
-<br>
-        <p>
-          <strong style="font-size:24px;">The Problem:</strong><br><br>
-          Online store owners struggle to convert visitors into paying customers. Many shoppers get lost or overwhelmed by too many options, causing them to leave without buying.
-        </p>
-<br><br>
 
-        <p>
-          <strong style="font-size:24px;">The Solution:</strong><br><br>
-          PinterPal is your AI‑powered assistant, designed to guide each visitor through their shopping journey in under a minute:
-        </p>
-
-        <ul>
-          <li><strong>Delivers personalized experiences</strong> with smart product recommendations.</li>
-          <li><strong>Boosts conversion rates</strong> by helping customers find what they truly need — fast.</li>
-          <li><strong>Saves time</strong> by automating product selection through intelligent Q&A.</li>
-        </ul>
-<br><br><br>
-        <p>
-          PinterPal is fully integrated into your webshop, acting like a digital shop assistant that turns unsure browsers into confident buyers. It’s fast, friendly, and built to enhance the customer experience.
-        </p>
-
-        <p><strong>Step into the future of eCommerce with PinterPal.</strong></p>
-        <p>Hit the button and take your webshop to the new Era.</p>
-<br><br>
-        <button class="start-trial-btn" onclick="window.location.href='company-registration.php'">
-          Start Now
-        </button>
-      </div>
-
-      <!-- Yellow logo on the right -->
-      <div class="intro-image">
-        <img src="img/foto-index.png" alt="Index-foto" class="index-logo">
-      </div>
-
+    <h2>PinterPal guides your website visitors to their perfect match ⬇️</h2>
     </div>
-  </div>
+<!-- Container die video + knop onder elkaar zet -->
+<div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+
+<!-- Promo video -->
+<div class="promo-video-container" style="width: 100%; display: flex; justify-content: center;">
+  <video id="promo-video" autoplay muted loop playsinline class="promo-video" style="width: 100%; max-width: 1000px; height: auto;">
+    <source src="videos/demo-pinterpal.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
 </div>
+
+<!-- Play/Pause/Sound buttons -->
+<div style="margin-top: 10px;">
+  <button class="video-btn" id="play-pause-toggle" onclick="togglePlayPause()">⏸️</button>
+  <button class="video-btn" id="sound-toggle" onclick="toggleMute()">🔊</button>
+</div>
+
+<script>
+  const video = document.getElementById('promo-video');
+  const playPauseBtn = document.getElementById('play-pause-toggle');
+  const soundBtn = document.getElementById('sound-toggle');
+
+  function togglePlayPause() {
+    if (video.paused) {
+      video.play();
+      playPauseBtn.textContent = '⏸️';
+    } else {
+      video.pause();
+      playPauseBtn.textContent = '▶️';
+    }
+  }
+
+  function toggleMute() {
+    video.muted = !video.muted;
+    soundBtn.textContent = video.muted ? '🔇' : '🔊';
+  }
+</script>
+
+
+  </div>
+
+
+  <!-- Start Now knop in geel vlak -->
+<div class="intro-text" style="padding: 40px; text-align: center; width: 100%;">
+    <button class="start-trial-btn" onclick="window.location.href='/company-registration.php'"
+      style="font-size: 18px; padding: 12px 24px; margin-top: 20px;">
+      Start Now
+    </button>
+  </div>
+
+</div>
+
+
+
+</div>
+
+
 
 
         <div class="feedback-news-container">
     <!-- Feedback sectie -->
     <div class="feedback">
-        <h3>Share your feedback / thoughts with us</h3>
-        <p>
-            We are committed to continuously enhancing PinterPal and greatly value your input. 
-            Thank you in advance for sharing your valuable feedback!
-           
-        </p>
-         <br>
-        <?php if (isset($successMessage)) : ?>
-            <p class="success-message"><?php echo $successMessage; ?></p>
-        <?php endif; ?>
-        <form class="feedback-form" action="" method="POST">
-            <textarea name="feedback" placeholder="Write your feedback here..." required></textarea>
-            <button type="submit">Submit Feedback</button>
-        </form>
-    </div>
+    <h3>Share your feedback / thoughts with us</h3>
+    <?php if ($successMessage): ?>
+        <p class="success-message"><?= $successMessage ?></p>
+    <?php elseif ($errorMessage): ?>
+        <p class="error-message"><?= $errorMessage ?></p>
+    <?php endif; ?>
+
+    <form class="feedback-form" action="" method="POST">
+        <textarea name="feedback" placeholder="Write your feedback here..." required></textarea>
+        <button type="submit">Submit Feedback</button>
+    </form>
+</div>
+
 
         
             <!-- News sectie -->
@@ -111,6 +151,7 @@ session_start();
              alt="News GIF">
     </div>
 </a>
+
 
         </div>
        
@@ -148,5 +189,12 @@ session_start();
             });
         });
     </script>
+    
+      <!-- Widget Pop‑Up -->
+  <div id="widgetContainer" class="widget-toggle"></div>
+
+  <!-- Widget JS -->
+<script src="js/widget.js"></script>
+
 </body>
 </html>

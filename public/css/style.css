@@ -30,7 +30,8 @@ body, html {
     font-family: Arial, sans-serif;
     color: var(--font-color);
     font-weight: bold;
-    background: url("/img/back-site.png") no-repeat center; /* Pad naar je achtergrondafbeelding */
+    background: url("/img/back-site.png") no-repeat center;
+ /* Pad naar je achtergrondafbeelding */
     background-size: cover; /* Zorg dat de afbeelding de hele viewport bedekt */
     background-position: center; /* Plaats de afbeelding gecentreerd */
     background-repeat: no-repeat; /* Voorkom dat de afbeelding wordt herhaald */
@@ -80,6 +81,42 @@ body, html {
   align-items: flex-start;
   gap: 2rem;
 }
+
+.promo-video-container {
+  background: transparent;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.promo-video {
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
+  object-fit: contain;
+  background: none;
+    border-radius: 12px; /* <– dit zorgt voor zachte, afgeronde hoeken */
+
+}
+
+.video-btn {
+  background-color: #0a7082;
+  border: none;
+  padding: 4px 10px;
+  margin: 0 4px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.video-btn:hover {
+  background-color: #e0b200;
+}
+
+
+
 
 .intro-text {
   flex: 2;
@@ -208,23 +245,55 @@ body.iframe-page .navbar a.active {
 
 
 /* Introductie */
-.intro, .intro2 {
+.intro, .intro2 , .intro3 {
     flex: 3;
     padding: 2vw;
     padding-left: 4vw;
-    border: 2px solid #255000;
     border-radius: 5px;
     color: var(--font-color);
     margin: 2vw;
 }
 
 .intro {
-    background-color: var(--secondary-color);
+    background-color: rgba(255, 193, 7, 0.5);
 }
 
 .intro2 {
     background-color: var(--primary-color);
 }
+
+.intro3 {
+    background-color: var(--secondary-color);
+}
+
+
+.intro4 {
+    /* flex: 3; 
+       Alleen nodig als je ‘m in een flex-container hebt staan.
+       Anders kun je deze regel weglaten. */
+
+    /* Middenrij: max-width + auto margins */
+    max-width: 1800px;
+    margin: 2vw auto;
+
+    /* Padding: boven/onder 2vw, links/rechts 4vw */
+    padding: 2vw 4vw;
+
+    /* Achtergrond half-transparant op basis #ffc107 */
+    background-color: rgba(255, 193, 7, 0.5);
+
+    border-radius: 5px;
+    color: var(--font-color);
+
+    /* Grotere letters */
+    font-size: 1.5rem;
+
+    /* Tekst centreren */
+    text-align: center;
+}
+
+
+
 
 /* Feedback & News sectie container */
 .feedback-news-container {
@@ -260,10 +329,11 @@ body.iframe-page .navbar a.active {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 2px solid var(--secondary-color); /* Border in secundaire kleur */
     border-radius: 5px; /* Afgeronde hoeken */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Schaduw voor een mooie diepte */
     font-size: small; /* Kleinere tekst */
+      background-color: rgba(10, 112, 130, 0.5); /* 50% transparantie */
+
 }
 
 .feedback textarea {
@@ -302,9 +372,10 @@ body.iframe-page .navbar a.active {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 2px solid var(--secondary-color); /* Border rondom */
     border-radius: 5px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Schaduw voor diepte */
+      background-color: rgba(10, 112, 130, 0.5); /* 50% transparantie */
+
 }
 
 .news img {
@@ -346,7 +417,7 @@ body.iframe-page .navbar a.active {
 }
 
 .pricing-info {
-    background-color: var(--secondary-color);
+    background-color: rgba(255, 193, 7, 0.5); /* 50% transparant */
     border: none;
     border-radius: 10px;
     padding: 2rem;
@@ -496,7 +567,7 @@ body.iframe-page .navbar a.active {
     flex-wrap: wrap;
     margin: 2vw auto;
     padding: 2vw;
-    background-color: var(--primary-color);
+    background-color: rgba(10, 112, 130, 0.5);
 }
 
 .assistance .option {
@@ -688,4 +759,43 @@ main {
 
 
 
+}
+
+/* Container is eerst onzichtbaar */
+#widgetContainer {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;               /* altijd bovenop */
+    /* geef ‘m hier direct de gele kleur */
+  background-color: var(--secondary-color);
+}
+
+
+/* Zodra .active wordt toegevoegd: tonen */
+#widgetContainer.active {
+  display: block;
+}
+
+/* Dit is jouw ronde knop‑stijl */
+.widget-toggle {
+  width: 100px;        /* breedte van de knop */
+  height: 100px;       /* hoogte van de knop */
+  background-color: var(--secondary-color);
+  background-image: url('/img/logorechtsonder2.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform: scale(0.8);
+  opacity: 0;
+}
+
+/* animatie bij tonen */
+#widgetContainer.active.widget-toggle {
+  transform: scale(1);
+  opacity: 1;
 }

@@ -38,7 +38,7 @@ session_start();
     <!-- Content -->
     <main class="content">
         <!-- Assistance Intro Section -->
-        <section class="intro">
+        <section class="intro3">
             <h2>How Can We Assist You?</h2>
             <p>
                 Welcome to the Assistance page! Here, you'll find helpful resources, FAQs, 

@@ -107,13 +107,7 @@ session_start();
         </section>
     </main>
 
-    <!-- Process sectie -->
-    <section class="process">
-       
-        <div class="process-image">
-            <img src="img/pinterpal-roadmap.jpg" alt="The PinterPal Process">
-        </div>
-    </section>
+ 
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

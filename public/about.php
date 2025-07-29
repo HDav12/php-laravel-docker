@@ -34,7 +34,7 @@ session_start();
     </nav>
     
     <div class="content">
-        <div class="intro">
+        <div class="intro3">
         <h2>About Us</h2>
 <br>
 <div class="story">
@@ -113,19 +113,27 @@ Favorite foods: teppanyaki / döner / chicken chicharon
     </div>
     <!-- Neo -->
     <div class="team-member">
-      <img src="img/about-neo.jpg" alt="Neo Troenopawiro" class="team-photo">
+      <img src="img/about-neo.png" alt="Neo Troenopawiro" class="team-photo">
       <h3>Neo Troenopawiro</h3>
       <p class="role">Founder &amp; Head Developer</p>
       <p class="bio">
-        Neo bouwt sinds dag 1 aan de core van de bot. Van API‑integraties tot slimme AI‑flow: hij regelt dat alles vlekkeloos samenwerkt.
+        <Br> <Br>        <Br> <Br>
+
+My name is Neo and I study at Rotterdam University of Applied Sciences. I’m the head programmer at PinterPal, which means I’m mainly responsible for writing and maintaining the code.
+ <Br> <Br>
+A few things about me:
+ <Br> 
+I love gaming and binge‑watching anime series.
+ <Br> 
+My biggest fear is thalassophobia (the fear of very large objects).
+ <Br> 
+My favorite animal is the cat.
+ <Br> 
+One of my biggest life lessons is that there are many roads to Rome—don’t give up if you hit a roadblock; just find another way to reach your goal.
+ <Br> 
+My favorite: foods are sushi and pasta.
     <Br> <Br>
-Biggest fear: flying insects
-<Br>
-Favorite animals: dog and duck
-<Br>
-Biggest life lesson: you’re the maker of your own life
-<Br>
-Favorite foods: teppanyaki / döner / chicken chicharon  
+ 
     </p>
     <!-- onderaan binnen <div class="team-member"> … -->
 <a href="https://www.linkedin.com/in/neo-troenopawiro-729725198/" target="_blank" rel="noopener noreferrer">
@@ -135,7 +143,7 @@ Favorite foods: teppanyaki / döner / chicken chicharon
     </div>
     <!-- Dion -->
     <div class="team-member">
-      <img src="img/about-dion.jpg" alt="Dion Westeneng" class="team-photo">
+      <img src="img/about-dion.png" alt="Dion Westeneng" class="team-photo">
       <h3>Dion Westeneng</h3>
       <p class="role">Developer & Head of Security</p>
       <p class="bio">
@@ -157,19 +165,24 @@ Favorite foods: teppanyaki / döner / chicken chicharon
     </div>
     <!-- Michaël -->
     <div class="team-member">
-      <img src="img/about-michael.jpg" alt="Michaël Vogel" class="team-photo">
+      <img src="img/about-michael.png" alt="Michaël Vogel" class="team-photo">
       <h3>Michaël Vogel</h3>
       <p class="role">Sales</p>
       <p class="bio">
-      <Br> <Br>
-Biggest fear: flying insects
+      <Br>
+      Hi, I'm Michaël, a young, sometimes overly enthusiastic guy who focuses on getting the most out of relationships.
+      <Br>      <Br>
+
+My biggest fear is best described with a scene from Coach Carter: Our deepest fear is not that we are inadequate, our deepest fear is that we are powerful beyond measure.
 <Br>
-Favorite animals: dog and duck
+My favorite animal is a dog because of its endless loyalty.
 <Br>
-Biggest life lesson: you’re the maker of your own life
+The biggest lesson I've learned so far is that no matter how fast a lie is, the truth will always catch up.
+
 <Br>
-Favorite foods: teppanyaki / döner / chicken chicharon 
-      Michaël brengt PinterPal bij retailers onder de aandacht. Hij kent de markt door en door en zorgt dat klanten blij worden van onze oplossing.
+My favorite food has to be pizza, because you can do anything with it depending on what you're craving in the moment.
+
+<Br>
       </p>
       <!-- onderaan binnen <div class="team-member"> … -->
 <a href="https://www.linkedin.com/in/micha%C3%ABl-vogel/" target="_blank" rel="noopener noreferrer">

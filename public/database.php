@@ -1,44 +1,48 @@
 <?php
-// 1. Ophalen omgevingsvariabele 'DATABASE_URL' 
-$databaseUrl = getenv('DATABASE_URL');
-// Valt het buiten je server-omgeving? Dan kun je het testen door deze even hard te coderen:
-$databaseUrl = "mysql://root:@localhost:3306/Users?serverVersion=mariadb-10.4.28";
+// **NIET** hier session_start() plaatsen!
 
-if (!$databaseUrl) {
-    die("Omgevingsvariabele DATABASE_URL niet gevonden.");
+// 0) Laad .env uit public‑map of via getenv()
+$envPath = __DIR__ . '/.env';
+if (file_exists($envPath)) {
+    $lines = file($envPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        if (strpos(trim($line), '#') === 0) continue;
+        if (!strpos($line, '=')) continue;
+        list($key, $val) = explode('=', $line, 2);
+        $env[trim($key)] = trim($val);
+    }
 }
 
-// 2. Parse de URL
+// 1) Ophalen en “ont‑quoten” van DATABASE_URL
+$databaseUrl = $env['DATABASE_URL'] 
+             ?? getenv('DATABASE_URL') 
+             ?? die("DATABASE_URL niet gevonden");
+
+// verwijder ongewenste aanhalingstekens
+$databaseUrl = trim($databaseUrl, "\"'");
+
+// 2) Parse URL
 $urlParts = parse_url($databaseUrl);
-/**
- * Voorbeeld-URL: "mysql://root:@localhost:3306/Users?serverVersion=mariadb-10.4.28"
- * parse_url geeft je ongeveer:
- * [
- *   "scheme" => "mysql",
- *   "host"   => "localhost",
- *   "port"   => 3306,
- *   "user"   => "root",
- *   "pass"   => "",        // leeg bij geen wachtwoord
- *   "path"   => "/Users",  // let op de leading slash
- *   "query"  => "serverVersion=mariadb-10.4.28"
- * ]
- */
+$host   = $urlParts['host'] ?? '127.0.0.1';
+$user   = $urlParts['user'] ?? 'root';
+$pass   = $urlParts['pass'] ?? '';
+$port   = $urlParts['port'] ?? 3306;
+$dbName = isset($urlParts['path'])
+          ? ltrim($urlParts['path'], '/')
+          : die("Geen database-naam in URL");
 
-// Host, user, pass, port
-$host = $urlParts["host"];
-$user = $urlParts["user"] ?? "";
-$pass = $urlParts["pass"] ?? "";
-$port = $urlParts["port"] ?? 3306;
+// 3) Connectie maken
+$conn = new mysqli(
+    '127.0.0.1',  // gebruik TCP ipv socket
+    $user,
+    $pass,
+    $dbName,
+    $port        // bv. 3306
+);
 
-// Database naam (strip de leading slash uit path)
-$dbName = isset($urlParts["path"]) ? ltrim($urlParts["path"], "/") : "";
 
-// 3. Maak de mysqli-verbinding
-$conn = new mysqli($host, $user, $pass, $dbName, $port, '/Applications/XAMPP/xamppfiles/var/mysql/mysql.sock');
-
-// Check op errors
-if ($conn->connect_error) {
-    die("Verbinding mislukt: " . $conn->connect_error);
+// 4) Foutmelding bij mislukking
+if ($conn->connect_errno) {
+    die("DB‑connectie mislukt ({$conn->connect_errno}): {$conn->connect_error}");
 }
 
-echo "Verbinding geslaagd naar DB: $dbName (host: $host, user: $user)";
