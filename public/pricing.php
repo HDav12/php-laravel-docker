@@ -69,7 +69,7 @@ session_start();
     <strong>Email:</strong> info@pinterpal.com
   </p>
   <p>
-    <a href="/terms-coditions.html" style="color: inherit; text-decoration: none;">
+    <a href="/terms-coditions.php" style="color: inherit; text-decoration: none;">
       📄 Terms &amp; Conditions
     </a>
   </p>
