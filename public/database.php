@@ -1,5 +1,4 @@
 <?php
-// **NIET** hier session_start() plaatsen!
 
 // 0) Laad .env uit public‑map of via getenv()
 $envPath = __DIR__ . '/.env';
@@ -13,21 +12,25 @@ if (file_exists($envPath)) {
     }
 }
 
-// 1) Ophalen van losse variabelen
-$host = $env['DATABASE_SERVER'] ?? getenv('DATABASE_SERVER') ?? '127.0.0.1';
-$user = $env['DATABASE_UID'] ?? getenv('DATABASE_UID') ?? 'root';
-$pass = $env['DATABASE_PASSWORD'] ?? getenv('DATABASE_PASSWORD') ?? '';
-$dbName = $env['DATABASE_NAME'] ?? getenv('DATABASE_NAME') ?? '';
+// 1) Eerst proberen via DATABASE_URL (connection string)
+$databaseUrl = $env['DATABASE_URL'] ?? getenv('DATABASE_URL') ?? null;
+if ($databaseUrl) {
+    $parts = parse_url($databaseUrl);
+    $host = $parts['host'] ?? '127.0.0.1';
+    $user = $parts['user'] ?? 'root';
+    $pass = $parts['pass'] ?? '';
+    $dbName = isset($parts['path']) ? ltrim($parts['path'], '/') : '';
+} else {
+    // 2) Anders losse variabelen gebruiken
+    $host = $env['DATABASE_SERVER'] ?? getenv('DATABASE_SERVER') ?? '127.0.0.1';
+    $user = $env['DATABASE_UID'] ?? getenv('DATABASE_UID') ?? 'root';
+    $pass = $env['DATABASE_PASSWORD'] ?? getenv('DATABASE_PASSWORD') ?? '';
+    $dbName = $env['DATABASE_NAME'] ?? getenv('DATABASE_NAME') ?? '';
+}
 
-// 2) Connectie maken
-$conn = new mysqli(
-    $host,
-    $user,
-    $pass,
-    $dbName
-);
+// 3) Connectie maken
+$conn = new mysqli($host, $user, $pass, $dbName);
 
-// 3) Foutmelding bij mislukking
 if ($conn->connect_errno) {
     die("DB‑connectie mislukt ({$conn->connect_errno}): {$conn->connect_error}");
 }
