@@ -13,35 +13,21 @@ if (file_exists($envPath)) {
     }
 }
 
-// 1) Ophalen en “ont‑quoten” van DATABASE_URL
-$databaseUrl = $env['DATABASE_URL'] 
-             ?? getenv('DATABASE_URL') 
-             ?? die("DATABASE_URL niet gevonden");
+// 1) Ophalen van losse variabelen
+$host = $env['DATABASE_SERVER'] ?? getenv('DATABASE_SERVER') ?? '127.0.0.1';
+$user = $env['DATABASE_UID'] ?? getenv('DATABASE_UID') ?? 'root';
+$pass = $env['DATABASE_PASSWORD'] ?? getenv('DATABASE_PASSWORD') ?? '';
+$dbName = $env['DATABASE_NAME'] ?? getenv('DATABASE_NAME') ?? '';
 
-// verwijder ongewenste aanhalingstekens
-$databaseUrl = trim($databaseUrl, "\"'");
-
-// 2) Parse URL
-$urlParts = parse_url($databaseUrl);
-$host   = $urlParts['host'] ?? '127.0.0.1';
-$user   = $urlParts['user'] ?? 'root';
-$pass   = $urlParts['pass'] ?? '';
-$port   = $urlParts['port'] ?? 3306;
-$dbName = isset($urlParts['path'])
-          ? ltrim($urlParts['path'], '/')
-          : die("Geen database-naam in URL");
-
-// 3) Connectie maken
+// 2) Connectie maken
 $conn = new mysqli(
-    '127.0.0.1',  // gebruik TCP ipv socket
+    $host,
     $user,
     $pass,
-    $dbName,
-    $port        // bv. 3306
+    $dbName
 );
 
-
-// 4) Foutmelding bij mislukking
+// 3) Foutmelding bij mislukking
 if ($conn->connect_errno) {
     die("DB‑connectie mislukt ({$conn->connect_errno}): {$conn->connect_error}");
 }
