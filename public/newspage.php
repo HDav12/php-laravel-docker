@@ -55,7 +55,9 @@ session_start();
 <body>
     <div class="header">
         <a href="index.php">
+        <img src="img/pinterpal-header.png" alt="PinterPal Logo" class="header-logo">
             <h1>PINTERPAL</h1>
+
         </a>
     </div>
 
@@ -77,7 +79,7 @@ session_start();
 <div class="news-item" style="background-color: #f9f9f9; padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem;">
     <a href="article2.php" style="text-decoration: none; color: inherit;">
         <h3 style="text-align: center;">Values Towards Our Retailers</h3>
-        <p style="text-align: center;">We’ve partnered with leading retailers to bring you a more personalized and seamless shopping experience.</p>
+        <p style="text-align: center;">We’ve partnered with retailers to bring you a more personalized and seamless shopping experience.</p>
         <img src="img/values-retail.png" alt="Values Towards Retailers" style="width: 100%; border-radius: 10px;">
     </a>
 </div>
@@ -87,7 +89,7 @@ session_start();
     <a href="article1.php" style="text-decoration: none; color: inherit;">
         <h3 style="text-align: center;">Value Towards Customers</h3>
         <p style="text-align: center;">Our latest AI-powered shopping assistant is now live! Discover how it enhances your shopping experience.</p>
-        <img src="img/values-webshop-visitors.png" alt="Value Towards Customers" style="width: 100%; border-radius: 10px;">
+        <img src="img/values-webshop-visitor.png" alt="Value Towards Customers" style="width: 100%; border-radius: 10px;">
     </a>
 </div>
 

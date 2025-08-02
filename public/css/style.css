@@ -80,7 +80,10 @@ body, html {
   justify-content: space-between;
   align-items: flex-start;
   gap: 2rem;
+
+  color: darken(#fff, 30%);
 }
+
 
 .promo-video-container {
   background: transparent;
@@ -285,11 +288,15 @@ body.iframe-page .navbar a.active {
     border-radius: 5px;
     color: var(--font-color);
 
+    
     /* Grotere letters */
     font-size: 1.5rem;
+    color: var(--primary-color);
 
     /* Tekst centreren */
     text-align: center;
+
+    
 }
 
 
@@ -598,6 +605,15 @@ body.iframe-page .navbar a.active {
     padding: 10px;
 }
 
+.gif-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 20px 0;
+}
+
+
 .image-container {
     flex: 1;
     max-width: 30%;
@@ -780,9 +796,9 @@ main {
 
 /* Dit is jouw ronde knop‑stijl */
 .widget-toggle {
-  width: 100px;        /* breedte van de knop */
-  height: 100px;       /* hoogte van de knop */
-  background-color: var(--secondary-color);
+  width: 80px;        /* breedte van de knop */
+  height: 80px;       /* hoogte van de knop */
+  background-color: var(--secondary-color)IMPORTANT; /* Gele achtergrond */
   background-image: url('/img/logorechtsonder2.png');
   background-size: cover;
   background-repeat: no-repeat;
@@ -798,4 +814,7 @@ main {
 #widgetContainer.active.widget-toggle {
   transform: scale(1);
   opacity: 1;
+
+  
 }
+<link rel="stylesheet" href="/css/main.css">

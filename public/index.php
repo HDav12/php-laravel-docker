@@ -37,12 +37,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
 <body>
 <div class="header">
         <a href="index.php">
-            <h1>PINTERPAL.</h1>
+            <h1>PINTERPAL</h1>
         </a>
         <div class="login-signup">
             <!-- Dynamische login/signup of uitlog-knoppen -->
             <?php include 'navbar.php'; ?>
-            <img src="img/pinterpal-logo.jpg" alt="PinterPal Logo" class="header-logo">
+            <img src="img/pinterpal-header.png" alt="PinterPal Logo" class="header-logo">
         </div>
     </div>
 

@@ -13,13 +13,13 @@ session_start();
 <body>
     <div class="header">
         <a href="index.php">
-            <h1>PINTERPAL.</h1>
+            <h1>PINTERPAL</h1>
         </a>
         <p class="subtitle">PinterPal Bot</p>
         <div class="login-signup">
             <!-- Dynamische login/signup of uitlog-knoppen -->
             <?php include 'navbar.php'; ?>
-            <img src="img/pinterpal-logo.jpg" alt="PinterPal Logo" class="header-logo">
+            <img src="img/pinterpal-header.png" alt="PinterPal Logo" class="header-logo">
         </div>
     </div>
 
@@ -55,7 +55,7 @@ session_start();
             <p>Seamlessly integrated into your webshop, PinterPal turns indecisive visitors into loyal buyers...</p>
             <p><strong>Take your webshop to the new Era.</strong></p>
             <br>
-            <p>Push the button and upgrade your website! The first month is on the house!</p>
+            <p>Push the button and upgrade your website!</p>
             <p>___________________________________________________________________________________________________________________________________________________________</p>
 
             <!-- Start-knop -->
@@ -92,7 +92,7 @@ session_start();
 
         <!-- Pricing Info sectie -->
 <div class="pricing-info">
-    <h3>START NOW, GET ONE MONTH FOR FREE</h3>
+    <h3>START NOW, TAKE YOUR WEBSITE TO THE NEXT LEVEL</h3>
     <br>
     <div class="start-trial-container">
         <img src="img/pinterpal-start-trial.jpg" alt="Start trial icon" class="start-trial-img">

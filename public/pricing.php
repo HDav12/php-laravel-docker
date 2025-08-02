@@ -14,13 +14,13 @@ session_start();
     <!-- Header -->
     <div class="header">
         <a href="index.php">
-            <h1>PINTERPAL.</h1>
+            <h1>PINTERPAL</h1>
         </a>
         <p class="subtitle">Prepare your webshop for the new era.</p>
         <div class="login-signup">
             <!-- Dynamische navbar importeren -->
             <?php include 'navbar.php'; ?>
-            <img src="img/pinterpal-logo.jpg" alt="PinterPal Logo" class="header-logo">
+            <img src="img/pinterpal-header.png" alt="PinterPal Logo" class="header-logo">
         </div>
     </div>
 
@@ -61,14 +61,19 @@ session_start();
     </main>
 
     <!-- Footer -->
-    <footer class="contact-info">
-        <p>
-            <strong>KVK:</strong> 96433647<br>
-            <strong>Address:</strong> Den Haag<br>
-            <strong>Telephone:</strong> Your Phone Number<br>
-            <strong>Email:</strong> info@pinterpal.com
-        </p>
-    </footer>
+   <footer class="contact-info">
+  <p>
+    <strong>KVK:</strong> 96433647<br>
+    <strong>Address:</strong> Den Haag<br>
+    <strong>Telephone:</strong> Your Phone Number<br>
+    <strong>Email:</strong> info@pinterpal.com
+  </p>
+  <p>
+    <a href="/terms-coditions.html" style="color: inherit; text-decoration: none;">
+      📄 Terms &amp; Conditions
+    </a>
+  </p>
+</footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

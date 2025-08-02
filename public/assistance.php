@@ -14,14 +14,14 @@ session_start();
     <!-- Header -->
     <header class="header">
         <a href="index.php">
-            <h1>PINTERPAL.</h1>
+            <h1>PINTERPAL</h1>
         </a>
-        <p class="subtitle">At your service.</p>
+        <p class="subtitle">at your service</p>
 
         <!-- Dynamische login-/signup of uitlog-knoppen -->
         <div class="login-signup">
             <?php include 'navbar.php'; ?>
-            <img src="img/pinterpal-logo.jpg" alt="PinterPal Logo" class="header-logo">
+            <img src="img/pinterpal-header.png" alt="PinterPal Logo" class="header-logo">
         </div>
     </header>
 
@@ -69,7 +69,22 @@ session_start();
                 <button class="no-glow-btn" onclick="window.location.href='guide.php'">View Guide</button>
             </div>
         </section>
+
+        </div>
+
+
+        
+  <div class="gif-container">
+  <img
+    src="https://media1.tenor.com/m/r36NoI3ZTZIAAAAd/ok.gif"
+    alt="Salute GIF"
+  />
+</div>
+
+</a>
     </main>
+
+
 
     <!-- Footer -->
     <footer class="contact-info">

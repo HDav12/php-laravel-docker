@@ -107,7 +107,7 @@ session_start();
     <!-- Header -->
     <div class="header">
         <a href="index.php">
-            <h1>PINTERPAL.</h1>
+            <h1>PINTERPAL</h1>
         </a>
         <p class="subtitle-demo-page">A DTI Product</p>
         <div class="login-signup">
