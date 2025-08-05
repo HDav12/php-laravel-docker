@@ -1,6 +1,4 @@
 <?php
-// Start de sessie om inlogstatus op te slaan
-var_dump(getenv('DB_NAME'));
 session_start();
 
 // DB‑connectie
