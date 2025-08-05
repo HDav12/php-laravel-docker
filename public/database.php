@@ -1,8 +1,8 @@
 <?php
-$server   = getenv('DB_SERVER') . ',' . getenv('DB_PORT'); // “host,port”
-$uid      = getenv('DB_UID');
-$pwd      = getenv('DB_PWD');
-$db       = getenv('DB_NAME');
+$server   = getenv('DATABASE_SERVER') . ',' . getenv('DATABASE_PORT'); // “host,port”
+$uid      = getenv('DATABASE_UID');
+$pwd      = getenv('DATABASE_PASSWORD');
+$db       = getenv('DATABASE_NAME');
 
 $connectionOptions = [
     'Database' => $db,
