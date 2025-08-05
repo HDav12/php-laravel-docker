@@ -33,6 +33,8 @@ session_start();
         <a href="about.php">ABOUT US</a>
         <a href="pinterpalbot.php">PINTERPAL BOT</a>
     </nav>
+
+    
     
     <!-- Content -->
     <main class="content">
@@ -42,10 +44,20 @@ session_start();
             <p>We offer flexible plans designed to cater to different needs. Whether you're a small, concentrated business or an enterprise, PinterPal has the perfect plan for you. Browse our options and select the one that fits your needs.</p>
         </section>
 
+        <div class="gif-container">
+  <img
+    src="https://i0.wp.com/sifugadget.com/wp-content/uploads/2024/02/Arrows-3-pointing-down-arrow-down-animated.gif?ssl=1"
+    alt="Salute GIF"
+  />
+</div>
+
+
         <!-- Pricing Options Section -->
         <section class="pricing-options">
             <section class="assistance">
               
+
+
 
                 <div class="option">
                     <h3>PinterPal</h3>

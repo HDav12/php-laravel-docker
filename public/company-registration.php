@@ -94,14 +94,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Company Registration - PinterPal</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="header">
-        <a href="index.php">
+         <a href="index.php">
             <h1>PINTERPAL</h1>
         </a>
+        <div class="login-signup">
+            <!-- Dynamische login/signup of uitlog-knoppen -->
+            <?php include 'navbar.php'; ?>
+            <img src="img/pinterpal-header.png" alt="PinterPal Logo" class="header-logo">
+        </div>
     </div>
+
+ 
+
+       <div class="content">
+
 
     <div class="form-container">
         <h2>Register Your Company</h2>
@@ -332,16 +342,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <h3>Payment Plan</h3>
             <div>
-                <input type="radio" id="basic-plan" name="payment_plan" value="basic" checked>
-                <label for="basic-plan">Basic Plan (€10/month)</label>
-            </div>
-            <div>
+         
                 <input type="radio" id="premium-plan" name="payment_plan" value="premium">
-                <label for="premium-plan">Premium Plan (€25/month)</label>
-            </div>
-            <div>
-                <input type="radio" id="enterprise-plan" name="payment_plan" value="enterprise">
-                <label for="enterprise-plan">Enterprise Plan (€50/month)</label>
+                <label for="premium-plan">Premium Plan (€29.90/month)</label>
+            
             </div>
 
             <!-- Submit Button -->
