@@ -2,32 +2,37 @@ FROM richarvey/nginx-php-fpm:3.1.6
 
 COPY . .
 
-# =====  MSSQL drivers  =====
+# ===== MSSQL drivers installeren =====
 RUN set -ex \
   && apt-get update \
-  && apt-get install -y gnupg2 curl apt-transport-https unixodbc-dev \
-        build-essential autoconf pkg-config \
-  # Microsoft repo key + repo toevoegen
-  && curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
-  && curl https://packages.microsoft.com/config/debian/12/prod.list \
+  && apt-get install -y --no-install-recommends \
+       gnupg2 curl apt-transport-https unixodbc-dev \
+       build-essential autoconf pkg-config \
+  # Microsoft repo toevoegen (zonder apt-key!)
+  && mkdir -p /etc/apt/keyrings \
+  && curl -fsSL https://packages.microsoft.com/keys/microsoft.asc \
+       -o /etc/apt/keyrings/microsoft.asc \
+  && echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/microsoft.asc] \
+       https://packages.microsoft.com/debian/11/prod bullseye main" \
        > /etc/apt/sources.list.d/mssql-release.list \
   && apt-get update \
-  # ODBC-driver 18 installeren (ACCEPT_EULA is verplicht)
   && ACCEPT_EULA=Y apt-get install -y msodbcsql18 \
-  # PECL-extensies bouwen
+  # PECL-build
   && pecl install sqlsrv pdo_sqlsrv \
-  && docker-php-ext-enable sqlsrv pdo_sqlsrv \
-  # cleanup
+  # === EXTENSIES AANZETTEN (want docker-php-ext-enable bestaat niet) ===
+  && echo "extension=sqlsrv.so"      > /usr/local/etc/php/conf.d/20-sqlsrv.ini \
+  && echo "extension=pdo_sqlsrv.so" >> /usr/local/etc/php/conf.d/20-pdo_sqlsrv.ini \
+  # opruimen
   && apt-get purge -y build-essential autoconf pkg-config \
-  && apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
+  && apt-get autoremove -y \
+  && rm -rf /var/lib/apt/lists/*
 
-# =====  bestaande ENV’s  =====
+# ===== bestaande env-vars =====
 ENV SKIP_COMPOSER 1
 ENV WEBROOT /var/www/html/public
 ENV PHP_ERRORS_STDERR 1
 ENV RUN_SCRIPTS 1
 ENV REAL_IP_HEADER 1
-
 ENV APP_ENV production
 ENV APP_DEBUG false
 ENV LOG_CHANNEL stderr
