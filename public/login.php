@@ -1,49 +1,38 @@
 <?php
-// Start de sessie om inlogstatus op te slaan
 session_start();
 
-// DB‑connectie
 include __DIR__ . '/database.php';
 
-// Haal rol uit session als die er is
-$role = $_SESSION['user_role'] ?? 'onbekend';
-
-// Initialiseer foutmelding
+$role  = $_SESSION['user_role'] ?? 'onbekend';
 $error = '';
 
-// Controleer of het formulier is ingediend
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // 1. Haal de gegevens op van het formulier
-    $email    = trim($_POST['emailaddress'] ?? ''); // let op: match 'name="emailaddress"' in je form
+    $email    = trim($_POST['emailaddress'] ?? '');
     $password = trim($_POST['password']     ?? '');
 
-    // 2. Check of velden niet leeg zijn
     if ($email === '' || $password === '') {
         $error = "Vul zowel je e-mailadres als wachtwoord in.";
     } else {
-        // 3. Zoek de gebruiker op in de database
-        $sql  = "SELECT id, user_email, password, role FROM users WHERE user_email = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        $sql    = "SELECT id, user_email, password, role FROM users WHERE user_email = ?";
+        $params = [$email];
+        $stmt   = sqlsrv_prepare($conn, $sql, $params);
 
-        if ($result && $result->num_rows > 0) {
-            $row = $result->fetch_assoc();
+        if (!$stmt || !sqlsrv_execute($stmt)) {
+            die(print_r(sqlsrv_errors(), true));
+        }
 
-            // 4. Vergelijk ingevoerd wachtwoord met de gehashte versie
+        $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+
+        if ($row) {
             if (password_verify($password, $row['password'])) {
-                // Login is gelukt: sessions vullen
                 $_SESSION['user_logged_in'] = true;
                 $_SESSION['user_id']        = $row['id'];
                 $_SESSION['user_email']     = $row['user_email'];
                 $_SESSION['user_role']      = $row['role'];
 
-                // Sluit statement en connection
-                $stmt->close();
-                $conn->close();
+                sqlsrv_free_stmt($stmt);
+                sqlsrv_close($conn);
 
-                // Redirect
                 header("Location: index.php");
                 exit;
             } else {
@@ -53,13 +42,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = "Geen account gevonden met dit e-mailadres.";
         }
 
-        // Sluit statement
-        $stmt->close();
+        sqlsrv_free_stmt($stmt);
     }
 }
 
-// Sluit connection als je verderop nog geen exit hebt gedaan
-$conn->close();
+sqlsrv_close($conn);
 ?>
 
 <!DOCTYPE html>
