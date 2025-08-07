@@ -149,7 +149,7 @@ sqlsrv_close($conn);
         <?php endif; ?>
 
         <form method="post" action="login.php">
-            <input type="text" name="emailadress" placeholder="Email Address / Username" required>
+            <input type="text" name="emailaddress" placeholder="Email Address / Username" required>
             
             <div class="password-container">
                 <input type="password" name="password" placeholder="Password" required>
