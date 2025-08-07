@@ -600,11 +600,11 @@ body.iframe-page .navbar a.active {
 }
 
 .image-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
-    padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .gif-container {
@@ -617,25 +617,92 @@ body.iframe-page .navbar a.active {
 
 
 .image-container {
-    flex: 1;
-    max-width: 30%;
-    text-align: center;
-    background-color: var(--secondary-color); /* Gele achtergrond */
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    height: 250px; /* Vaste hoogte voor consistentie */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  flex: 1;
+  max-width: 30%;
+  background-color: var(--secondary-color);
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
 }
 
+/* Deze regel pakt nu AL je plaatjes in de container */
 .image-container img {
-    width: auto;
-    max-width: 100%;
-    max-height: 100%;
-    border-radius: 8px;
+  width: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
 }
+
+/* hover-tekst blijft zoals voorheen */
+.image-container .image-text {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.image-container:hover .image-text {
+  opacity: 1;
+}
+
+.image-container2 {
+  flex: 1;
+  max-width: 30%;
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;            /* ruimte tussen PNG & GIF */
+  position: relative;   /* voor de hover-tekst */
+  overflow: hidden;     /* voorkomt overflow */
+}
+
+
+.image-container2 .static-image,
+.image-container2 .gif-image {
+  max-width: 45%;       /* beide afbeeldingen 45% van de container */
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.image-container2 .image-text {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 2;
+}
+.image-container2:hover .image-text {
+  opacity: 1;
+}
+
 
 /* ===== TEAM-SECTIE ===== */
 .team {

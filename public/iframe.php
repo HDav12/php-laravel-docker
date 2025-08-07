@@ -117,13 +117,13 @@ session_start();
     </div>
 
     <!-- Navigatiebalk -->
-    <nav class="navbar">
+  <nav class="navbar">
         <a href="index.php">HOME</a>
-        <a href="iframe.php" class="active">DEMO</a>
-        <a href="assistance.php">ASSISTANCE</a>
-        <a href="pricing.php">PRICING</a>
-        <a href="about.php">ABOUT US</a>
         <a href="pinterpalbot.php">PINTERPAL BOT</a>
+        <a href="iframe.php" class="active">DEMO</a>
+        <a href="pricing.php">PRICING</a>
+        <a href="assistance.php">ASSISTANCE</a>
+        <a href="about.php">ABOUT US</a>
     </nav>
     
     <!-- Iframe-container -->

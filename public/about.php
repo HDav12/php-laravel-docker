@@ -26,11 +26,11 @@ session_start();
 
     <nav class="navbar">
         <a href="index.php">HOME</a>
+        <a href="pinterpalbot.php" class="active">PINTERPAL BOT</a>
         <a href="iframe.php">DEMO</a>
-        <a href="assistance.php">ASSISTANCE</a>
         <a href="pricing.php">PRICING</a>
-        <a href="about.php" class="active">ABOUT US</a>
-        <a href="pinterpalbot.php">PINTERPAL BOT</a>
+        <a href="assistance.php">ASSISTANCE</a>
+        <a href="about.php">ABOUT US</a>
     </nav>
     
     <div class="content">
