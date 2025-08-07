@@ -2,21 +2,17 @@
 session_start();
 include __DIR__ . '/database.php';
 
-// Initialiseer fout- en succesmeldingen
 $error = '';
 $success = '';
 
-// Controleer of het formulier is ingediend
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $accountType = $_POST['account-type'] ?? '';
 
-    // Redirect naar company-registration.php als "Company" is geselecteerd
     if ($accountType === 'company') {
         header("Location: public/company-register.php");
         exit;
     }
 
-    // Haal gegevens op uit formulier
     $email    = $_POST['user_email']       ?? '';
     $password = $_POST['password']         ?? '';
     $confirm  = $_POST['confirm_password'] ?? '';
@@ -26,49 +22,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $gender   = $_POST['gender']           ?? '';
     $age      = $_POST['age']              ?? '';
 
-    // Standaard rol (alleen gebruiker komt hier dus 'gebruiker')
     $role = 'gebruiker';
 
-    // Wachtwoordvalidatie
     if ($password !== $confirm) {
         $error = "Wachtwoorden komen niet overeen. Probeer opnieuw.";
     } else {
-        // Controleer of gebruiker al bestaat
-        $sqlCheck = "SELECT * FROM users WHERE user_email = ?";
-        $stmt = $conn->prepare($sqlCheck);
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $resultCheck = $stmt->get_result();
-
-        if ($resultCheck->num_rows > 0) {
-            $error = "Dit e-mailadres is al in gebruik. Probeer opnieuw.";
-        } else {
-            // Wachtwoord beveiligen
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-            // Gebruiker toevoegen aan database met rol
-            $sqlInsert = "
-                INSERT INTO users (user_email, password, username, address, city, gender, age, role)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-            ";
-            $stmt = $conn->prepare($sqlInsert);
-            $stmt->bind_param("ssssssis", $email, $hashedPassword, $username, $address, $city, $gender, $age, $role);
-
-            if ($stmt->execute()) {
-                $_SESSION['user_logged_in'] = true;
-                $_SESSION['user_email'] = $email;
-                $_SESSION['user_id'] = $conn->insert_id;
-                $_SESSION['user_role'] = $role; // Sla de rol ook op in de sessie
-
-                header("Location: pinterpalbot.php");
-                exit;
+        $sqlCheck   = "SELECT id FROM users WHERE user_email = ?";
+        $stmtCheck  = sqlsrv_prepare($conn, $sqlCheck, [$email]);
+        if ($stmtCheck && sqlsrv_execute($stmtCheck)) {
+            $row = sqlsrv_fetch_array($stmtCheck, SQLSRV_FETCH_ASSOC);
+            if ($row) {
+                $error = "Dit e-mailadres is al in gebruik. Probeer opnieuw.";
             } else {
-                $error = "Fout bij aanmaken account: " . $stmt->error;
+                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                $sqlInsert  = "INSERT INTO users (user_email, password, username, address, city, gender, age, role) VALUES (?,?,?,?,?,?,?,?)";
+                $paramsIns  = [$email, $hashedPassword, $username, $address, $city, $gender, $age, $role];
+                $stmtInsert = sqlsrv_prepare($conn, $sqlInsert, $paramsIns);
+                if ($stmtInsert && sqlsrv_execute($stmtInsert)) {
+                    $resId = sqlsrv_query($conn, "SELECT SCOPE_IDENTITY() AS id");
+                    $idRow = sqlsrv_fetch_array($resId, SQLSRV_FETCH_ASSOC);
+                    $userId = $idRow['id'] ?? null;
+
+                    $_SESSION['user_logged_in'] = true;
+                    $_SESSION['user_email']     = $email;
+                    $_SESSION['user_id']        = $userId;
+                    $_SESSION['user_role']      = $role;
+                    header("Location: pinterpalbot.php");
+                    exit;
+                } else {
+                    $err    = sqlsrv_errors();
+                    $error  = "Fout bij aanmaken account: " . ($err[0]['message'] ?? 'onbekend');
+                }
             }
+        } else {
+            $err   = sqlsrv_errors();
+            $error = "Database fout: " . ($err[0]['message'] ?? 'onbekend');
         }
+        if (isset($stmtCheck))  sqlsrv_free_stmt($stmtCheck);
+        if (isset($stmtInsert)) sqlsrv_free_stmt($stmtInsert);
     }
 }
 ?>
+
 
 
 <!DOCTYPE html>
