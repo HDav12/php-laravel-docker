@@ -241,7 +241,7 @@ body.iframe-page .navbar a.active {
 }
 
 .navbar a:hover, .navbar a.active {
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
     color: var(--font-color);
 }
 
@@ -405,6 +405,7 @@ body.iframe-page .navbar a.active {
 }
 
 
+
 /* Pricing sectie */
 .pricing-options {
     display: flex;
@@ -424,7 +425,8 @@ body.iframe-page .navbar a.active {
 }
 
 .pricing-info {
-    background-color: rgba(255, 193, 7, 0.5); /* 50% transparant */
+/* 50% transparant blauw (#0a7082) */
+    background-color: rgba(10, 112, 130, 0.5);
     border: none;
     border-radius: 10px;
     padding: 2rem;
@@ -817,4 +819,3 @@ main {
 
   
 }
-<link rel="stylesheet" href="/css/main.css">

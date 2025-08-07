@@ -133,13 +133,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             background-color: #7ae614;
         }
     </style>
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Registration - PinterPal</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="header">
-        <a href="index.php">
+     <div class="header">
+         <a href="index.php">
             <h1>PINTERPAL</h1>
         </a>
+       
+            <?php include 'navbar.php'; ?>
+            <img src="img/pinterpal-header.png" alt="PinterPal Logo" class="header-logo">
+        </div>
     </div>
+
+
+
+       <div class="content">
 
     <div class="form-container">
     <h2>Create Your PinterPal Account</h2>

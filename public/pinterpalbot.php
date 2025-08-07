@@ -14,6 +14,7 @@ session_start();
     <div class="header">
         <a href="index.php">
             <h1>PINTERPAL</h1>
+            
         </a>
         <p class="subtitle">PinterPal Bot</p>
         <div class="login-signup">
@@ -65,6 +66,31 @@ session_start();
         </div>
 
 
+
+          </div>
+
+        <div class="image-row">
+            <div class="image-container">
+                
+                    <p class="image-text">1. Open Widget</p> <div></div>-> 
+
+                <img src="img/open-w.png" alt="Process 1" class="process1-image">
+            </div>
+            <div class="image-container">
+                                    <p class="image-text">2. Share preferences with PinterPal</p> <div></div>->
+
+                <img src="img/input-w.png" alt="Process 2" class="process2-image">
+            </div>
+            <div class="image-container">
+                                    <p class="image-text">3. Result</p> <div></div>->
+
+
+                <img src="img/result-w.png" alt="Dutch Flag" class="flag-image">
+            </div>
+        </div>
+    </div>
+
+
     <!-- Content sectie -->
     <main class="content">
         <!-- Flexbox sectie: Introductie en Pricing -->
@@ -97,7 +123,7 @@ session_start();
     <div class="start-trial-container">
         <img src="img/pinterpal-start-trial.jpg" alt="Start trial icon" class="start-trial-img">
         <div class="start-trial-text-button">
-            <p>€ 29,99 Per month</p>
+            <p>€ 29,90 Per month</p>
             <br>
             <button class="start-trial-btn" onclick="window.location.href='company-registration.php'">Start Now</button>
         </div>
@@ -129,5 +155,12 @@ session_start();
             });
         });
     </script>
+
+      <!-- Widget Pop‑Up -->
+  <div id="widgetContainer" class="widget-toggle"></div>
+
+  <!-- Widget JS -->
+<script src="js/widget.js"></script>
+
 </body>
 </html>

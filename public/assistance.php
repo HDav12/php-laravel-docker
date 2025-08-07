@@ -94,7 +94,13 @@ session_start();
             <strong>Telephone:</strong> Your Phone Number<br>
             <strong>Email:</strong> info@pinterpal.com
         </p>
-    </footer>
+
+  <p>
+    <a href="/terms-coditions.php" style="color: inherit; text-decoration: none;">
+      📄 Terms &amp; Conditions
+    </a>
+  </p>
+</footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
