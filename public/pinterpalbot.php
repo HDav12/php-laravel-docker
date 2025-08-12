@@ -25,13 +25,13 @@ session_start();
     </div>
 
     <!-- Navigatiebalk -->
-    <nav class="navbar">
+   <nav class="navbar">
         <a href="index.php">HOME</a>
-        <a href="iframe.php">DEMO</a>
-        <a href="assistance.php">ASSISTANCE</a>
-        <a href="pricing.php">PRICING</a>
-        <a href="about.php">ABOUT US</a>
         <a href="pinterpalbot.php" class="active">PINTERPAL BOT</a>
+        <a href="iframe.php">DEMO</a>
+        <a href="pricing.php">PRICING</a>
+        <a href="assistance.php">ASSISTANCE</a>
+        <a href="about.php">ABOUT US</a>
     </nav>
 
 <div class="content">
@@ -69,26 +69,26 @@ session_start();
 
           </div>
 
-        <div class="image-row">
-            <div class="image-container">
-                
-                    <p class="image-text">1. Open Widget</p> <div></div>-> 
+<div class="image-row">
+  <div class="image-container2">
+    <p class="image-text">1. Open Widget</p>
+        <img src="img/2025-08-07-1.png" alt="Animatie 1" class="gif-image">
+    <img src="img/open-w.png" alt="Proces 1" class="static-image">
+  </div>
+  <div class="image-container2">
+    <p class="image-text">2. Share preferences with PinterPal</p>
+        <img src="img/2025-08-07-2.png" alt="Animatie 2" class="gif-image">
+    <img src="img/input-w.png" alt="Proces 2" class="static-image">
+  </div>
+  <div class="image-container2">
+    <p class="image-text">3. Result</p>
+        <img src="img/2025-08-07-3.png" alt="Animatie 3" class="gif-image">
+    <img src="img/result-w.png" alt="Result" class="static-image">
+  </div>
+</div>
 
-                <img src="img/open-w.png" alt="Process 1" class="process1-image">
-            </div>
-            <div class="image-container">
-                                    <p class="image-text">2. Share preferences with PinterPal</p> <div></div>->
-
-                <img src="img/input-w.png" alt="Process 2" class="process2-image">
-            </div>
-            <div class="image-container">
-                                    <p class="image-text">3. Result</p> <div></div>->
 
 
-                <img src="img/result-w.png" alt="Dutch Flag" class="flag-image">
-            </div>
-        </div>
-    </div>
 
 
     <!-- Content sectie -->
@@ -123,7 +123,7 @@ session_start();
     <div class="start-trial-container">
         <img src="img/pinterpal-start-trial.jpg" alt="Start trial icon" class="start-trial-img">
         <div class="start-trial-text-button">
-            <p>€ 29,90 Per month</p>
+            <p>€ 29,9 Per month</p>
             <br>
             <button class="start-trial-btn" onclick="window.location.href='company-registration.php'">Start Now</button>
         </div>

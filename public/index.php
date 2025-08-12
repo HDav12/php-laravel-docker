@@ -49,36 +49,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
 
     <!-- Navigatiebalk -->
     <nav class="navbar">
-        <!-- Pas index.html -> index.php aan -->
         <a href="index.php">HOME</a>
-        <a href="iframe.php" class="active">DEMO</a>
-        <a href="assistance.php">ASSISTANCE</a>
+        <a href="pinterpalbot.php" class="active">PINTERPAL BOT</a>
+        <a href="iframe.php">DEMO</a>
         <a href="pricing.php">PRICING</a>
+        <a href="assistance.php">ASSISTANCE</a>
         <a href="about.php">ABOUT US</a>
-        <a href="pinterpalbot.php">PINTERPAL BOT</a>
     </nav>
     
    <div class="content">
   <section class="intro4">
     <div class="intro-flex">
 
-    <h2>Trust PinterPal, and he gets your customers right to THEIR ultimate products! ⬇️ </h2>
+    <h2>Trust PinterPal, the first Ai tool that gets your customers right to THEIR ultimate products! ⬇️</h2>
     </div>
 <!-- Container die video + knop onder elkaar zet -->
 <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
 
 <!-- Promo video -->
 <div class="promo-video-container" style="width: 100%; display: flex; justify-content: center;">
-  <video id="promo-video" autoplay muted loop playsinline class="promo-video" style="width: 100%; max-width: 1000px; height: auto;">
+  <video
+    id="promo-video"
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    class="promo-video"
+    style="width: 100%; max-width: 1000px; height: auto; cursor: pointer;"
+  >
     <source src="videos/demo-pinterpal.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
 </div>
 
 <!-- Play/Pause/Sound buttons -->
-<div style="margin-top: 10px;">
-  <button class="video-btn" id="play-pause-toggle" onclick="togglePlayPause()">⏸️</button>
-  <button class="video-btn" id="sound-toggle" onclick="toggleMute()">🔊</button>
+<div style="margin-top: 10px; text-align: center;">
+  <button class="video-btn" id="play-pause-toggle">▶️</button>
+  <button class="video-btn" id="sound-toggle">🔇</button>
 </div>
 
 <script>
@@ -86,6 +93,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
   const playPauseBtn = document.getElementById('play-pause-toggle');
   const soundBtn = document.getElementById('sound-toggle');
 
+  // Zorg dat video start gepauzeerd en geluid uit
+  video.pause();
+  video.muted = true;
+
+  // Play/pause via knop
   function togglePlayPause() {
     if (video.paused) {
       video.play();
@@ -96,11 +108,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
     }
   }
 
+  // Mute/unmute via knop
   function toggleMute() {
     video.muted = !video.muted;
     soundBtn.textContent = video.muted ? '🔇' : '🔊';
   }
+
+  // Event listeners
+  playPauseBtn.addEventListener('click', togglePlayPause);
+  soundBtn.addEventListener('click', toggleMute);
+
+  // Optioneel: ook klikken op de video zelf start/pauzeert ‘m
+  video.addEventListener('click', togglePlayPause);
 </script>
+
 
 
   </div>
