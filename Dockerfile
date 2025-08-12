@@ -39,6 +39,12 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
       /etc/apache2/sites-available/*.conf \
       /etc/apache2/apache2.conf
 
+
+RUN sed -ri \
+  -e 's!^\s*ErrorLog\s+.*!ErrorLog /proc/self/fd/2!g' \
+  -e 's!^\s*CustomLog\s+.*!CustomLog /proc/self/fd/1 combined!g' \
+  /etc/apache2/sites-available/000-default.conf
+
 EXPOSE 80
 # ENV SKIP_COMPOSER 1
 # ENV WEBROOT /var/www/html/public
