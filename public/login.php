@@ -1,4 +1,10 @@
 <?php
+
+function header_log($k, $v) {
+    if ((getenv('APP_DEBUG_LOG') ?? '0') === '1') {
+        header("X-App-$k: ".substr((string)$v, 0, 200));
+    }
+}
 session_start();
 
 include __DIR__ . '/database.php';
