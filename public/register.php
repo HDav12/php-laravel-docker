@@ -1,95 +1,65 @@
 <?php
-
-function header_log($k, $v) {
-    if ((getenv('APP_DEBUG_LOG') ?? '0') === '1') {
-        header("X-App-$k: ".substr((string)$v, 0, 200));
-    }
-}
 session_start();
 include __DIR__ . '/database.php';
 
-/* Zorg dat error_log naar Render Logs gaat en toggle via env */
-ini_set('log_errors', '1');
-ini_set('error_log', 'php://stderr');
-function app_log($m){ if ((getenv('APP_DEBUG_LOG') ?? '0') === '1') error_log('[app] '.$m); }
+function elog($m){ @file_put_contents('php://stderr', "[app] $m\n"); }
+function header_log($k,$v){ if ((getenv('APP_DEBUG_LOG') ?? '0') === '1') header('X-App-'.$k.': '.substr((string)$v,0,200)); }
 
+ini_set('log_errors','1');
+ini_set('error_log','php://stderr');
+
+$role  = $_SESSION['user_role'] ?? 'onbekend';
 $error = '';
-$success = '';
+
+elog('BOOT login.php '.($_SERVER['REQUEST_METHOD'] ?? 'CLI'));
+header_log('Boot','login');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $accountType = $_POST['account-type'] ?? '';
-    if ($accountType === 'company') { header('Location: /public/company-register.php'); exit; }
+    $email    = trim($_POST['emailaddress'] ?? ($_POST['emailadress'] ?? ''));
+    $password = trim($_POST['password']     ?? '');
 
-    $email    = trim($_POST['user_email']       ?? '');
-    $password = $_POST['password']              ?? '';
-    $confirm  = $_POST['confirm_password']      ?? '';
-    $username = trim($_POST['username']         ?? '');
-    $address  = trim($_POST['address']          ?? '');
-    $city     = trim($_POST['city']             ?? '');
-    $gender   = trim($_POST['gender']           ?? '');
-    $ageRaw   = $_POST['age']                   ?? '';
-    $age      = ($ageRaw === '' ? null : (int)$ageRaw);
-    $role     = 'gebruiker';
+    header_log('email',$email ?: '(empty)');
+    elog('LOGIN post email=' . ($email ?: '(empty)'));
 
-    if ($email === '' || $password === '' || $confirm === '' || $age === null) {
-        $error = 'Vul alle verplichte velden in.';
-    } elseif ($password !== $confirm) {
-        $error = 'Wachtwoorden komen niet overeen.';
+    if ($email === '' || $password === '') {
+        $error = 'Vul zowel je e-mailadres als wachtwoord in.';
+        elog('LOGIN missing-fields');
     } else {
+        $sql    = 'SELECT id, user_email, [password], role FROM dbo.users WHERE user_email = ?';
+        $params = [ &$email ];
+        $stmt   = sqlsrv_prepare($conn, $sql, $params);
 
-        // 1) Bestaat e-mailadres al?
-        $sqlCheck  = "SELECT 1 FROM dbo.users WHERE user_email = ?";
-        $stmtCheck = sqlsrv_prepare($conn, $sqlCheck, [ &$email ]);
-        if ($stmtCheck === false) {
-            app_log('prepare check failed: '.print_r(sqlsrv_errors(), true));
-            $error = 'Database fout (prepare check).';
-        } elseif (!sqlsrv_execute($stmtCheck)) {
-            app_log('execute check failed: '.print_r(sqlsrv_errors(), true));
-            $error = 'Database fout (execute check).';
+        if ($stmt === false) {
+            elog('LOGIN prepare FAILED '.print_r(sqlsrv_errors(), true));
+            $error = 'Database fout (prepare).';
+        } elseif (!sqlsrv_execute($stmt)) {
+            elog('LOGIN execute FAILED '.print_r(sqlsrv_errors(), true));
+            $error = 'Database fout (execute).';
         } else {
-            $exists = sqlsrv_fetch_array($stmtCheck, SQLSRV_FETCH_NUMERIC) ? true : false;
-            sqlsrv_free_stmt($stmtCheck);
-
-            if ($exists) {
-                $error = 'Dit e-mailadres is al in gebruik. Probeer opnieuw.';
-            } else {
-                // 2) Insert
-                $hashed = password_hash($password, PASSWORD_DEFAULT);
-
-                // Let op: [password] met brackets voor de zekerheid
-                $sqlIns = "INSERT INTO dbo.users (user_email, [password], username, address, city, gender, age, role)
-                           VALUES (?,?,?,?,?,?,?,?)";
-                $paramsIns = [ &$email, &$hashed, &$username, &$address, &$city, &$gender, &$age, &$role ];
-                $stmtIns = sqlsrv_prepare($conn, $sqlIns, $paramsIns);
-
-                if ($stmtIns === false) {
-                    app_log('prepare insert failed: '.print_r(sqlsrv_errors(), true));
-                    $error = 'Database fout (prepare insert).';
-                } elseif (!sqlsrv_execute($stmtIns)) {
-                    app_log('execute insert failed: '.print_r(sqlsrv_errors(), true));
-                    $error = 'Fout bij aanmaken account.';
-                } else {
-                    // 3) Last insert id
-                    $resId = sqlsrv_query($conn, "SELECT CAST(SCOPE_IDENTITY() AS int) AS id");
-                    $idRow = $resId ? sqlsrv_fetch_array($resId, SQLSRV_FETCH_ASSOC) : null;
-                    $userId = $idRow['id'] ?? null;
-                    if ($resId) sqlsrv_free_stmt($resId);
-                    sqlsrv_free_stmt($stmtIns);
-
-                    // 4) Sessions + redirect
+            $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+            $found = $row ? 1 : 0;
+            elog('LOGIN found='.$found);
+            if ($row) {
+                $passOk = password_verify($password, $row['password']);
+                elog('LOGIN password_ok=' . ($passOk ? 1 : 0));
+                if ($passOk) {
                     $_SESSION['user_logged_in'] = true;
-                    $_SESSION['user_email']     = $email;
-                    $_SESSION['user_id']        = $userId;
-                    $_SESSION['user_role']      = $role;
+                    $_SESSION['user_id']        = $row['id'];
+                    $_SESSION['user_email']     = $row['user_email'];
+                    $_SESSION['user_role']      = $row['role'];
 
-                    app_log("REGISTER ok email=$email id=".($userId ?? 'null'));
+                    sqlsrv_free_stmt($stmt);
                     sqlsrv_close($conn);
 
-                    // Gebruik een absolute path voor zekerheid
-                    header('Location: /pinterpalbot.php', true, 302);
+                    header('Location: /index.php', true, 302);
                     exit;
+                } else {
+                    $error = 'Ongeldige combinatie e-mailadres/wachtwoord.';
                 }
+            } else {
+                $error = 'Geen account gevonden met dit e-mailadres.';
             }
+            if (isset($stmt) && $stmt) sqlsrv_free_stmt($stmt);
         }
     }
 }
