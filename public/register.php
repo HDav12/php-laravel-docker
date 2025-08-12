@@ -2,73 +2,85 @@
 session_start();
 include __DIR__ . '/database.php';
 
+function app_log($msg){ if ((getenv('APP_DEBUG_LOG') ?? '0') === '1') error_log('[app] '.$msg); }
+
 $error = '';
 $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $accountType = $_POST['account-type'] ?? '';
+    if ($accountType === 'company') { header("Location: public/company-register.php"); exit; }
 
-    if ($accountType === 'company') {
-        header("Location: public/company-register.php");
-        exit;
-    }
-
-    $email    = $_POST['user_email']       ?? '';
-    $password = $_POST['password']         ?? '';
-    $confirm  = $_POST['confirm_password'] ?? '';
-    $username = $_POST['username']         ?? '';
-    $address  = $_POST['address']          ?? '';
-    $city     = $_POST['city']             ?? '';
-    $gender   = $_POST['gender']           ?? '';
-    $age      = $_POST['age']              ?? '';
+    $email    = trim($_POST['user_email']       ?? '');
+    $password =       $_POST['password']        ?? '';
+    $confirm  =       $_POST['confirm_password']?? '';
+    $username = trim($_POST['username']         ?? '');
+    $address  = trim($_POST['address']          ?? '');
+    $city     = trim($_POST['city']             ?? '');
+    $gender   = trim($_POST['gender']           ?? '');
+    $ageRaw   =       $_POST['age']             ?? '';
+    $age      = ($ageRaw === '' ? null : (int)$ageRaw);
 
     $role = 'gebruiker';
 
-    if ($password !== $confirm) {
-        $error = "Wachtwoorden komen niet overeen. Probeer opnieuw.";
+    if ($email === '' || $password === '' || $confirm === '' || $age === null) {
+        $error = 'Vul alle verplichte velden in.';
+    } elseif ($password !== $confirm) {
+        $error = 'Wachtwoorden komen niet overeen.';
     } else {
-        $sqlCheck   = "SELECT id FROM users WHERE user_email = ?";
-        $stmtCheck  = sqlsrv_prepare($conn, $sqlCheck, [$email]);
-        // na sqlsrv_prepare($conn, $sqlInsert, $paramsIns)
-        $ok   = sqlsrv_execute($stmtInsert);
-        $rows = sqlsrv_rows_affected($stmtInsert);
-
-        app_log("REGISTER email={$email} ok=" . ($ok ? '1' : '0') . " rows={$rows}");
-        if (!$ok) app_log('REGISTER ERR: ' . print_r(sqlsrv_errors(), true));
-
-        if ($stmtCheck && sqlsrv_execute($stmtCheck)) {
-            $row = sqlsrv_fetch_array($stmtCheck, SQLSRV_FETCH_ASSOC);
-            if ($row) {
-                $error = "Dit e-mailadres is al in gebruik. Probeer opnieuw.";
+        // --- check of gebruiker al bestaat ---
+        $sqlCheck  = "SELECT 1 FROM users WHERE user_email = ?";
+        $stmtCheck = sqlsrv_prepare($conn, $sqlCheck, [ &$email ]);
+        if ($stmtCheck === false) {
+            app_log('prepare check: '.print_r(sqlsrv_errors(), true));
+            $error = 'Database fout (prepare check).';
+        } else {
+            if (!sqlsrv_execute($stmtCheck)) {
+                app_log('execute check: '.print_r(sqlsrv_errors(), true));
+                $error = 'Database fout (execute check).';
             } else {
-                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                $sqlInsert  = "INSERT INTO users (user_email, password, username, address, city, gender, age, role) VALUES (?,?,?,?,?,?,?,?)";
-                $paramsIns  = [$email, $hashedPassword, $username, $address, $city, $gender, $age, $role];
-                $stmtInsert = sqlsrv_prepare($conn, $sqlInsert, $paramsIns);
-                if ($stmtInsert && sqlsrv_execute($stmtInsert)) {
-                    $resId = sqlsrv_query($conn, "SELECT SCOPE_IDENTITY() AS id");
-                    $idRow = sqlsrv_fetch_array($resId, SQLSRV_FETCH_ASSOC);
-                    $userId = $idRow['id'] ?? null;
+                $exists = sqlsrv_fetch_array($stmtCheck, SQLSRV_FETCH_NUMERIC) ? true : false;
+                sqlsrv_free_stmt($stmtCheck);
 
-                    $_SESSION['user_logged_in'] = true;
-                    $_SESSION['user_email']     = $email;
-                    $_SESSION['user_id']        = $userId;
-                    $_SESSION['user_role']      = $role;
-                    header("Location: pinterpalbot.php");
-                    exit;
+                if ($exists) {
+                    $error = 'Dit e-mailadres is al in gebruik. Probeer opnieuw.';
                 } else {
-                    $err    = sqlsrv_errors();
-                    $error  = "Fout bij aanmaken account: " . ($err[0]['message'] ?? 'onbekend');
+                    // --- insert gebruiker ---
+                    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                    $sqlInsert = "INSERT INTO users (user_email, password, username, address, city, gender, age, role) VALUES (?,?,?,?,?,?,?,?)";
+                    $paramsIns = [ &$email, &$hashedPassword, &$username, &$address, &$city, &$gender, &$age, &$role ];
+                    $stmtInsert = sqlsrv_prepare($conn, $sqlInsert, $paramsIns);
+                    if ($stmtInsert === false) {
+                        app_log('prepare insert: '.print_r(sqlsrv_errors(), true));
+                        $error = 'Database fout (prepare insert).';
+                    } else {
+                        if (!sqlsrv_execute($stmtInsert)) {
+                            app_log('execute insert: '.print_r(sqlsrv_errors(), true));
+                            $error = 'Fout bij aanmaken account.';
+                        } else {
+                            $resId = sqlsrv_query($conn, "SELECT CAST(SCOPE_IDENTITY() AS int) AS id");
+                            $idRow = $resId ? sqlsrv_fetch_array($resId, SQLSRV_FETCH_ASSOC) : null;
+                            $userId = $idRow['id'] ?? null;
+                            if ($resId) sqlsrv_free_stmt($resId);
+                            sqlsrv_free_stmt($stmtInsert);
+
+                            $_SESSION['user_logged_in'] = true;
+                            $_SESSION['user_email']     = $email;
+                            $_SESSION['user_id']        = $userId;
+                            $_SESSION['user_role']      = $role;
+
+                            sqlsrv_close($conn);
+                            header('Location: pinterpalbot.php');
+                            exit;
+                        }
+                    }
                 }
             }
-        } else {
-            $err   = sqlsrv_errors();
-            $error = "Database fout: " . ($err[0]['message'] ?? 'onbekend');
         }
-        if (isset($stmtCheck))  sqlsrv_free_stmt($stmtCheck);
-        if (isset($stmtInsert)) sqlsrv_free_stmt($stmtInsert);
     }
 }
+
+sqlsrv_close($conn);
 ?>
 
 
