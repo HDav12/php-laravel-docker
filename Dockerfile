@@ -26,6 +26,15 @@ COPY . /var/www/html
 
 # 3. (optioneel) DocumentRoot naar /public
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+# PHP -> stderr (wordt opgepikt door Render Logs)
+RUN printf "log_errors=On\nerror_reporting=E_ALL\ndisplay_errors=Off\nerror_log=/proc/self/fd/2\n" \
+    > /usr/local/etc/php/conf.d/zzz-logging.ini
+
+# Apache access/error logs -> stdout/stderr
+RUN printf "ErrorLog /proc/self/fd/2\nCustomLog /proc/self/fd/1 combined\n" \
+    > /etc/apache2/conf-available/docker-logs.conf \
+ && a2enconf docker-logs
+
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
       /etc/apache2/sites-available/*.conf \
       /etc/apache2/apache2.conf
