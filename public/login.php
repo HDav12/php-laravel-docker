@@ -6,6 +6,17 @@ include __DIR__ . '/database.php';
 $role  = $_SESSION['user_role'] ?? 'onbekend';
 $error = '';
 
+$ok = sqlsrv_execute($stmt);
+if (!$ok) app_log('LOGIN DB ERR: ' . print_r(sqlsrv_errors(), true));
+
+$row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+app_log('LOGIN lookup email=' . $email . ' found=' . ($row ? '1' : '0'));
+
+if ($row) {
+    $passOk = password_verify($password, $row['password']);
+    app_log('LOGIN password_ok=' . ($passOk ? '1' : '0'));
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email    = trim($_POST['emailaddress'] ?? '');
     $password = trim($_POST['password']     ?? '');

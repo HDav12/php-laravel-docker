@@ -29,6 +29,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $sqlCheck   = "SELECT id FROM users WHERE user_email = ?";
         $stmtCheck  = sqlsrv_prepare($conn, $sqlCheck, [$email]);
+        // na sqlsrv_prepare($conn, $sqlInsert, $paramsIns)
+        $ok   = sqlsrv_execute($stmtInsert);
+        $rows = sqlsrv_rows_affected($stmtInsert);
+
+        app_log("REGISTER email={$email} ok=" . ($ok ? '1' : '0') . " rows={$rows}");
+        if (!$ok) app_log('REGISTER ERR: ' . print_r(sqlsrv_errors(), true));
+
         if ($stmtCheck && sqlsrv_execute($stmtCheck)) {
             $row = sqlsrv_fetch_array($stmtCheck, SQLSRV_FETCH_ASSOC);
             if ($row) {
