@@ -1,65 +1,72 @@
 <?php
+session_start();
+include __DIR__ . '/database.php';
 
-function header_log($k, $v) {
+function elog($m){
+    $msg = str_replace(["\r","\n"], ' ', (string)$m);
+    @file_put_contents('php://stderr', "[app] $msg\n");
+}
+function header_log($k,$v){
     if ((getenv('APP_DEBUG_LOG') ?? '0') === '1') {
-        header("X-App-$k: ".substr((string)$v, 0, 200));
+        $k = preg_replace('/[^A-Za-z0-9_-]/','',$k);
+        $v = str_replace(["\r","\n"], ' ', (string)$v);
+        header('X-App-'.$k.': '.substr($v,0,180));
     }
 }
-session_start();
-
-include __DIR__ . '/database.php';
+ini_set('log_errors','1');
+ini_set('error_log','php://stderr');
 
 $role  = $_SESSION['user_role'] ?? 'onbekend';
 $error = '';
 
-$ok = sqlsrv_execute($stmt);
-if (!$ok) app_log('LOGIN DB ERR: ' . print_r(sqlsrv_errors(), true));
-
-$row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
-app_log('LOGIN lookup email=' . $email . ' found=' . ($row ? '1' : '0'));
-
-if ($row) {
-    $passOk = password_verify($password, $row['password']);
-    app_log('LOGIN password_ok=' . ($passOk ? '1' : '0'));
-}
+elog('BOOT login '.($_SERVER['REQUEST_METHOD'] ?? 'CLI'));
+header_log('Boot','login');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email    = trim($_POST['emailaddress'] ?? '');
+    // accepteer beide spellings: emailaddress / emailadress
+    $email    = trim($_POST['emailaddress'] ?? ($_POST['emailadress'] ?? ''));
     $password = trim($_POST['password']     ?? '');
 
+    header_log('email', $email ?: '(empty)');
+    elog('LOGIN post email=' . ($email ?: '(empty)'));
+
     if ($email === '' || $password === '') {
-        $error = "Vul zowel je e-mailadres als wachtwoord in.";
+        $error = 'Vul zowel je e-mailadres als wachtwoord in.';
+        elog('LOGIN missing-fields');
     } else {
-        $sql    = "SELECT id, user_email, password, role FROM users WHERE user_email = ?";
-        $params = [$email];
+        $sql    = 'SELECT id, user_email, [password], role FROM dbo.Users WHERE user_email = ?';
+        $params = [ &$email ];
         $stmt   = sqlsrv_prepare($conn, $sql, $params);
 
-        if (!$stmt || !sqlsrv_execute($stmt)) {
-            die(print_r(sqlsrv_errors(), true));
-        }
+        if ($stmt === false) {
+            elog('LOGIN prepare FAILED '.print_r(sqlsrv_errors(), true));
+            $error = 'Database fout (prepare).';
+        } elseif (!sqlsrv_execute($stmt)) {
+            elog('LOGIN execute FAILED '.print_r(sqlsrv_errors(), true));
+            $error = 'Database fout (execute).';
+        } else {
+            $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+            elog('LOGIN found='.($row?1:0));
 
-        $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
-
-        if ($row) {
-            if (password_verify($password, $row['password'])) {
+            if ($row && password_verify($password, $row['password'])) {
                 $_SESSION['user_logged_in'] = true;
                 $_SESSION['user_id']        = $row['id'];
                 $_SESSION['user_email']     = $row['user_email'];
                 $_SESSION['user_role']      = $row['role'];
 
-                sqlsrv_free_stmt($stmt);
+                if ($stmt) sqlsrv_free_stmt($stmt);
                 sqlsrv_close($conn);
 
-                header("Location: index.php");
+                header('Location: /index.php', true, 302);
                 exit;
             } else {
-                $error = "Ongeldige combinatie e-mailadres/wachtwoord.";
+                $error = $row
+                    ? 'Ongeldige combinatie e-mailadres/wachtwoord.'
+                    : 'Geen account gevonden met dit e-mailadres.';
+                elog('LOGIN password_ok=' . ($row && password_verify($password, $row['password']) ? 1 : 0));
             }
-        } else {
-            $error = "Geen account gevonden met dit e-mailadres.";
+            if ($stmt) sqlsrv_free_stmt($stmt);
         }
-
-        sqlsrv_free_stmt($stmt);
     }
 }
 
