@@ -5,25 +5,26 @@ include __DIR__ . '/database.php';
 // --- logging helpers ---
 function elog($m)
 {
-    @file_put_contents('php://stderr', "[app] $m\n");
+    $msg = str_replace(["\r", "\n"], ' ', (string)$m);
+    @file_put_contents('php://stderr', "[app] $msg\n");
     if ((getenv('APP_DEBUG_LOG') ?? '0') === '1') {
-        header('X-App-Log: ' . substr($m, 0, 180));
+        header('X-App-Log: ' . substr($msg, 0, 180));
     }
 }
 function hlog_post()
 {
     if ((getenv('APP_DEBUG_LOG') ?? '0') === '1') {
         foreach ($_POST as $k => $v) {
-            if (is_array($v))
-                $v = json_encode($v);
-            header('X-App-P-' . preg_replace('/[^A-Za-z0-9_-]/', '', $k) . ': ' . substr((string) $v, 0, 120));
+            if (is_array($v)) $v = json_encode($v);
+            $k = preg_replace('/[^A-Za-z0-9_-]/', '', $k);
+            $v = str_replace(["\r", "\n"], ' ', (string)$v);
+            header('X-App-P-' . $k . ': ' . substr($v, 0, 120));
         }
     }
 }
 
 elog('BOOT register ' . ($_SERVER['REQUEST_METHOD'] ?? 'CLI'));
-if ($_SERVER['REQUEST_METHOD'] === 'POST')
-    hlog_post();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') hlog_post();
 
 $error = '';
 $success = '';
@@ -36,16 +37,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    $email = trim($_POST['user_email'] ?? '');
-    $password = $_POST['password'] ?? '';
-    $confirm = $_POST['confirm_password'] ?? '';
-    $username = trim($_POST['username'] ?? '');
-    $address = trim($_POST['address'] ?? '');
-    $city = trim($_POST['city'] ?? '');
-    $gender = trim($_POST['gender'] ?? '');
-    $ageRaw = $_POST['age'] ?? '';
-    $age = ($ageRaw === '' ? null : (int) $ageRaw);
-    $role = 'gebruiker';
+    $email    = trim($_POST['user_email']       ?? '');
+    $password = $_POST['password']              ?? '';
+    $confirm  = $_POST['confirm_password']      ?? '';
+    $username = trim($_POST['username']         ?? '');
+    $address  = trim($_POST['address']          ?? '');
+    $city     = trim($_POST['city']             ?? '');
+    $gender   = trim($_POST['gender']           ?? '');
+    $ageRaw   = $_POST['age']                   ?? '';
+    $age      = ($ageRaw === '' ? null : (int)$ageRaw);
+    $role     = 'gebruiker';
 
     if ($email === '' || $password === '' || $confirm === '' || $age === null) {
         $error = 'Vul alle verplichte velden in.';
@@ -54,9 +55,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'Wachtwoorden komen niet overeen.';
         elog('VALIDATION passwords_mismatch');
     } else {
-        // bestaat email?
-        $sqlCheck = "SELECT 1 FROM dbo.users WHERE user_email = ?";
-        $stmtCheck = sqlsrv_prepare($conn, $sqlCheck, [&$email]);
+        // 1) Bestaat e-mailadres al?
+        $sqlCheck  = "SELECT 1 FROM dbo.Users WHERE user_email = ?";
+        $stmtCheck = sqlsrv_prepare($conn, $sqlCheck, [ &$email ]);
         if ($stmtCheck === false) {
             elog('prepare check FAILED: ' . print_r(sqlsrv_errors(), true));
             $error = 'Database fout (prepare check).';
@@ -71,31 +72,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($exists) {
                 $error = 'Dit e-mailadres is al in gebruik. Probeer opnieuw.';
             } else {
+                // 2) Insert (code-only fix met computed id + transactie)
                 $hashed = password_hash($password, PASSWORD_DEFAULT);
 
-                $sqlIns = "INSERT INTO dbo.users (user_email, [password], username, address, city, gender, age, role)
-                           VALUES (?,?,?,?,?,?,?,?)";
-                $paramsIns = [&$email, &$hashed, &$username, &$address, &$city, &$gender, &$age, &$role];
+                // start transactie (atomic + voorkomt race conditions)
+                sqlsrv_begin_transaction($conn);
+
+                $sqlIns = "
+INSERT INTO dbo.Users (id, user_email, [password], username, address, city, gender, age, role)
+OUTPUT INSERTED.id
+SELECT ISNULL(MAX(id),0)+1, ?,?,?,?,?,?,?,?
+FROM dbo.Users WITH (TABLOCKX, HOLDLOCK);
+";
+                $paramsIns = [ &$email, &$hashed, &$username, &$address, &$city, &$gender, &$age, &$role ];
                 $stmtIns = sqlsrv_prepare($conn, $sqlIns, $paramsIns);
 
                 if ($stmtIns === false) {
                     elog('prepare insert FAILED: ' . print_r(sqlsrv_errors(), true));
+                    sqlsrv_rollback($conn);
                     $error = 'Database fout (prepare insert).';
                 } elseif (!sqlsrv_execute($stmtIns)) {
                     elog('execute insert FAILED: ' . print_r(sqlsrv_errors(), true));
+                    sqlsrv_rollback($conn);
                     $error = 'Fout bij aanmaken account.';
                 } else {
-                    $resId = sqlsrv_query($conn, "SELECT CAST(SCOPE_IDENTITY() AS int) AS id");
-                    $idRow = $resId ? sqlsrv_fetch_array($resId, SQLSRV_FETCH_ASSOC) : null;
-                    $userId = $idRow['id'] ?? null;
-                    if ($resId)
-                        sqlsrv_free_stmt($resId);
+                    // haal nieuwe id uit OUTPUT INSERTED.id
+                    $out    = sqlsrv_fetch_array($stmtIns, SQLSRV_FETCH_NUMERIC);
+                    $userId = $out[0] ?? null;
                     sqlsrv_free_stmt($stmtIns);
 
+                    // commit
+                    sqlsrv_commit($conn);
+
+                    // 3) Sessions + redirect
                     $_SESSION['user_logged_in'] = true;
-                    $_SESSION['user_email'] = $email;
-                    $_SESSION['user_id'] = $userId;
-                    $_SESSION['user_role'] = $role;
+                    $_SESSION['user_email']     = $email;
+                    $_SESSION['user_id']        = $userId;
+                    $_SESSION['user_role']      = $role;
 
                     elog("REGISTER OK email=$email id=" . ($userId ?? 'null'));
                     sqlsrv_close($conn);
@@ -109,6 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 sqlsrv_close($conn);
 ?>
+
 
 
 
