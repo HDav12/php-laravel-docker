@@ -92,6 +92,23 @@ body, html {
   justify-content: center;
 }
 
+.promo-video-container1 {
+  background: transparent;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.promo-video1 {
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
+  object-fit: contain;
+  background: none;
+    border-radius: 12px; /* <– dit zorgt voor zachte, afgeronde hoeken */
+
+}
+
 .promo-video {
   width: 100%;
   max-width: 1000px;
@@ -269,34 +286,17 @@ body.iframe-page .navbar a.active {
     background-color: var(--secondary-color);
 }
 
-
 .intro4 {
-    /* flex: 3; 
-       Alleen nodig als je ‘m in een flex-container hebt staan.
-       Anders kun je deze regel weglaten. */
-
-    /* Middenrij: max-width + auto margins */
     max-width: 1800px;
     margin: 2vw auto;
-
-    /* Padding: boven/onder 2vw, links/rechts 4vw */
     padding: 2vw 4vw;
 
-    /* Achtergrond half-transparant op basis #ffc107 */
-    background-color: rgba(255, 193, 7, 0.5);
-
+    background-color: transparent;
     border-radius: 5px;
-    color: var(--font-color);
 
-    
-    /* Grotere letters */
+    color: #fff;
     font-size: 1.5rem;
-    color: var(--primary-color);
-
-    /* Tekst centreren */
     text-align: center;
-
-    
 }
 
 
@@ -661,7 +661,7 @@ body.iframe-page .navbar a.active {
 
 .image-container2 {
   flex: 1;
-  max-width: 30%;
+  max-width: 25%;
   background-color: var(--primary-color);
   border-radius: 10px;
   padding: 15px;
@@ -886,3 +886,5 @@ main {
 
   
 }
+
+

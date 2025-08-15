@@ -91,7 +91,7 @@ session_start();
     <p>
             <strong>KVK:</strong> 96433647<br>
             <strong>Address:</strong> Den Haag<br>
-            <strong>Telephone:</strong> Your Phone Number<br>
+            <strong>Telephone:</strong> +31 6 36270282<br>
             <strong>Email:</strong> info@pinterpal.com
         </p>
 

@@ -39,6 +39,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
         <a href="index.php">
             <h1>PINTERPAL</h1>
         </a>
+        <div class="intro-text" style="padding: 40px; text-align: center; width: 100%;">
+    <button class="start-trial-btn" onclick="window.location.href='/company-registration.php'"
+      style="font-size: 18px; padding: 12px 24px; margin-top: 20px;">
+      Start Now
+    </button>
+  </div>
         <div class="login-signup">
             <!-- Dynamische login/signup of uitlog-knoppen -->
             <?php include 'navbar.php'; ?>
@@ -61,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
   <section class="intro4">
     <div class="intro-flex">
 
-    <h2>Trust PinterPal, the first Ai tool that gets your customers right to THEIR ultimate products! ⬇️</h2>
+    <h2>PinterPal Ai tackles the challenges of the customer journey. Lock in your customers. PinterPal guides them to their ultimate products.</h2>
     </div>
 <!-- Container die video + knop onder elkaar zet -->
 <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
@@ -77,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
     class="promo-video"
     style="width: 100%; max-width: 1000px; height: auto; cursor: pointer;"
   >
-    <source src="videos/demo-pinterpal.mp4" type="video/mp4" />
+    <source src="videos/demo-pinterpal-1.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
 </div>
@@ -135,6 +141,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
     </button>
   </div>
 
+
+
 </div>
 
 
@@ -181,7 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
     <p>
             <strong>KVK:</strong> 96433647<br>
             <strong>Address:</strong> Den Haag<br>
-            <strong>Telephone:</strong> Your Phone Number<br>
+            <strong>Telephone:</strong> +31 6 36270282<br>
             <strong>Email:</strong> info@pinterpal.com
         </p>
     </footer>

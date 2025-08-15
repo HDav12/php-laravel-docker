@@ -349,7 +349,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <!-- Submit Button -->
-            <button type="submit">Register</button>
+            <button type="checkoutBtn">Register</button>
         </form>
 
         <a href="login.php">Already registered? Log in here.</a>

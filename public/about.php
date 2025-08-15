@@ -215,6 +215,8 @@ My favorite food has to be pizza, because you can do anything with it depending 
                 }
             });
         });
+
     </script>
+
 </body>
 </html>

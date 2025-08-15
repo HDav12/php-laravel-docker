@@ -59,8 +59,17 @@ session_start();
             <h1>PINTERPAL</h1>
 
         </a>
+        
     </div>
-
+  <nav class="navbar">
+        <a href="index.php">HOME</a>
+        <a href="newspage.php" class="active">News Page</a>
+        <a href="pinterpalbot.php">PINTERPAL BOT</a>
+        <a href="iframe.php">DEMO</a>
+        <a href="pricing.php">PRICING</a>
+        <a href="assistance.php">ASSISTANCE</a>
+        <a href="about.php">ABOUT US</a>
+    </nav>
     <div class="news-page-container">
         <h2>Latest News</h2>
 
