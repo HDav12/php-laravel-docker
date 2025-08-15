@@ -46,6 +46,12 @@ body, html {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+:root{ --logo-h: 60px; }          /* was 52px */
+.logo-boven img{ height: var(--logo-h); width:auto; }
+@media (max-width:640px){
+  :root{ --logo-h: 44px; }        /* mobiel iets groter */
+}
+
 /* Header */
 .header {
     background-color: var(--secondary-color);
@@ -83,6 +89,8 @@ body, html {
 
   color: darken(#fff, 30%);
 }
+
+
 
 
 .promo-video-container {
@@ -177,6 +185,7 @@ body, html {
     align-items: center;
     gap: 10px;
     margin-right: 20px;
+    color: var(--primary-color);
 }
 
 .login-signup a:hover {
@@ -303,7 +312,7 @@ body.iframe-page .navbar a.active {
 
 
 /* Feedback & News sectie container */
-.feedback-news-container {
+.feedback-news-onepager-container {
     display: flex;
     justify-content: space-between;
     gap: 2vw; /* Afstand tussen feedback en nieuws */
@@ -311,7 +320,7 @@ body.iframe-page .navbar a.active {
     margin: 2vw auto; /* Zorgt voor centrale uitlijning */
 }
 
-.feedback, .news {
+.feedback, .news .onepager {
     flex: 1; /* Beide secties nemen evenveel ruimte in */
     min-width: 45%; /* Minimale breedte voor consistentie */
 }
@@ -322,7 +331,7 @@ body.iframe-page .navbar a.active {
         gap: 1rem; /* Iets minder ruimte tussen secties */
     }
 
-    .feedback, .news {
+    .feedback, .news, .onepager {
         width: 100%; /* Beide secties vullen de volledige breedte */
     }
 }
@@ -373,6 +382,20 @@ body.iframe-page .navbar a.active {
 /* Nieuwssectie */
 .news {
     background-color: var(--primary-color); /* Primaire kleur als achtergrond */
+    color: var(--font-color); /* Tekstkleur */
+    padding: 1.5vw; /* Padding rondom */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Schaduw voor diepte */
+      background-color: rgba(10, 112, 130, 0.5); /* 50% transparantie */
+
+}
+
+.onepager {
+    background-color: var(--secondary-color); /* Primaire kleur als achtergrond */
     color: var(--font-color); /* Tekstkleur */
     padding: 1.5vw; /* Padding rondom */
     text-align: center;

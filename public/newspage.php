@@ -56,14 +56,16 @@ session_start();
     <div class="header">
         <a href="index.php">
         <img src="img/pinterpal-header.png" alt="PinterPal Logo" class="header-logo">
-            <h1>PINTERPAL</h1>
+             <h1 class="logo-boven">
+            <img src="img/PINTERPAL-wordmark.png" alt="PINTERPAL">
+            </h1>
 
         </a>
         
     </div>
   <nav class="navbar">
         <a href="index.php">HOME</a>
-        <a href="newspage.php" class="active">News Page</a>
+        <a href="newspage.php" class="active">NEWS</a>
         <a href="pinterpalbot.php">PINTERPAL BOT</a>
         <a href="iframe.php">DEMO</a>
         <a href="pricing.php">PRICING</a>

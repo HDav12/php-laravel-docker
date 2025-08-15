@@ -13,7 +13,9 @@ session_start();
 <body>
     <div class="header">
         <a href="index.php">
-            <h1>PINTERPAL</h1>
+             <h1 class="logo-boven">
+            <img src="img/PINTERPAL-wordmark.png" alt="PINTERPAL">
+            </h1>
         </a>
         <p class="subtitle">Keep on Developing.</p>
         
@@ -146,17 +148,15 @@ My favorite: foods are sushi and pasta.
       <img src="img/about-dion.png" alt="Dion Westeneng" class="team-photo">
       <h3>Dion Westeneng</h3>
       <p class="role">Developer & Head of Security</p>
-      <p class="bio">
-        Dion werkt aan de front‑end en user experience. Dankzij hem ziet de widget er niet alleen goed uit, maar reageert ‘ie ook super snel.
-    <Br> <Br>
-Biggest fear: flying insects
-<Br>
-Favorite animals: dog and duck
-<Br>
-Biggest life lesson: you’re the maker of your own life
-<Br>
-Favorite foods: teppanyaki / döner / chicken chicharon 
-    </p>
+     <p class="bio">
+  Dion (26, Baarn) ships the front-end and guards our stack. ICT graduate with almost 5 years in the security domain — he makes PinterPal fast, safe, and smooth.<br><br>
+  Loves: techno & house, the gym, a good party, and riding motorcycles.<br><br>
+  Biggest fear: the day Pegassi stops making music.<br>
+  Favorite animal: cat.<br>
+  Biggest life lesson: always keep smiling.<br>
+  Favorite foods: tapas.
+</p>
+
     <!-- onderaan binnen <div class="team-member"> … -->
 <a href="https://www.linkedin.com/in/dion-westeneng-7b729b16a/" target="_blank" rel="noopener noreferrer">
   <img src="img/linkedin-icon.png" alt="LinkedIn profiel" class="linkedin-icon">

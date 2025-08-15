@@ -13,7 +13,9 @@ session_start();
 <body>
     <div class="header">
         <a href="index.php">
-            <h1>PINTERPAL</h1>
+             <h1 class="logo-boven">
+            <img src="img/PINTERPAL-wordmark.png" alt="PINTERPAL">
+            </h1>
             
         </a>
         <p class="subtitle">PinterPal Bot</p>
@@ -34,7 +36,7 @@ session_start();
         <a href="about.php">ABOUT US</a>
     </nav>
 
-
+<br><br><br>
 <div class="image-row">
   <div class="image-container2">
     <p class="image-text">1. Open Widget</p>
@@ -54,39 +56,52 @@ session_start();
 </div>
 
 <div class="content">
-    <div class="intro">
-        <h2>PinterPal: The smart assistant that helps your visitors find exactly what they’re looking for — fast.</h2>
+  <div class="intro">
 
-        <p>________________________________________________________________________________________________________________</p>
+    <h2>
+      Make every webshop feel like a helpful shop assistant —
+      asking the right questions.
+    </h2>
+    <br>
 
-        <p>
-            <strong style="font-size: 24px;">The Problem:</strong><br><br>
-            Webshop owners often struggle to turn clicks into customers. Shoppers get lost in endless options and leave before buying.
-        </p>
+    <p class="lead">
+      Stop scrolling. Start finding.<br>
+      Guided selling powered by your existing product data — zero extra maintenance.
+    </p>
 
-        <br>
+    <br><br>
 
-        <p>
-            <strong style="font-size: 24px;">The Solution:</strong><br><br>
-            PinterPal simplifies the shopping journey and helps your customers find their perfect match:
-        </p>
+    <p><strong style="font-size:24px;">The Problem:</strong><br><br>
+      Choice overload kills conversion. Visitors bounce because search is generic and filters feel like work.
+    </p>
 
-        <ul><br>
-            <li><strong>Increase conversions</strong> with personalized product recommendations in real-time.</li>
-            <li><strong>Increase engagement</strong> by making shopping easy and intuitive.</li>
-            <li><strong>Save time and build trust</strong> — shoppers confidently find what they need without asking questions.</li>
-        </ul>
+    <br>
 
-        <br>
+    <p><strong style="font-size:24px;">The Solution:</strong><br><br>
+      PinterPal guides shoppers through 4–8 dynamic questions and instantly ranks the best-fit products —
+      with clear reasons they can trust.
+    </p>
 
-        <p>Fully integrated with your webshop, PinterPal turns indecisive visitors into loyal customers — without extra effort from your side.</p>
-        <p><strong>Ready to level up your webshop?</strong></p>
+    <br>
 
-        <br>
+    <ul>
+      <li><strong>Boost conversion</strong> with real-time, personalized recommendations.</li>
+      <li><strong>Reduce drop-off</strong> by making shopping simple and intuitive.</li>
+      <li><strong>Cut support load</strong> — shoppers choose confidently on their own.</li>
+      <li><strong>Plug &amp; play</strong> — API-ready for Shopify, WooCommerce, and custom stacks.</li>
+    </ul>
 
-        <p>Click below and try it for yourself!</p>
-        <p>________________________________________________________________________________________________________________</p>
+    <br>
 
+    <p>GDPR-first · No PII stored · EU hosting options</p>
+
+    <br>
+
+    <p><strong>Ready to level up your webshop?</strong><br>
+       Click below and try it for yourself!
+    </p>
+
+    <br>
         <!-- Start-knop -->
         <button class="start-trial-btn" onclick="window.location.href='company-registration.php'">
             Start Now

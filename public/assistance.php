@@ -14,7 +14,9 @@ session_start();
     <!-- Header -->
     <header class="header">
         <a href="index.php">
-            <h1>PINTERPAL</h1>
+             <h1 class="logo-boven">
+            <img src="img/PINTERPAL-wordmark.png" alt="PINTERPAL">
+            </h1>
         </a>
         <p class="subtitle">at your service</p>
 
