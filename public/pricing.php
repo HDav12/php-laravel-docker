@@ -11,20 +11,25 @@ session_start();
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Header -->
-    <div class="header">
-        <a href="index.php">
-             <h1 class="logo-boven">
-            <img src="img/PINTERPAL-wordmark.png" alt="PINTERPAL">
-            </h1>
-        </a>
-        <p class="subtitle">Prepare your webshop for the new era.</p>
-        <div class="login-signup">
-            <!-- Dynamische navbar importeren -->
-            <?php include 'navbar.php'; ?>
-            <img src="img/pinterpal-header.png" alt="PinterPal Logo" class="header-logo">
-        </div>
-    </div>
+    
+<!-- Header -->
+<header class="header">
+  <div class="logo-wrap">
+    <img src="img/pinterpal-header.png" alt="PinterPal Logo" class="header-logo">
+    <a href="index.php" class="logo-boven">
+      <img src="img/PINTERPAL-wordmark.png" alt="PINTERPAL">
+    </a>
+  </div>
+
+  <p class="subtitle">Prepare your webshop for the new era.
+
+</p>
+
+  <!-- Dynamische login-/signup of uitlog-knoppen -->
+  <div class="login-signup">
+    <?php include 'navbar.php'; ?>
+  </div>
+</header>
 
     <!-- Navigatiebalk -->
     <nav class="navbar">

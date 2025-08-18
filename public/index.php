@@ -35,24 +35,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
     <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-<div class="header">
-        <a href="index.php">
-            <h1 class="logo-boven">
-            <img src="img/PINTERPAL-wordmark.png" alt="PINTERPAL">
-            </h1>
-        </a>
-        <div class="intro-text" style="padding: 40px; text-align: center; width: 100%;">
-    <button class="start-trial-btn" onclick="window.location.href='/company-registration.php'"
-      style="font-size: 18px; padding: 12px 24px; margin-top: 20px;">
-      Start Now
-    </button>
+
+<!-- Header -->
+<header class="header">
+  <div class="logo-wrap">
+    <img src="img/pinterpal-header.png" alt="PinterPal Logo" class="header-logo">
+    <a href="index.php" class="logo-boven">
+      <img src="img/PINTERPAL-wordmark.png" alt="PINTERPAL">
+    </a>
   </div>
-        <div class="login-signup">
-            <!-- Dynamische login/signup of uitlog-knoppen -->
-            <?php include 'navbar.php'; ?>
-            <img src="img/pinterpal-header.png" alt="PinterPal Logo" class="header-logo">
-        </div>
+
+     <!-- MIDDEN: Start Now -->
+    <div class="header-cta">
+      <button class="start-trial-btn" onclick="window.location.href='/company-registration.php'">
+        Start Now
+      </button>
     </div>
+
+  <!-- Dynamische login-/signup of uitlog-knoppen -->
+  <div class="login-signup">
+    <?php include 'navbar.php'; ?>
+  </div>
+</header>
 
 
     <!-- Navigatiebalk -->

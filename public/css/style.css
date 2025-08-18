@@ -46,11 +46,8 @@ body, html {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-:root{ --logo-h: 60px; }          /* was 52px */
-.logo-boven img{ height: var(--logo-h); width:auto; }
-@media (max-width:640px){
-  :root{ --logo-h: 44px; }        /* mobiel iets groter */
-}
+
+
 
 /* Header */
 .header {
@@ -165,28 +162,63 @@ body, html {
 
 
 
+/* Container met icoon links + woordmerk rechts */
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: .5rem;                 /* ruimte tussen icoon en woordmerk */
+}
+
+/* === LOGO'S (desktop-first, met fallback) === */
+.logo-boven { 
+  display: block; 
+  line-height: 0;          /* verwijdert extra inline witruimte rond het img */
+}
+.logo-boven img {
+  height: var(--logo-h, 60px);  /* gebruikt je variabele, 60px als fallback */
+  width: auto;
+  display: block;
+}
+
+/* Icoon links (kleine logo) */
 .header-logo {
-    max-width: 80px;
-    height: auto;
-    position: absolute;
-    top: 10px;
-    left: 10px;
+  height: 44px;            /* kies 40–56px naar smaak */
+  width: auto;
+  display: block;
+  flex: 0 0 auto;          /* voorkomt ongewenst rekken/krimpen in flex-rijen */
 }
 
-.subtitle-demo-page {
-    color: var(--secondary-color) !important;
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 10px;
+/* === SUBTITLE === */
+.subtitle { 
+  margin: .25rem 0 0; 
+  color: #555; 
 }
 
+/* === LOGIN/SIGNUP (samengevoegd + robuust) ===
+   Deze regel overschrijft je dubbele definities netjes. */
 .login-signup {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-right: 20px;
-    color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  gap: .75rem;             /* consistente spacing */
+  flex-wrap: wrap;         /* breek af op smalle schermen; geen overlap */
+  margin-right: 20px;
+  color: var(--primary-color);
+  min-width: 0;            /* voorkomt overflow van lange inhoud */
 }
+
+/* === KLEIN SCHERM TWEAKS (desktop-first) === */
+@media (max-width: 480px) {
+  /* desgewenst woordmerk iets groter op heel smal scherm */
+  :root { --logo-h: 64px; }
+
+  /* centreren van loginrij als hij onder de logo's valt */
+  .login-signup {
+    justify-content: center;
+    margin-right: 0;
+    gap: .5rem;
+  }
+}
+
 
 .login-signup a:hover {
     color: var(--primary-color);
@@ -267,8 +299,8 @@ body.iframe-page .navbar a.active {
 }
 
 .navbar a:hover, .navbar a.active {
-    background-color: var(--primary-color);
-    color: var(--font-color);
+  background-color: rgba(255,255,255,.12);
+  color: var(--font-color);
 }
 
 
@@ -395,7 +427,7 @@ body.iframe-page .navbar a.active {
 }
 
 .onepager {
-    background-color: var(--secondary-color); /* Primaire kleur als achtergrond */
+    background-color: var(--primary-color); /* Primaire kleur als achtergrond */
     color: var(--font-color); /* Tekstkleur */
     padding: 1.5vw; /* Padding rondom */
     text-align: center;
@@ -623,11 +655,7 @@ body.iframe-page .navbar a.active {
 }
 
 .image-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
+  display:flex; justify-content:space-between; align-items:center; gap: 20px; flex-wrap:wrap;
 }
 
 .gif-container {
