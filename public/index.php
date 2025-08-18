@@ -59,15 +59,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
 </header>
 
 
-    <!-- Navigatiebalk -->
-    <nav class="navbar">
-        <a href="index.php">HOME</a>
-        <a href="pinterpalbot.php" class="active">PINTERPAL BOT</a>
-        <a href="iframe.php">DEMO</a>
-        <a href="pricing.php">PRICING</a>
-        <a href="assistance.php">ASSISTANCE</a>
-        <a href="about.php">ABOUT US</a>
-    </nav>
+    
+<!-- Navigatiebalk -->
+<nav class="navbar" aria-label="Hoofdnavigatie">
+  <a href="index.php" class="active">HOME</a>
+  <a href="pinterpalbot.php">PINTERPAL BOT</a>
+  <a href="iframe.php">DEMO</a>
+  <a href="pricing.php">PRICING</a>
+  <a href="assistance.php">ASSISTANCE</a>
+  <a href="about.php">ABOUT US</a>
+</nav>
     
    <div class="content">
   <section class="intro4">
@@ -213,14 +214,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
        
     </div>
 
-    <footer class="contact-info">
+     <!-- Footer -->
+  <footer class="contact-info">
     <p>
-            <strong>KVK:</strong> 96433647<br>
-            <strong>Address:</strong> Den Haag<br>
-            <strong>Telephone:</strong> +31 6 36270282<br>
-            <strong>Email:</strong> info@pinterpal.com
-        </p>
-    </footer>
+      <strong>KVK:</strong> 96433647<br>
+      <strong>Address:</strong> Den Haag<br>
+      <strong>Telephone:</strong> +31 6 36270282<br>
+      <strong>Email:</strong> info@pinterpal.com
+    </p>
+    <p>
+      <a href="/terms-coditions.php" style="color: inherit; text-decoration: none;">
+        📄 Terms &amp; Conditions
+      </a>
+    </p>
+  </footer>
 
     <!-- Eventueel aanpassen van de 'active' class logica (index.html -> index.php) -->
     <script>

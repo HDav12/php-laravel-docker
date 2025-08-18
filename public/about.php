@@ -21,7 +21,6 @@ session_start();
     </a>
   </div>
 
-  <p class="subtitle">Keep on Developing</p>
 
   <!-- Dynamische login-/signup of uitlog-knoppen -->
   <div class="login-signup">
@@ -142,6 +141,36 @@ My favorite: foods are sushi and pasta.
     </p>
     <!-- onderaan binnen <div class="team-member"> … -->
 <a href="https://www.linkedin.com/in/neo-troenopawiro-729725198/" target="_blank" rel="noopener noreferrer">
+  <img src="img/linkedin-icon.png" alt="LinkedIn profiel" class="linkedin-icon">
+</a>
+
+</div>
+    <!-- Neo -->
+    <div class="team-member">
+      <img src="img/about-ayah.png" alt="Ayah" class="team-photo">
+      <h3>Ayah</h3>
+      <p class="role">Assistant to the regional manager</p>
+      <p class="bio">
+        <Br> <Br>        <Br> <Br>
+
+Hi, I’m Aya, I’m 10 years old and I love sleeping and getting attention. I’m originally from Hungary.
+<br><br>
+A few things about me:
+<br>
+My absolute favorite activities are sleeping and eating.
+<br>
+My biggest fear is going outside when it’s raining.
+<br>
+Favorite animal: The Pigeon. I love chasing them around.
+<br>
+When it comes to food, I enjoy almost everything… but cookies are the best.
+<br>
+My biggest life lesson? If you stare at someone long enough, you’ll always get what you want.
+    <Br> <Br>
+ 
+    </p>
+    <!-- onderaan binnen <div class="team-member"> … -->
+<a href="https://www.linkedin.com/groups/1897093/" target="_blank" rel="noopener noreferrer">
   <img src="img/linkedin-icon.png" alt="LinkedIn profiel" class="linkedin-icon">
 </a>
 

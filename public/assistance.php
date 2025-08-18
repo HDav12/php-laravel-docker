@@ -93,7 +93,6 @@ session_start();
     </a>
   </div>
 
-  <p class="subtitle">at your service</p>
 
   <!-- Dynamische login-/signup of uitlog-knoppen -->
   <div class="login-signup">

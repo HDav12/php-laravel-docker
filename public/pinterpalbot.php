@@ -21,7 +21,6 @@ session_start();
     </a>
   </div>
 
-  <p class="subtitle">PinterPal bot</p>
 
   <!-- Dynamische login-/signup of uitlog-knoppen -->
   <div class="login-signup">
@@ -117,7 +116,6 @@ session_start();
 
           </div>
 
-
  <!-- Content sectie -->
 <main class="content">
     <!-- Flexbox sectie: Introductie en Pricing -->
@@ -161,7 +159,20 @@ session_start();
         </section>
     </main>
 
- 
+   <!-- Footer -->
+  <footer class="contact-info">
+    <p>
+      <strong>KVK:</strong> 96433647<br>
+      <strong>Address:</strong> Den Haag<br>
+      <strong>Telephone:</strong> +31 6 36270282<br>
+      <strong>Email:</strong> info@pinterpal.com
+    </p>
+    <p>
+      <a href="/terms-coditions.php" style="color: inherit; text-decoration: none;">
+        📄 Terms &amp; Conditions
+      </a>
+    </p>
+  </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

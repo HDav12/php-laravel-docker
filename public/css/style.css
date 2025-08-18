@@ -271,37 +271,57 @@ button:active, .no-glow-btn:active {
 }
 
 /* Navigatiebalk */
+/* ===== NAVBAR ===== */
 .navbar {
-    background-color: var(--primary-color);
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    padding: 10px 0;
-    border-top: 4px solid var(--secondary-color);
-    border-bottom: 4px solid var(--secondary-color);
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 0;
+  border-top: 4px solid var(--secondary-color);
+  border-bottom: 4px solid var(--secondary-color);
+  flex-wrap: wrap; /* voorkomt dat knoppen in elkaar schuiven op kleinere schermen */
 }
 
 .navbar a {
-    color: var(--font-color);
-    text-decoration: none;
-    font-size: 1.5vw;
-    padding: 0.5vw 1vw;
-    background-color: #6c757d;
-    border: 2px solid var(--primary-color);
-    font-weight: bold;
-    text-align: center;
-    display: inline-block;
-    border-radius: 10px;
+  color: var(--font-color);
+  text-decoration: none;
+  font-size: clamp(14px, 1.5vw, 18px); /* schaalbaar: min 14px, max 18px */
+  padding: 0.5rem 1rem;
+  background-color: #6c757d;
+  border: 2px solid var(--primary-color);
+  font-weight: bold;
+  text-align: center;
+  display: inline-block;
+  border-radius: 10px;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 body.iframe-page .navbar a.active {
-    color: #000 !important; /* Zwarte tekst voor de DEMO pagina */
+  color: #000 !important; /* Speciaal voor DEMO-pagina */
 }
 
-.navbar a:hover, .navbar a.active {
-  background-color: rgba(255,255,255,.12);
+.navbar a:hover,
+.navbar a.active {
+  background-color: rgba(255, 255, 255, 0.12);
   color: var(--font-color);
 }
+
+/* ===== MOBIEL ===== */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column; /* Zet de knoppen onder elkaar */
+    gap: 10px;
+    padding: 15px 0;
+  }
+
+  .navbar a {
+    width: 80%; /* Knoppen nemen bijna hele breedte in */
+    font-size: 16px; /* vaste goed leesbare maat */
+  }
+}
+
 
 
 
