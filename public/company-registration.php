@@ -172,7 +172,7 @@ VALUES (?,?,?,?,?,?,?,?,?,?)
         <?php endif; ?>
 
         <!-- Bedrijfsregistratieformulier -->
-        <form action="company-register.php" method="post">
+        <form action="company-registration.php" method="post">
             <!-- Bedrijfsinformatie -->
             <h3>Company Information</h3>
             <input type="text" name="company_name" placeholder="Company Name" required>
