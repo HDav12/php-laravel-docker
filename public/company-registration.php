@@ -54,8 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // 1) Users-insert (code-only id + verplichte kolommen)
                 $hashed = password_hash($password, PASSWORD_DEFAULT);
-                $genderForCompany = 'company'; // default zodat NOT NULL satisfied is
-                $ageForCompany    = 0;         // idem
+                $genderForCompany = 'company'; // NOT NULL oplossen
+                $ageForCompany    = 0;         // NOT NULL oplossen
 
                 $sqlUser = "
 INSERT INTO dbo.Users (id, user_email, [password], username, address, city, gender, age, role)
@@ -83,10 +83,14 @@ FROM dbo.Users WITH (TABLOCKX, HOLDLOCK);
                         sqlsrv_rollback($conn);
                         $error = "Kon geen gebruikers-id bepalen.";
                     } else {
-                        // 2) Companies-insert
+                        // 2) Companies-insert (code-only id + OUTPUT)
                         $sqlComp = "
-INSERT INTO dbo.Companies (user_id, company_name, company_email, contact_person, phone_number, company_address, company_city, zip_code, country, payment_plan)
-VALUES (?,?,?,?,?,?,?,?,?,?)
+INSERT INTO dbo.Companies
+    (id, user_id, company_name, company_email, contact_person, phone_number, company_address, company_city, zip_code, country, payment_plan)
+OUTPUT INSERTED.id
+SELECT
+    ISNULL(MAX(id),0)+1, ?,?,?,?,?,?,?,?,?,?
+FROM dbo.Companies WITH (TABLOCKX, HOLDLOCK);
 ";
                         $paramsComp = [ &$userId, &$companyName, &$companyEmail, &$contactPerson, &$phoneNumber, &$address, &$city, &$zipCode, &$country, &$paymentPlan ];
                         $stmtComp   = sqlsrv_prepare($conn, $sqlComp, $paramsComp);
@@ -100,11 +104,9 @@ VALUES (?,?,?,?,?,?,?,?,?,?)
                             sqlsrv_rollback($conn);
                             $error = "Fout bij opslaan van bedrijfsgegevens.";
                         } else {
-                            // Probeer company_id (werkt als Companies identity heeft)
-                            $resId = sqlsrv_query($conn, "SELECT CAST(SCOPE_IDENTITY() AS int) AS id");
-                            $idRow = $resId ? sqlsrv_fetch_array($resId, SQLSRV_FETCH_ASSOC) : null;
-                            $companyId = $idRow['id'] ?? null;
-                            if ($resId) sqlsrv_free_stmt($resId);
+                            // pak company_id uit OUTPUT
+                            $out2 = sqlsrv_fetch_array($stmtComp, SQLSRV_FETCH_NUMERIC);
+                            $companyId = $out2[0] ?? null;
                             sqlsrv_free_stmt($stmtComp);
 
                             // Commit
@@ -129,6 +131,7 @@ VALUES (?,?,?,?,?,?,?,?,?,?)
 
 // geen POST of $error -> render pagina
 ?>
+
 
 
 
