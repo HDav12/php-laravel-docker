@@ -5,7 +5,7 @@ include __DIR__ . '/database.php';
 // --- logging helpers ---
 function elog($m)
 {
-    $msg = str_replace(["\r", "\n"], ' ', (string)$m);
+    $msg = str_replace(["\r", "\n"], ' ', (string) $m);
     @file_put_contents('php://stderr', "[app] $msg\n");
     if ((getenv('APP_DEBUG_LOG') ?? '0') === '1') {
         header('X-App-Log: ' . substr($msg, 0, 180));
@@ -15,16 +15,18 @@ function hlog_post()
 {
     if ((getenv('APP_DEBUG_LOG') ?? '0') === '1') {
         foreach ($_POST as $k => $v) {
-            if (is_array($v)) $v = json_encode($v);
+            if (is_array($v))
+                $v = json_encode($v);
             $k = preg_replace('/[^A-Za-z0-9_-]/', '', $k);
-            $v = str_replace(["\r", "\n"], ' ', (string)$v);
+            $v = str_replace(["\r", "\n"], ' ', (string) $v);
             header('X-App-P-' . $k . ': ' . substr($v, 0, 120));
         }
     }
 }
 
 elog('BOOT register ' . ($_SERVER['REQUEST_METHOD'] ?? 'CLI'));
-if ($_SERVER['REQUEST_METHOD'] === 'POST') hlog_post();
+if ($_SERVER['REQUEST_METHOD'] === 'POST')
+    hlog_post();
 
 $error = '';
 $success = '';
@@ -32,21 +34,21 @@ $success = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $accountType = $_POST['account-type'] ?? '';
     if ($accountType === 'company') {
-        elog('REDIRECT company-register');
-        header('Location: /public/company-register.php');
+        elog('REDIRECT company-registration');
+        header('Location: /company-registration.php');
         exit;
     }
 
-    $email    = trim($_POST['user_email']       ?? '');
-    $password = $_POST['password']              ?? '';
-    $confirm  = $_POST['confirm_password']      ?? '';
-    $username = trim($_POST['username']         ?? '');
-    $address  = trim($_POST['address']          ?? '');
-    $city     = trim($_POST['city']             ?? '');
-    $gender   = trim($_POST['gender']           ?? '');
-    $ageRaw   = $_POST['age']                   ?? '';
-    $age      = ($ageRaw === '' ? null : (int)$ageRaw);
-    $role     = 'gebruiker';
+    $email = trim($_POST['user_email'] ?? '');
+    $password = $_POST['password'] ?? '';
+    $confirm = $_POST['confirm_password'] ?? '';
+    $username = trim($_POST['username'] ?? '');
+    $address = trim($_POST['address'] ?? '');
+    $city = trim($_POST['city'] ?? '');
+    $gender = trim($_POST['gender'] ?? '');
+    $ageRaw = $_POST['age'] ?? '';
+    $age = ($ageRaw === '' ? null : (int) $ageRaw);
+    $role = 'gebruiker';
 
     if ($email === '' || $password === '' || $confirm === '' || $age === null) {
         $error = 'Vul alle verplichte velden in.';
@@ -56,8 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         elog('VALIDATION passwords_mismatch');
     } else {
         // 1) Bestaat e-mailadres al?
-        $sqlCheck  = "SELECT 1 FROM dbo.Users WHERE user_email = ?";
-        $stmtCheck = sqlsrv_prepare($conn, $sqlCheck, [ &$email ]);
+        $sqlCheck = "SELECT 1 FROM dbo.Users WHERE user_email = ?";
+        $stmtCheck = sqlsrv_prepare($conn, $sqlCheck, [&$email]);
         if ($stmtCheck === false) {
             elog('prepare check FAILED: ' . print_r(sqlsrv_errors(), true));
             $error = 'Database fout (prepare check).';
@@ -84,7 +86,7 @@ OUTPUT INSERTED.id
 SELECT ISNULL(MAX(id),0)+1, ?,?,?,?,?,?,?,?
 FROM dbo.Users WITH (TABLOCKX, HOLDLOCK);
 ";
-                $paramsIns = [ &$email, &$hashed, &$username, &$address, &$city, &$gender, &$age, &$role ];
+                $paramsIns = [&$email, &$hashed, &$username, &$address, &$city, &$gender, &$age, &$role];
                 $stmtIns = sqlsrv_prepare($conn, $sqlIns, $paramsIns);
 
                 if ($stmtIns === false) {
@@ -97,7 +99,7 @@ FROM dbo.Users WITH (TABLOCKX, HOLDLOCK);
                     $error = 'Fout bij aanmaken account.';
                 } else {
                     // haal nieuwe id uit OUTPUT INSERTED.id
-                    $out    = sqlsrv_fetch_array($stmtIns, SQLSRV_FETCH_NUMERIC);
+                    $out = sqlsrv_fetch_array($stmtIns, SQLSRV_FETCH_NUMERIC);
                     $userId = $out[0] ?? null;
                     sqlsrv_free_stmt($stmtIns);
 
@@ -106,9 +108,9 @@ FROM dbo.Users WITH (TABLOCKX, HOLDLOCK);
 
                     // 3) Sessions + redirect
                     $_SESSION['user_logged_in'] = true;
-                    $_SESSION['user_email']     = $email;
-                    $_SESSION['user_id']        = $userId;
-                    $_SESSION['user_role']      = $role;
+                    $_SESSION['user_email'] = $email;
+                    $_SESSION['user_id'] = $userId;
+                    $_SESSION['user_role'] = $role;
 
                     elog("REGISTER OK email=$email id=" . ($userId ?? 'null'));
                     sqlsrv_close($conn);
@@ -306,10 +308,11 @@ sqlsrv_close($conn);
                     if (currentStep === 0 && chosen) {
                         document.getElementById('accountTypeHidden').value = chosen.value;
                         if (chosen.value === 'company') {
-                            window.location.href = '/public/company-register.php';
+                            window.location.href = '/company-registration.php';
                             return;
                         }
                     }
+
                     steps[currentStep].classList.remove('active');
                     currentStep++;
                     steps[currentStep].classList.add('active');

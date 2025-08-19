@@ -2,87 +2,132 @@
 session_start();
 include __DIR__ . '/database.php';
 
+function elog($m){
+    $msg = str_replace(["\r","\n"], ' ', (string)$m);
+    @file_put_contents('php://stderr', "[app] $msg\n");
+}
+
 $error = '';
 $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Gegevens ophalen uit formulier
-    $companyName   = $_POST['company_name'] ?? '';
-    $companyEmail  = $_POST['company_email'] ?? '';
-    $contactPerson = $_POST['contact_person'] ?? '';
-    $phoneNumber   = $_POST['phone_number'] ?? '';
-    $address       = $_POST['company_address'] ?? '';
-    $city          = $_POST['company_city'] ?? '';
-    $zipCode       = $_POST['zip_code'] ?? '';
-    $country       = $_POST['country'] ?? '';
-    $paymentPlan   = $_POST['payment_plan'] ?? 'basic';
-    $password      = $_POST['password'] ?? '';
-    $confirm       = $_POST['confirm_password'] ?? '';
+    $companyName   = trim($_POST['company_name']   ?? '');
+    $companyEmail  = trim($_POST['company_email']  ?? '');
+    $contactPerson = trim($_POST['contact_person'] ?? '');
+    $phoneNumber   = trim($_POST['phone_number']   ?? '');
+    $address       = trim($_POST['company_address']?? '');
+    $city          = trim($_POST['company_city']   ?? '');
+    $zipCode       = trim($_POST['zip_code']       ?? '');
+    $country       = trim($_POST['country']        ?? '');
+    $paymentPlan   = trim($_POST['payment_plan']   ?? 'basic');
+    $password      =        $_POST['password']     ?? '';
+    $confirm       =        $_POST['confirm_password'] ?? '';
     $role          = 'company';
 
     // Validatie
-    if (
-        empty($companyName) || empty($companyEmail) || empty($contactPerson) ||
-        empty($phoneNumber) || empty($address) || empty($city) ||
-        empty($zipCode) || empty($country) || empty($password) || empty($confirm)
-    ) {
+    if ($companyName==='' || $companyEmail==='' || $contactPerson==='' ||
+        $phoneNumber==='' || $address==='' || $city==='' ||
+        $zipCode==='' || $country==='' || $password==='' || $confirm==='') {
         $error = "Vul alle verplichte velden in.";
     } elseif (!filter_var($companyEmail, FILTER_VALIDATE_EMAIL)) {
         $error = "Voer een geldig e-mailadres in.";
     } elseif ($password !== $confirm) {
         $error = "Wachtwoorden komen niet overeen.";
     } else {
-        // Check of e-mailadres al bestaat
-        $sqlCheck = "SELECT * FROM users WHERE user_email = ?";
-        $stmt = $conn->prepare($sqlCheck);
-        $stmt->bind_param("s", $companyEmail);
-        $stmt->execute();
-        $resultCheck = $stmt->get_result();
-
-        if ($resultCheck->num_rows > 0) {
-            $error = "Dit e-mailadres is al geregistreerd.";
+        // Bestaat het e-mailadres al in Users?
+        $sqlCheck  = "SELECT 1 FROM dbo.Users WHERE user_email = ?";
+        $stmtCheck = sqlsrv_prepare($conn, $sqlCheck, [ &$companyEmail ]);
+        if ($stmtCheck === false) {
+            elog('company CHECK prepare FAIL '.print_r(sqlsrv_errors(),true));
+            $error = "Database fout (prepare check).";
+        } elseif (!sqlsrv_execute($stmtCheck)) {
+            elog('company CHECK execute FAIL '.print_r(sqlsrv_errors(),true));
+            $error = "Database fout (execute check).";
         } else {
-            // Versleutel wachtwoord
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $exists = sqlsrv_fetch_array($stmtCheck, SQLSRV_FETCH_NUMERIC) ? true : false;
+            sqlsrv_free_stmt($stmtCheck);
 
-            // Voeg gebruiker toe aan 'users'
-            $sqlUserInsert = "
-                INSERT INTO users (user_email, password, username, address, city, role)
-                VALUES (?, ?, ?, ?, ?, ?)
-            ";
-            $stmtUser = $conn->prepare($sqlUserInsert);
-            $stmtUser->bind_param("ssssss", $companyEmail, $hashedPassword, $companyName, $address, $city, $role);
-
-            if ($stmtUser->execute()) {
-                $userId = $conn->insert_id;
-
-                // Voeg bedrijfsgegevens toe aan 'companies'
-                $sqlCompanyInsert = "
-                    INSERT INTO companies (user_id, company_name, company_email, contact_person, phone_number, company_address, company_city, zip_code, country, payment_plan)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                ";
-                $stmtCompany = $conn->prepare($sqlCompanyInsert);
-                $stmtCompany->bind_param("isssssssss", $userId, $companyName, $companyEmail, $contactPerson, $phoneNumber, $address, $city, $zipCode, $country, $paymentPlan);
-
-                if ($stmtCompany->execute()) {
-                    // Log company user direct in
-                    $_SESSION['user_logged_in'] = true;
-                    $_SESSION['user_email'] = $companyEmail;
-                    $_SESSION['user_id'] = $userId;
-                    $_SESSION['user_role'] = $role;
-
-                    header("Location: payment.php?company_id=" . $conn->insert_id . "&plan=" . $paymentPlan);
-                    exit;
-                } else {
-                    $error = "Fout bij opslaan van bedrijfsgegevens: " . $Smpany->error;
-                }
+            if ($exists) {
+                $error = "Dit e-mailadres is al geregistreerd.";
             } else {
-                $error = "Fout bij aanmaken gebruikersaccount: " . $stmtUser->error;
+                // Transactie starten
+                sqlsrv_begin_transaction($conn);
+
+                // 1) Gebruiker aanmaken in Users met computed id (code-only fix)
+                $hashed = password_hash($password, PASSWORD_DEFAULT);
+                $sqlUser = "
+INSERT INTO dbo.Users (id, user_email, [password], username, address, city, role)
+OUTPUT INSERTED.id
+SELECT ISNULL(MAX(id),0)+1, ?,?,?,?,?,?
+FROM dbo.Users WITH (TABLOCKX, HOLDLOCK);
+";
+                $paramsUser = [ &$companyEmail, &$hashed, &$companyName, &$address, &$city, &$role ];
+                $stmtUser   = sqlsrv_prepare($conn, $sqlUser, $paramsUser);
+
+                if ($stmtUser === false) {
+                    elog('company USER prepare FAIL '.print_r(sqlsrv_errors(),true));
+                    sqlsrv_rollback($conn);
+                    $error = "Database fout (prepare user).";
+                } elseif (!sqlsrv_execute($stmtUser)) {
+                    elog('company USER execute FAIL '.print_r(sqlsrv_errors(),true));
+                    sqlsrv_rollback($conn);
+                    $error = "Fout bij aanmaken gebruikersaccount.";
+                } else {
+                    $out    = sqlsrv_fetch_array($stmtUser, SQLSRV_FETCH_NUMERIC);
+                    $userId = $out[0] ?? null;
+                    sqlsrv_free_stmt($stmtUser);
+
+                    if (!$userId) {
+                        sqlsrv_rollback($conn);
+                        $error = "Kon geen gebruikers-id bepalen.";
+                    } else {
+                        // 2) Company rij toevoegen (we gaan uit van identity op Companies; anders geen company_id)
+                        $sqlComp = "
+INSERT INTO dbo.Companies (user_id, company_name, company_email, contact_person, phone_number, company_address, company_city, zip_code, country, payment_plan)
+VALUES (?,?,?,?,?,?,?,?,?,?)
+";
+                        $paramsComp = [ &$userId, &$companyName, &$companyEmail, &$contactPerson, &$phoneNumber, &$address, &$city, &$zipCode, &$country, &$paymentPlan ];
+                        $stmtComp   = sqlsrv_prepare($conn, $sqlComp, $paramsComp);
+
+                        if ($stmtComp === false) {
+                            elog('company COMP prepare FAIL '.print_r(sqlsrv_errors(),true));
+                            sqlsrv_rollback($conn);
+                            $error = "Database fout (prepare company).";
+                        } elseif (!sqlsrv_execute($stmtComp)) {
+                            elog('company COMP execute FAIL '.print_r(sqlsrv_errors(),true));
+                            sqlsrv_rollback($conn);
+                            $error = "Fout bij opslaan van bedrijfsgegevens.";
+                        } else {
+                            // Probeer company_id via SCOPE_IDENTITY (werkt als Companies een identity PK heeft)
+                            $resId = sqlsrv_query($conn, "SELECT CAST(SCOPE_IDENTITY() AS int) AS id");
+                            $idRow = $resId ? sqlsrv_fetch_array($resId, SQLSRV_FETCH_ASSOC) : null;
+                            $companyId = $idRow['id'] ?? null;
+                            if ($resId) sqlsrv_free_stmt($resId);
+                            sqlsrv_free_stmt($stmtComp);
+
+                            // Alles ok -> commit
+                            sqlsrv_commit($conn);
+
+                            // Login + redirect
+                            $_SESSION['user_logged_in'] = true;
+                            $_SESSION['user_email']     = $companyEmail;
+                            $_SESSION['user_id']        = $userId;
+                            $_SESSION['user_role']      = $role;
+
+                            // Fallback: als geen companyId, gebruik userId in de url
+                            $cid = $companyId ?? $userId;
+
+                            header("Location: /payment.php?company_id={$cid}&plan={$paymentPlan}", true, 302);
+                            exit;
+                        }
+                    }
+                }
             }
         }
     }
-    
 }
+
+// Geen POST of er was een $error -> pagina tonen met evt. foutmelding
 ?>
 
 
