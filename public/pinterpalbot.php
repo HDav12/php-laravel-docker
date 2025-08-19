@@ -11,18 +11,22 @@ session_start();
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="header">
-        <a href="index.php">
-            <h1>PINTERPAL</h1>
-            
-        </a>
-        <p class="subtitle">PinterPal Bot</p>
-        <div class="login-signup">
-            <!-- Dynamische login/signup of uitlog-knoppen -->
-            <?php include 'navbar.php'; ?>
-            <img src="img/pinterpal-header.png" alt="PinterPal Logo" class="header-logo">
-        </div>
-    </div>
+  
+<!-- Header -->
+<header class="header">
+  <div class="logo-wrap">
+    <img src="img/pinterpal-header.png" alt="PinterPal Logo" class="header-logo">
+    <a href="index.php" class="logo-boven">
+      <img src="img/PINTERPAL-wordmark.png" alt="PINTERPAL">
+    </a>
+  </div>
+
+
+  <!-- Dynamische login-/signup of uitlog-knoppen -->
+  <div class="login-signup">
+    <?php include 'navbar.php'; ?>
+  </div>
+</header>
 
     <!-- Navigatiebalk -->
    <nav class="navbar">
@@ -34,41 +38,7 @@ session_start();
         <a href="about.php">ABOUT US</a>
     </nav>
 
-<div class="content">
-        <div class="intro">
-            <h2>"PinterPal: Your go-to assistant for understanding online shoppers' wants and needs, offering expert assistance across almost all categories</h2>
-            <p>___________________________________________________________________________________________________________________________________________________________</p>
-            <p>
-            <strong style="font-size: 24px;">The Problem:</strong><br><br>
-                Webshop owners face the challenge of converting visitors into customers. Many shoppers get overwhelmed by too many choices...
-            </p>
-            <br>
-            <p>
-            <strong style="font-size: 24px;">The Solution:</strong><br><br>
-            PinterPal is your smart assistant, designed to guide customers effortlessly through their shopping journey:
-            </p>
-            <ul><br>
-                <li><strong>Personalize the experience</strong> with tailored product recommendations.</li>
-                <li><strong>Boost conversions</strong> by making it easier for customers to find what they need.</li>
-                <li><strong>Save time</strong> by automating product suggestions based on customer input.</li>
-            </ul>
-            <br>
-            <p>Seamlessly integrated into your webshop, PinterPal turns indecisive visitors into loyal buyers...</p>
-            <p><strong>Take your webshop to the new Era.</strong></p>
-            <br>
-            <p>Push the button and upgrade your website!</p>
-            <p>___________________________________________________________________________________________________________________________________________________________</p>
-
-            <!-- Start-knop -->
-            <button class="start-trial-btn" onclick="window.location.href='company-registration.php'">
-                Start Now
-            </button>
-        </div>
-
-
-
-          </div>
-
+<br><br><br>
 <div class="image-row">
   <div class="image-container2">
     <p class="image-text">1. Open Widget</p>
@@ -87,34 +57,90 @@ session_start();
   </div>
 </div>
 
+<div class="content">
+  <div class="intro">
 
+    <h2>
+      Make every webshop feel like a helpful shop assistant —
+      asking the right questions.
+    </h2>
+    <br>
 
-
-
-    <!-- Content sectie -->
-    <main class="content">
-        <!-- Flexbox sectie: Introductie en Pricing -->
-        <section class="info-section">
-            <!-- Introductie sectie -->
-            <div class="intro">
-                <h2>PinterPal Bot Explained</h2>
-                <br>
-                <p>
-        Our product is an intelligent widget designed to help <strong>website visitors</strong> find the perfect product match through a personalized questionnaire. This widget, which can be integrated into wenshops via an API (offered as a monthly subscription), guides <strong>website visitors</strong> step-by-step through a tailored set of questions about their specific needs and preferences.
-    </p>
-<br>
-    <p>
-        The questionnaire, typically between 5-10 questions, adapts dynamically based on each <strong>website visitor’s</strong> responses, leading them to the product(s) that best meet their criteria. For instance, if a <strong>website visitor</strong> is searching for a vacuum cleaner, the widget will ask targeted questions—such as whether they prefer a cordless model, quiet operation, bagless design, affordability, and more. By understanding these preferences, the widget narrows down the options to present the best-suited products.
+    <p class="lead">
+      Stop scrolling. Start finding.<br>
+      Guided selling powered by your existing product data — zero extra maintenance.
     </p>
 
-    <p>
-        Our AI-driven system generates these questions using data from the webshop itself, including product descriptions, specifications, and other relevant details that can be found on the website. This makes the experience highly customized, with each survey tailored to the unique offerings and inventory of the business.
+    <br><br>
+
+    <p><strong style="font-size:24px;">The Problem:</strong><br><br>
+      Choice overload kills conversion. Visitors bounce because search is generic and filters feel like work.
     </p>
-<br>
-    <p>
-        Whether it’s electronics, home goods, vacations, or other categories, the widget provides a seamless, guided shopping experience that benefits both the <strong>website visitor</strong> and the retailer.
+
+    <br>
+
+    <p><strong style="font-size:24px;">The Solution:</strong><br><br>
+      PinterPal guides shoppers through 4–8 dynamic questions and instantly ranks the best-fit products —
+      with clear reasons they can trust.
     </p>
-            </div>
+
+    <br>
+
+    <ul>
+      <li><strong>Boost conversion</strong> with real-time, personalized recommendations.</li>
+      <li><strong>Reduce drop-off</strong> by making shopping simple and intuitive.</li>
+      <li><strong>Cut support load</strong> — shoppers choose confidently on their own.</li>
+      <li><strong>Plug &amp; play</strong> — API-ready for Shopify, WooCommerce, and custom stacks.</li>
+    </ul>
+
+    <br>
+
+    <p>GDPR-first · No PII stored · EU hosting options</p>
+
+    <br>
+
+    <p><strong>Ready to level up your webshop?</strong><br>
+       Click below and try it for yourself!
+    </p>
+
+    <br>
+        <!-- Start-knop -->
+        <button class="start-trial-btn" onclick="window.location.href='company-registration.php'">
+            Start Now
+        </button>
+    </div>
+</div>
+
+
+
+
+          </div>
+
+ <!-- Content sectie -->
+<main class="content">
+    <!-- Flexbox sectie: Introductie en Pricing -->
+    <section class="info-section">
+        <!-- Introductie sectie -->
+        <div class="intro">
+            <h2>What Is the PinterPal Bot?</h2>
+            <br>
+            <p>
+                PinterPal is a smart widget that helps your webshop visitors find their ideal product — fast. With a short, personalized questionnaire, the bot guides shoppers step-by-step to the product that fits their exact needs.
+            </p>
+            <br>
+            <p>
+                Whether they’re looking for a vacuum cleaner or a vacation, etc. The bot asks smart, dynamic questions based on your product range. For example: cordless or not? Budget-friendly? Silent? Thanks to AI, each shopper gets tailored suggestions that match their preferences.
+            </p>
+            <br>
+            <p>
+                The best part? The questions are auto-generated using your own product data — descriptions, specs, and details already on your site. No extra input needed from your side.
+            </p>
+            <br>
+            <p>
+                Seamlessly integrated via API and offered as a monthly subscription, PinterPal delivers a smoother shopping experience, reduces support questions, and increases conversion — across any product category.
+            </p>
+        </div>
+
 
         <!-- Pricing Info sectie -->
 <div class="pricing-info">
@@ -123,7 +149,7 @@ session_start();
     <div class="start-trial-container">
         <img src="img/pinterpal-start-trial.jpg" alt="Start trial icon" class="start-trial-img">
         <div class="start-trial-text-button">
-            <p>€ 29,9 Per month</p>
+            <p>€ 29,90 Per month</p>
             <br>
             <button class="start-trial-btn" onclick="window.location.href='company-registration.php'">Start Now</button>
         </div>
@@ -133,7 +159,20 @@ session_start();
         </section>
     </main>
 
- 
+   <!-- Footer -->
+  <footer class="contact-info">
+    <p>
+      <strong>KVK:</strong> 96433647<br>
+      <strong>Address:</strong> Den Haag<br>
+      <strong>Telephone:</strong> +31 6 36270282<br>
+      <strong>Email:</strong> info@pinterpal.com
+    </p>
+    <p>
+      <a href="/terms-coditions.php" style="color: inherit; text-decoration: none;">
+        📄 Terms &amp; Conditions
+      </a>
+    </p>
+  </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

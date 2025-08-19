@@ -35,33 +35,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
     <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-<div class="header">
-        <a href="index.php">
-            <h1>PINTERPAL</h1>
-        </a>
-        <div class="login-signup">
-            <!-- Dynamische login/signup of uitlog-knoppen -->
-            <?php include 'navbar.php'; ?>
-            <img src="img/pinterpal-header.png" alt="PinterPal Logo" class="header-logo">
-        </div>
+
+<!-- Header -->
+<header class="header">
+  <div class="logo-wrap">
+    <img src="img/pinterpal-header.png" alt="PinterPal Logo" class="header-logo">
+    <a href="index.php" class="logo-boven">
+      <img src="img/PINTERPAL-wordmark.png" alt="PINTERPAL">
+    </a>
+  </div>
+
+     <!-- MIDDEN: Start Now -->
+    <div class="header-cta">
+      <button class="start-trial-btn" onclick="window.location.href='/company-registration.php'">
+        Start Now
+      </button>
     </div>
 
+  <!-- Dynamische login-/signup of uitlog-knoppen -->
+  <div class="login-signup">
+    <?php include 'navbar.php'; ?>
+  </div>
+</header>
 
-    <!-- Navigatiebalk -->
-    <nav class="navbar">
-        <a href="index.php">HOME</a>
-        <a href="pinterpalbot.php" class="active">PINTERPAL BOT</a>
-        <a href="iframe.php">DEMO</a>
-        <a href="pricing.php">PRICING</a>
-        <a href="assistance.php">ASSISTANCE</a>
-        <a href="about.php">ABOUT US</a>
-    </nav>
+
+    
+<!-- Navigatiebalk -->
+<nav class="navbar" aria-label="Hoofdnavigatie">
+  <a href="index.php" class="active">HOME</a>
+  <a href="pinterpalbot.php">PINTERPAL BOT</a>
+  <a href="iframe.php">DEMO</a>
+  <a href="pricing.php">PRICING</a>
+  <a href="assistance.php">ASSISTANCE</a>
+  <a href="about.php">ABOUT US</a>
+</nav>
     
    <div class="content">
   <section class="intro4">
     <div class="intro-flex">
 
-    <h2>Trust PinterPal, the first Ai tool that gets your customers right to THEIR ultimate products! ⬇️</h2>
+    <h2>Help visitors find what they want in minutes. PinterPal asks the right questions and surfaces the right products—powered by your catalog</h2>
     </div>
 <!-- Container die video + knop onder elkaar zet -->
 <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
@@ -77,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
     class="promo-video"
     style="width: 100%; max-width: 1000px; height: auto; cursor: pointer;"
   >
-    <source src="videos/demo-pinterpal.mp4" type="video/mp4" />
+    <source src="videos/demo-pinterpal-1.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
 </div>
@@ -135,6 +148,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
     </button>
   </div>
 
+
+
 </div>
 
 
@@ -144,47 +159,75 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
 
 
 
-        <div class="feedback-news-container">
-    <!-- Feedback sectie -->
-    <div class="feedback">
+ <div class="feedback-news-container feedback-news-onepager-container">
+
+  <!-- Feedback -->
+  <div class="feedback">
     <h3>Share your feedback / thoughts with us</h3>
     <?php if ($successMessage): ?>
-        <p class="success-message"><?= $successMessage ?></p>
+      <p class="success-message"><?= $successMessage ?></p>
     <?php elseif ($errorMessage): ?>
-        <p class="error-message"><?= $errorMessage ?></p>
+      <p class="error-message"><?= $errorMessage ?></p>
     <?php endif; ?>
 
     <form class="feedback-form" action="" method="POST">
-        <textarea name="feedback" placeholder="Write your feedback here..." required></textarea>
-        <button type="submit">Submit Feedback</button>
+      <textarea name="feedback" placeholder="Write your feedback here..." required></textarea>
+      <button type="submit">Submit Feedback</button>
     </form>
+  </div>
+
+  <!-- News (anchor zelf is de tile, zodat flex-styling werkt) -->
+  <a href="newspage.php" class="news" style="text-decoration:none; color:inherit; cursor:pointer;" rel="noopener">
+    <h3>News</h3>
+    <img class="news-gif"
+         src="https://digiday.com/wp-content/uploads/sites/3/2024/02/robot-newspaper-digiday.gif"
+         alt="News GIF">
+  </a>
+
+  <!-- One-pager -->
+  <div class="onepager">
+    <h3>PinterPal One-Pager</h3>
+    <p>Quick overview of PinterPal’s value, features, and pricing.</p>
+
+    <!-- Optionele preview -->
+    <!-- <img src="/assets/onepager-preview.png" alt="PinterPal One-Pager preview" class="onepager-preview"> -->
+
+  <div class="onepager-actions">
+  <a class="btn-onepager"
+     href="/assets/PinterPal-one-pager.docx"
+     download="PinterPal-one-pager.docx"
+     type="application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+    Download One-Pager (DOCX)
+  </a>
+  </a>
 </div>
 
 
-        
-            <!-- News sectie -->
-<a href="newspage.php" style="text-decoration: none; color: inherit;">
-    <div class="news" style="cursor: pointer;">
-        <h3>News</h3>
-        <img class="news-gif" 
-             src="https://digiday.com/wp-content/uploads/sites/3/2024/02/robot-newspaper-digiday.gif"
-             alt="News GIF">
-    </div>
-</a>
+    <small class="onepager-meta">Updated: Aug 2025 • 1 page • PDF</small>
+  </div>
+
+</div>
+
 
 
         </div>
        
     </div>
 
-    <footer class="contact-info">
+     <!-- Footer -->
+  <footer class="contact-info">
     <p>
-            <strong>KVK:</strong> 96433647<br>
-            <strong>Address:</strong> Den Haag<br>
-            <strong>Telephone:</strong> Your Phone Number<br>
-            <strong>Email:</strong> info@pinterpal.com
-        </p>
-    </footer>
+      <strong>KVK:</strong> 96433647<br>
+      <strong>Address:</strong> Den Haag<br>
+      <strong>Telephone:</strong> +31 6 36270282<br>
+      <strong>Email:</strong> info@pinterpal.com
+    </p>
+    <p>
+      <a href="/terms-coditions.php" style="color: inherit; text-decoration: none;">
+        📄 Terms &amp; Conditions
+      </a>
+    </p>
+  </footer>
 
     <!-- Eventueel aanpassen van de 'active' class logica (index.html -> index.php) -->
     <script>

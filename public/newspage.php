@@ -56,11 +56,22 @@ session_start();
     <div class="header">
         <a href="index.php">
         <img src="img/pinterpal-header.png" alt="PinterPal Logo" class="header-logo">
-            <h1>PINTERPAL</h1>
+             <h1 class="logo-boven">
+            <img src="img/PINTERPAL-wordmark.png" alt="PINTERPAL">
+            </h1>
 
         </a>
+        
     </div>
-
+  <nav class="navbar">
+        <a href="index.php">HOME</a>
+        <a href="newspage.php" class="active">NEWS</a>
+        <a href="pinterpalbot.php">PINTERPAL BOT</a>
+        <a href="iframe.php">DEMO</a>
+        <a href="pricing.php">PRICING</a>
+        <a href="assistance.php">ASSISTANCE</a>
+        <a href="about.php">ABOUT US</a>
+    </nav>
     <div class="news-page-container">
         <h2>Latest News</h2>
 
@@ -80,7 +91,7 @@ session_start();
     <a href="article2.php" style="text-decoration: none; color: inherit;">
         <h3 style="text-align: center;">Values Towards Our Retailers</h3>
         <p style="text-align: center;">We’ve partnered with retailers to bring you a more personalized and seamless shopping experience.</p>
-        <img src="img/values-retail.png" alt="Values Towards Retailers" style="width: 100%; border-radius: 10px;">
+        <img src="img/retailers.png" alt="Values Towards Retailers" style="width: 100%; border-radius: 10px;">
     </a>
 </div>
 
@@ -89,7 +100,7 @@ session_start();
     <a href="article1.php" style="text-decoration: none; color: inherit;">
         <h3 style="text-align: center;">Value Towards Customers</h3>
         <p style="text-align: center;">Our latest AI-powered shopping assistant is now live! Discover how it enhances your shopping experience.</p>
-        <img src="img/values-webshop-visitor.png" alt="Value Towards Customers" style="width: 100%; border-radius: 10px;">
+        <img src="img/customer-value.png" alt="Value Towards Customers" style="width: 100%; border-radius: 10px;">
     </a>
 </div>
 

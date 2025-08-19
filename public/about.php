@@ -11,18 +11,22 @@ session_start();
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="header">
-        <a href="index.php">
-            <h1>PINTERPAL</h1>
-        </a>
-        <p class="subtitle">Keep on Developing.</p>
-        
-        <!-- Dynamische login-/signup of uitlogknoppen -->
-        <div class="login-signup">
-            <?php include 'navbar.php'; ?>
-            <img src="img/pinterpal-header.png" alt="PinterPal Logo" class="header-logo">
-        </div>
-    </div>
+  
+<!-- Header -->
+<header class="header">
+  <div class="logo-wrap">
+    <img src="img/pinterpal-header.png" alt="PinterPal Logo" class="header-logo">
+    <a href="index.php" class="logo-boven">
+      <img src="img/PINTERPAL-wordmark.png" alt="PINTERPAL">
+    </a>
+  </div>
+
+
+  <!-- Dynamische login-/signup of uitlog-knoppen -->
+  <div class="login-signup">
+    <?php include 'navbar.php'; ?>
+  </div>
+</header>
 
     <nav class="navbar">
         <a href="index.php">HOME</a>
@@ -140,23 +144,51 @@ My favorite: foods are sushi and pasta.
   <img src="img/linkedin-icon.png" alt="LinkedIn profiel" class="linkedin-icon">
 </a>
 
+</div>
+    <!-- Neo -->
+    <div class="team-member">
+      <img src="img/about-ayah.png" alt="Ayah" class="team-photo">
+      <h3>Ayah</h3>
+      <p class="role">Assistant to the regional manager</p>
+      <p class="bio">
+        <Br> <Br>        <Br> <Br>
+
+Hi, I’m Aya, I’m 10 years old and I love sleeping and getting attention. I’m originally from Hungary.
+<br><br>
+A few things about me:
+<br>
+My absolute favorite activities are sleeping and eating.
+<br>
+My biggest fear is going outside when it’s raining.
+<br>
+Favorite animal: The Pigeon. I love chasing them around.
+<br>
+When it comes to food, I enjoy almost everything… but cookies are the best.
+<br>
+My biggest life lesson? If you stare at someone long enough, you’ll always get what you want.
+    <Br> <Br>
+ 
+    </p>
+    <!-- onderaan binnen <div class="team-member"> … -->
+<a href="https://www.linkedin.com/groups/1897093/" target="_blank" rel="noopener noreferrer">
+  <img src="img/linkedin-icon.png" alt="LinkedIn profiel" class="linkedin-icon">
+</a>
+
     </div>
     <!-- Dion -->
     <div class="team-member">
       <img src="img/about-dion.png" alt="Dion Westeneng" class="team-photo">
       <h3>Dion Westeneng</h3>
       <p class="role">Developer & Head of Security</p>
-      <p class="bio">
-        Dion werkt aan de front‑end en user experience. Dankzij hem ziet de widget er niet alleen goed uit, maar reageert ‘ie ook super snel.
-    <Br> <Br>
-Biggest fear: flying insects
-<Br>
-Favorite animals: dog and duck
-<Br>
-Biggest life lesson: you’re the maker of your own life
-<Br>
-Favorite foods: teppanyaki / döner / chicken chicharon 
-    </p>
+     <p class="bio">
+  Dion (26, Baarn) ships the front-end and guards our stack. ICT graduate with almost 5 years in the security domain — he makes PinterPal fast, safe, and smooth.<br><br>
+  Loves: techno & house, the gym, a good party, and riding motorcycles.<br><br>
+  Biggest fear: the day Pegassi stops making music.<br>
+  Favorite animal: cat.<br>
+  Biggest life lesson: always keep smiling.<br>
+  Favorite foods: tapas.
+</p>
+
     <!-- onderaan binnen <div class="team-member"> … -->
 <a href="https://www.linkedin.com/in/dion-westeneng-7b729b16a/" target="_blank" rel="noopener noreferrer">
   <img src="img/linkedin-icon.png" alt="LinkedIn profiel" class="linkedin-icon">
@@ -215,6 +247,8 @@ My favorite food has to be pizza, because you can do anything with it depending 
                 }
             });
         });
+
     </script>
+
 </body>
 </html>

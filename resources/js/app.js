@@ -30,3 +30,23 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
 });
+
+const btn = document.getElementById('checkoutBtn');
+btn?.addEventListener('click', async () => {
+  btn.disabled = true;
+  try {
+    const res = await fetch('/api/payments', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount: '10.00', description: 'Bestelling #123', orderId: '123' })
+    });
+    const { checkoutUrl } = await res.json();
+    window.location.href = checkoutUrl;
+  } catch (e) {
+    console.error(e);
+    alert('Betaling starten faalde, probeer opnieuw.');
+  } finally {
+    btn.disabled = false;
+  }
+});
+

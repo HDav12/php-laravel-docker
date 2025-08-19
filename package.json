@@ -24,5 +24,9 @@
     },
     "resolutions": {
         "laravel-mix/webpack/terser-webpack-plugin/cacache/ssri": "^6.0.2"
+    },
+    "dependencies": {
+        "@mollie/api-client": "^4.3.3",
+        "express": "^5.1.0"
     }
 }

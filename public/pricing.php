@@ -11,18 +11,22 @@ session_start();
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Header -->
-    <div class="header">
-        <a href="index.php">
-            <h1>PINTERPAL</h1>
-        </a>
-        <p class="subtitle">Prepare your webshop for the new era.</p>
-        <div class="login-signup">
-            <!-- Dynamische navbar importeren -->
-            <?php include 'navbar.php'; ?>
-            <img src="img/pinterpal-header.png" alt="PinterPal Logo" class="header-logo">
-        </div>
-    </div>
+    
+<!-- Header -->
+<header class="header">
+  <div class="logo-wrap">
+    <img src="img/pinterpal-header.png" alt="PinterPal Logo" class="header-logo">
+    <a href="index.php" class="logo-boven">
+      <img src="img/PINTERPAL-wordmark.png" alt="PINTERPAL">
+    </a>
+  </div>
+
+ 
+  <!-- Dynamische login-/signup of uitlog-knoppen -->
+  <div class="login-signup">
+    <?php include 'navbar.php'; ?>
+  </div>
+</header>
 
     <!-- Navigatiebalk -->
     <nav class="navbar">
@@ -37,12 +41,15 @@ session_start();
     
     
     <!-- Content -->
-    <main class="content">
-        <!-- Pricing Intro Section -->
-        <section class="intro3">
-            <h2>Choose the Right Plan for You</h2>
-            <p>We offer flexible plans designed to cater to different needs. Whether you're a small, concentrated business or an enterprise, PinterPal has the perfect plan for you. Browse our options and select the one that fits your needs.</p>
-        </section>
+<main class="content">
+    <!-- Pricing Intro Section -->
+    <section class="intro3">
+        <h2>Take your e-commerce store to the next level</h2>
+
+        <p>Currently working on adittional plans...</p>
+     
+    </section>
+
 
         <div class="gif-container">
   <img
@@ -72,20 +79,20 @@ session_start();
         </section>
     </main>
 
-    <!-- Footer -->
-   <footer class="contact-info">
-  <p>
-    <strong>KVK:</strong> 96433647<br>
-    <strong>Address:</strong> Den Haag<br>
-    <strong>Telephone:</strong> Your Phone Number<br>
-    <strong>Email:</strong> info@pinterpal.com
-  </p>
-  <p>
-    <a href="/terms-coditions.php" style="color: inherit; text-decoration: none;">
-      📄 Terms &amp; Conditions
-    </a>
-  </p>
-</footer>
+      <!-- Footer -->
+  <footer class="contact-info">
+    <p>
+      <strong>KVK:</strong> 96433647<br>
+      <strong>Address:</strong> Den Haag<br>
+      <strong>Telephone:</strong> +31 6 36270282<br>
+      <strong>Email:</strong> info@pinterpal.com
+    </p>
+    <p>
+      <a href="/terms-coditions.php" style="color: inherit; text-decoration: none;">
+        📄 Terms &amp; Conditions
+      </a>
+    </p>
+  </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
