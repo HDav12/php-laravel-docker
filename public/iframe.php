@@ -121,7 +121,7 @@ session_start();
 <nav class="navbar" aria-label="Hoofdnavigatie">
   <a href="index.php">HOME</a>
   <a href="pinterpalbot.php">PINTERPAL BOT</a>
-  <a href="iframe.php" class="active">DEMO</a>
+  <a href="iframe.php" class="active">TRY ME</a>
   <a href="pricing.php">PRICING</a>
   <a href="assistance.php">ASSISTANCE</a>
   <a href="about.php">ABOUT US</a>

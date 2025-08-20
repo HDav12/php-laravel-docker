@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
 <nav class="navbar" aria-label="Hoofdnavigatie">
   <a href="index.php" class="active">HOME</a>
   <a href="pinterpalbot.php">PINTERPAL BOT</a>
-  <a href="iframe.php">DEMO</a>
+  <a href="iframe.php">TRY ME</a>
   <a href="pricing.php">PRICING</a>
   <a href="assistance.php">ASSISTANCE</a>
   <a href="about.php">ABOUT US</a>

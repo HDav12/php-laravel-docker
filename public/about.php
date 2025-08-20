@@ -31,7 +31,7 @@ session_start();
     <nav class="navbar">
         <a href="index.php">HOME</a>
         <a href="pinterpalbot.php" class="active">PINTERPAL BOT</a>
-        <a href="iframe.php">DEMO</a>
+        <a href="iframe.php">TRY ME</a>
         <a href="pricing.php">PRICING</a>
         <a href="assistance.php">ASSISTANCE</a>
         <a href="about.php">ABOUT US</a>
@@ -149,7 +149,7 @@ My favorite: foods are sushi and pasta.
     <div class="team-member">
       <img src="img/about-ayah.png" alt="Ayah" class="team-photo">
       <h3>Ayah</h3>
-      <p class="role">Assistant to the regional manager</p>
+      <p class="role">Nap Operations Lead</p>
       <p class="bio">
         <Br> <Br>        <Br> <Br>
 
