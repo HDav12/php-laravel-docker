@@ -88,16 +88,9 @@ body, html {
 }
 
 .intro-flex h2{
-  font-size: 28px;       /* desktop/groter */
+  font-size: clamp(18px, 4.5vw, 28px);
   line-height: 1.3;
 }
-
-@media (max-width: 480px){ /* mobiel */
-  .intro-flex h2{
-    font-size: 18px;
-  }
-}
-
 
 
 

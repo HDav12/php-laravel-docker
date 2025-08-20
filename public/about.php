@@ -99,8 +99,7 @@ session_start();
       <h3>Hidde Davids</h3>
       <p class="role">Founder &amp; Director</p>
       <p class="bio">
-        Hidde Davids is from The Hague and holds a degree in Commercial Economics. He began his career at an accounting‑software firm before moving into cybersecurity, where he honed his analytical skills. Outside of work, he enjoys target shooting and spending quality time with friends and family. Hidde is known for his reliability, respectfulness, and commitment. He prefers a quick phone call over email or messaging, and draws inspiration from his father and grandfather. Sitting still on vacation isn’t his style—he’s always looking for the next opportunity to learn and grow.
-<Br> <Br>
+        I’m Hidde Davids from The Hague, with a degree in Commercial Economics. I started my career at an accounting-software firm and then moved into cybersecurity, where I sharpened my analytical skills. Outside of work, I enjoy target shooting and spending quality time with friends and family. People know me for being reliable, respectful, and committed. I prefer a quick phone call over email or messaging, and I draw a lot of inspiration from my father and grandfather. Sitting still on vacation isn’t my style—I’m always looking for the next opportunity to learn and grow.<Br> <Br>
 Biggest fear: flying insects
 <Br>
 Favorite animals: dog and duck

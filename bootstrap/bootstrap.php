@@ -1,16 +1,14 @@
 <?php
 declare(strict_types=1);
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
-use Dotenv\Dotenv;                 // ← deze miste je
+use Dotenv\Dotenv;
 use Mollie\Api\MollieApiClient;
 
-// .env laden (stil falen als hij er niet is)
-if (class_exists(Dotenv::class)) {
-    Dotenv::createImmutable(__DIR__)->safeLoad();
-}
-//Applications/XAMPP/xamppfiles/htdocs/frontend/frontend2/pinterpal-website/php-laravel-docker/app/.env
+// .env in /app inladen
+Dotenv::createImmutable(__DIR__ . '/../app')->safeLoad();
+
 function base_url(): string {
   $env = $_ENV['APP_URL'] ?? getenv('APP_URL');
   if ($env) return rtrim($env, '/');
