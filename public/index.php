@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
   <section class="intro4">
     <div class="intro-flex">
 
-    <h2>Help visitors find what they want in minutes. PinterPal asks the right questions and surfaces the right products—powered by your catalog</h2>
+    <h2>Help your website visitors find what they want in minutes with PinterPal Ai. Powered by your catalog.... See for yourself ↓</h2>
     </div>
 <!-- Container die video + knop onder elkaar zet -->
 <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
@@ -256,8 +256,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
       <!-- Widget Pop‑Up -->
   <div id="widgetContainer" class="widget-toggle"></div>
 
-  <!-- Widget JS -->
+<!-- Widget JS -->
 <script src="js/widget.js"></script>
+
+<!-- Navigation Toggle JS -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const navToggle = document.querySelector(".nav-toggle");
+    const nav = document.getElementById("mainNav");
+
+    if (navToggle && nav) {
+      navToggle.addEventListener("click", () => {
+        const expanded = navToggle.getAttribute("aria-expanded") === "true";
+        navToggle.setAttribute("aria-expanded", String(!expanded));
+        nav.classList.toggle("open");
+      });
+    }
+  });
+</script>
+
+
 
 </body>
 </html>

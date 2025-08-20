@@ -106,13 +106,13 @@ session_start();
 <body class="iframe-page">
     <!-- Header -->
     <div class="header">
-        <a href="index.php">
-            <h1>PINTERPAL</h1>
+  <a href="index.php">
+    <img src="img/pinterpal-logo.jpg" alt="PinterPal Logo" class="header-logo">
+    <h1>PINTERPAL</h1>
         </a>
         <p class="subtitle-demo-page">A DTI Product</p>
         <div class="login-signup">
             <?php include 'navbar.php'; ?>
-            <img src="img/pinterpal-logo.jpg" alt="PinterPal Logo" class="header-logo">
         </div>
     </div>
 
