@@ -63,17 +63,9 @@ session_start();
         The past 1.5 year have gone by quickly and have taught us a great deal about AI. Several times a week, we worked on the bot in the evenings after school or work. Today, we have created a bot designed to support people in their online shopping journeys. The bot provides you with quick insights into webshops and their assortments and, most importantly, saves customers time by guiding them effectively to the products that best match their needs and preferences.
     </p>
 
-    <br>
-    <h3>Our Goals</h3>
-    <p>At <strong>PinterPal</strong>, we are dedicated to these 5 goals:</p>
-    <ol>
-        <li>Guiding shoppers to find products that match their personal wants, needs, and preferences.</li>
-        <li>Creating a seamless and personalized shopping experience using our intelligent, AI-powered widget.</li>
-        <li>Assisting online shoppers across all categories where the latest AI capabilities can make a meaningful difference.</li>
-        <li>Constantly improving and adapting our platform to serve both customers and retailers, making online shopping more efficient, enjoyable, and time-saving.</li>
-        <li>Preparing online shopping for the next era.</li>
-    </ol>
+  
 </div>
+
 
         </div>
 
@@ -89,6 +81,17 @@ session_start();
             </div>
         </div>
     </div>
+
+       </div>
+
+<!-- Losse container voor de goals-afbeelding -->
+<section class="goals-container" aria-labelledby="goals-visual-title">
+  <h3 id="goals-visual-title" class="sr-only">Our Goals visual</h3>
+  <div class="image-container1" style="--max-w: 1100px;">
+    <img src="img/goals-ppl-2.png" alt="PinterPal goals infographic">
+  </div>
+</section>
+
 
   <section class="team">
   <h2>PinterPal Team</h2>
@@ -116,7 +119,7 @@ Favorite foods: teppanyaki / döner / chicken chicharon
     </div>
     <!-- Neo -->
     <div class="team-member">
-      <img src="img/about-neo.png" alt="Neo Troenopawiro" class="team-photo">
+      <img src="img/about-neo3.png" alt="Neo Troenopawiro" class="team-photo">
       <h3>Neo Troenopawiro</h3>
       <p class="role">Founder &amp; Head Developer</p>
       <p class="bio">
