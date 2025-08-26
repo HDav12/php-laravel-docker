@@ -1,19 +1,25 @@
 <?php
-$server   = getenv('DATABASE_SERVER') . ',' . getenv('DATABASE_PORT'); // “host,port”
-$uid      = getenv('DATABASE_UID');
-$pwd      = getenv('DATABASE_PASSWORD');
-$db       = getenv('DATABASE_NAME');
+$server   = getenv('DB_SERVER') ?: 'localhost';
+$port     = (int)(getenv('DB_PORT') ?: 1433);
+$dbname   = getenv('DB_NAME') ?: '';
+$user     = getenv('DB_USER') ?: '';
+$pass     = getenv('DB_PASSWORD') ?: '';
+$encrypt  = (int)(getenv('DB_ENCRYPT') ?: 1);
+$trust    = (int)(getenv('DB_TRUST_CERT') ?: 1);
 
-$connectionOptions = [
-    'Database' => $db,
-    'UID'      => $uid,
-    'PWD'      => $pwd,
-    'Encrypt'  => 1,   // TLS verplicht bij Azure
-    'TrustServerCertificate' => 0
+$serverWithPort = $server.(($port && $port!==1433) ? ','.$port : '');
+
+$connectionInfo = [
+    'Database'      => $dbname,
+    'UID'           => $user,
+    'PWD'           => $pass,
+    'CharacterSet'  => 'UTF-8',
+    'LoginTimeout'  => 8,
+    'Encrypt'       => $encrypt ? 1 : 0,
+    'TrustServerCertificate' => $trust ? 1 : 0,
 ];
 
-$conn = sqlsrv_connect($server, $connectionOptions);
-
+$conn = sqlsrv_connect($serverWithPort, $connectionInfo);
 if ($conn === false) {
-    die(print_r(sqlsrv_errors(), true));
+    redirect_fail('DB_CONNECT', sqlsrv_errors(), 302);
 }

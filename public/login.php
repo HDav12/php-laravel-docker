@@ -16,6 +16,20 @@ function header_log($k,$v){
 ini_set('log_errors','1');
 ini_set('error_log','php://stderr');
 
+/* ===== redirect-based error handling (fallback als bootstrap er niet is) ===== */
+if (!function_exists('redirect_fail')) {
+    function new_error_id(){ return strtoupper(bin2hex(random_bytes(4))); }
+    function redirect_fail(string $ctx, $details = null, int $http = 302){
+        if ($details === null && function_exists('sqlsrv_errors')) $details = sqlsrv_errors();
+        $id = new_error_id();
+        @file_put_contents('php://stderr', "[app] FAIL[$id][$ctx] ".json_encode($details, JSON_UNESCAPED_SLASHES)."\n");
+        $to = '/error.php?code='.rawurlencode($id);
+        if (!headers_sent()) { header('Location: '.$to, true, $http); exit; }
+        echo '<!doctype html><meta charset="utf-8"><script>location.href='.json_encode($to).'</script>';
+        exit;
+    }
+}
+
 $role  = $_SESSION['user_role'] ?? 'onbekend';
 $error = '';
 
@@ -23,7 +37,6 @@ elog('BOOT login '.($_SERVER['REQUEST_METHOD'] ?? 'CLI'));
 header_log('Boot','login');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // accepteer beide spellings: emailaddress / emailadress
     $email    = trim($_POST['emailaddress'] ?? ($_POST['emailadress'] ?? ''));
     $password = trim($_POST['password']     ?? '');
 
@@ -39,16 +52,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt   = sqlsrv_prepare($conn, $sql, $params);
 
         if ($stmt === false) {
-            elog('LOGIN prepare FAILED '.print_r(sqlsrv_errors(), true));
-            $error = 'Database fout (prepare).';
-        } elseif (!sqlsrv_execute($stmt)) {
-            elog('LOGIN execute FAILED '.print_r(sqlsrv_errors(), true));
-            $error = 'Database fout (execute).';
-        } else {
-            $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
-            elog('LOGIN found='.($row?1:0));
+            redirect_fail('LOGIN_PREP', sqlsrv_errors(), 302);
+        }
+        if (!sqlsrv_execute($stmt)) {
+            redirect_fail('LOGIN_EXEC', sqlsrv_errors(), 302);
+        }
 
-            if ($row && password_verify($password, $row['password'])) {
+        $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+        elog('LOGIN found='.($row?1:0));
+
+        if ($row) {
+            $passOk = password_verify($password, $row['password']);
+            elog('LOGIN password_ok=' . ($passOk ? 1 : 0));
+            if ($passOk) {
+                session_regenerate_id(true);
                 $_SESSION['user_logged_in'] = true;
                 $_SESSION['user_id']        = $row['id'];
                 $_SESSION['user_email']     = $row['user_email'];
@@ -60,13 +77,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header('Location: /index.php', true, 302);
                 exit;
             } else {
-                $error = $row
-                    ? 'Ongeldige combinatie e-mailadres/wachtwoord.'
-                    : 'Geen account gevonden met dit e-mailadres.';
-                elog('LOGIN password_ok=' . ($row && password_verify($password, $row['password']) ? 1 : 0));
+                $error = 'Ongeldige combinatie e-mailadres/wachtwoord.';
             }
-            if ($stmt) sqlsrv_free_stmt($stmt);
+        } else {
+            $error = 'Geen account gevonden met dit e-mailadres.';
         }
+
+        if ($stmt) sqlsrv_free_stmt($stmt);
     }
 }
 
@@ -163,23 +180,19 @@ sqlsrv_close($conn);
         </div>
     </div>
 
-    <!-- Login Form -->
     <div class="form-container">
         <h2>Login to PinterPal</h2>
 
-        <!-- Toon foutmelding -->
         <?php if (!empty($error)): ?>
             <p style="color: red;"><?php echo htmlspecialchars($error); ?></p>
         <?php endif; ?>
 
         <form method="post" action="login.php">
             <input type="text" name="emailaddress" placeholder="Email Address / Username" required>
-            
             <div class="password-container">
                 <input type="password" name="password" placeholder="Password" required>
                 <span class="password-toggle" onclick="togglePassword(this)">👁️</span>
             </div>
-            
             <button type="submit">Log In</button>
         </form>
         <a href="register.php">Don't have an account? Sign up here</a>
@@ -190,10 +203,10 @@ sqlsrv_close($conn);
             const passwordInput = element.previousElementSibling;
             if (passwordInput.type === "password") {
                 passwordInput.type = "text";
-                element.textContent = "🙈"; // Change emoji to indicate "hide password"
+                element.textContent = "🙈";
             } else {
                 passwordInput.type = "password";
-                element.textContent = "👁️"; // Change emoji back to indicate "show password"
+                element.textContent = "👁️";
             }
         }
     </script>

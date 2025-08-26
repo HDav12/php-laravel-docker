@@ -1,15 +1,7 @@
 <?php
-session_start();
-include __DIR__ . '/database.php';
-
-function elog($m){
-    $msg = str_replace(["\r","\n"], ' ', (string)$m);
-    @file_put_contents('php://stderr', "[app] $msg\n");
-}
+require __DIR__.'/bootstrap.php';
 
 $error = '';
-$success = '';
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $companyName   = trim($_POST['company_name']   ?? '');
     $companyEmail  = trim($_POST['company_email']  ?? '');
@@ -19,117 +11,82 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $city          = trim($_POST['company_city']   ?? '');
     $zipCode       = trim($_POST['zip_code']       ?? '');
     $country       = trim($_POST['country']        ?? '');
-    $paymentPlan   = trim($_POST['payment_plan']   ?? 'basic');
+    $paymentPlan   = trim($_POST['payment_plan']   ?? 'premium');
     $password      =        $_POST['password']     ?? '';
     $confirm       =        $_POST['confirm_password'] ?? '';
     $role          = 'company';
 
-    if ($companyName==='' || $companyEmail==='' || $contactPerson==='' ||
-        $phoneNumber==='' || $address==='' || $city==='' ||
-        $zipCode==='' || $country==='' || $password==='' || $confirm==='') {
+    if ($companyName===''||$companyEmail===''||$contactPerson===''||$phoneNumber===''||
+        $address===''||$city===''||$zipCode===''||$country===''||$password===''||$confirm==='') {
         $error = "Vul alle verplichte velden in.";
     } elseif (!filter_var($companyEmail, FILTER_VALIDATE_EMAIL)) {
         $error = "Voer een geldig e-mailadres in.";
     } elseif ($password !== $confirm) {
         $error = "Wachtwoorden komen niet overeen.";
     } else {
-        // Bestaat e-mailadres al?
-        $sqlCheck  = "SELECT 1 FROM dbo.Users WHERE user_email = ?";
-        $stmtCheck = sqlsrv_prepare($conn, $sqlCheck, [ &$companyEmail ]);
-        if ($stmtCheck === false) {
-            elog('company CHECK prepare FAIL '.print_r(sqlsrv_errors(),true));
-            $error = "Database fout (prepare check).";
-        } elseif (!sqlsrv_execute($stmtCheck)) {
-            elog('company CHECK execute FAIL '.print_r(sqlsrv_errors(),true));
-            $error = "Database fout (execute check).";
+        $sqlC  = "SELECT 1 FROM dbo.Users WHERE user_email = ?";
+        $stmtC = sqlsrv_prepare($conn, $sqlC, [ &$companyEmail ]);
+        if ($stmtC === false) redirect_fail('COMP_CHECK_PREP', sqlsrv_errors(), 302);
+        if (!sqlsrv_execute($stmtC)) redirect_fail('COMP_CHECK_EXEC', sqlsrv_errors(), 302);
+        $exists = sqlsrv_fetch_array($stmtC, SQLSRV_FETCH_NUMERIC) ? true : false;
+        sqlsrv_free_stmt($stmtC);
+
+        if ($exists) {
+            $error = "Dit e-mailadres is al geregistreerd.";
         } else {
-            $exists = sqlsrv_fetch_array($stmtCheck, SQLSRV_FETCH_NUMERIC) ? true : false;
-            sqlsrv_free_stmt($stmtCheck);
+            sqlsrv_begin_transaction($conn);
 
-            if ($exists) {
-                $error = "Dit e-mailadres is al geregistreerd.";
-            } else {
-                // Transactie
-                sqlsrv_begin_transaction($conn);
+            // Users (defaults voor NOT NULL kolommen)
+            $hashed = password_hash($password, PASSWORD_DEFAULT);
+            $genderForCompany = 'company';
+            $ageForCompany    = 0;
 
-                // 1) Users-insert (code-only id + verplichte kolommen)
-                $hashed = password_hash($password, PASSWORD_DEFAULT);
-                $genderForCompany = 'company'; // NOT NULL oplossen
-                $ageForCompany    = 0;         // NOT NULL oplossen
-
-                $sqlUser = "
+            $sqlUser = "
 INSERT INTO dbo.Users (id, user_email, [password], username, address, city, gender, age, role)
 OUTPUT INSERTED.id
 SELECT ISNULL(MAX(id),0)+1, ?,?,?,?,?,?,?,?
 FROM dbo.Users WITH (TABLOCKX, HOLDLOCK);
 ";
-                $paramsUser = [ &$companyEmail, &$hashed, &$companyName, &$address, &$city, &$genderForCompany, &$ageForCompany, &$role ];
-                $stmtUser   = sqlsrv_prepare($conn, $sqlUser, $paramsUser);
+            $pUser = [ &$companyEmail, &$hashed, &$companyName, &$address, &$city, &$genderForCompany, &$ageForCompany, &$role ];
+            $sUser = sqlsrv_prepare($conn, $sqlUser, $pUser);
+            if ($sUser === false) { sqlsrv_rollback($conn); redirect_fail('COMP_USER_PREP', sqlsrv_errors(), 302); }
+            if (!sqlsrv_execute($sUser)) { sqlsrv_rollback($conn); redirect_fail('COMP_USER_EXEC', sqlsrv_errors(), 302); }
+            $outU   = sqlsrv_fetch_array($sUser, SQLSRV_FETCH_NUMERIC);
+            $userId = $outU[0] ?? null;
+            sqlsrv_free_stmt($sUser);
+            if (!$userId) { sqlsrv_rollback($conn); redirect_fail('COMP_USER_NO_ID', null, 302); }
 
-                if ($stmtUser === false) {
-                    elog('company USER prepare FAIL '.print_r(sqlsrv_errors(),true));
-                    sqlsrv_rollback($conn);
-                    $error = "Database fout (prepare user).";
-                } elseif (!sqlsrv_execute($stmtUser)) {
-                    elog('company USER execute FAIL '.print_r(sqlsrv_errors(),true));
-                    sqlsrv_rollback($conn);
-                    $error = "Fout bij aanmaken gebruikersaccount.";
-                } else {
-                    $out    = sqlsrv_fetch_array($stmtUser, SQLSRV_FETCH_NUMERIC);
-                    $userId = $out[0] ?? null;
-                    sqlsrv_free_stmt($stmtUser);
-
-                    if (!$userId) {
-                        sqlsrv_rollback($conn);
-                        $error = "Kon geen gebruikers-id bepalen.";
-                    } else {
-                        // 2) Companies-insert (code-only id + OUTPUT)
-                        $sqlComp = "
+            // Companies (code-only id)
+            $sqlComp = "
 INSERT INTO dbo.Companies
     (id, user_id, company_name, company_email, contact_person, phone_number, company_address, company_city, zip_code, country, payment_plan)
 OUTPUT INSERTED.id
-SELECT
-    ISNULL(MAX(id),0)+1, ?,?,?,?,?,?,?,?,?,?
+SELECT ISNULL(MAX(id),0)+1, ?,?,?,?,?,?,?,?,?,?
 FROM dbo.Companies WITH (TABLOCKX, HOLDLOCK);
 ";
-                        $paramsComp = [ &$userId, &$companyName, &$companyEmail, &$contactPerson, &$phoneNumber, &$address, &$city, &$zipCode, &$country, &$paymentPlan ];
-                        $stmtComp   = sqlsrv_prepare($conn, $sqlComp, $paramsComp);
+            $pComp = [ &$userId, &$companyName, &$companyEmail, &$contactPerson, &$phoneNumber, &$address, &$city, &$zipCode, &$country, &$paymentPlan ];
+            $sComp = sqlsrv_prepare($conn, $sqlComp, $pComp);
+            if ($sComp === false) { sqlsrv_rollback($conn); redirect_fail('COMP_COMP_PREP', sqlsrv_errors(), 302); }
+            if (!sqlsrv_execute($sComp)) { sqlsrv_rollback($conn); redirect_fail('COMP_COMP_EXEC', sqlsrv_errors(), 302); }
+            $outC      = sqlsrv_fetch_array($sComp, SQLSRV_FETCH_NUMERIC);
+            $companyId = $outC[0] ?? null;
+            sqlsrv_free_stmt($sComp);
 
-                        if ($stmtComp === false) {
-                            elog('company COMP prepare FAIL '.print_r(sqlsrv_errors(),true));
-                            sqlsrv_rollback($conn);
-                            $error = "Database fout (prepare company).";
-                        } elseif (!sqlsrv_execute($stmtComp)) {
-                            elog('company COMP execute FAIL '.print_r(sqlsrv_errors(),true));
-                            sqlsrv_rollback($conn);
-                            $error = "Fout bij opslaan van bedrijfsgegevens.";
-                        } else {
-                            // pak company_id uit OUTPUT
-                            $out2 = sqlsrv_fetch_array($stmtComp, SQLSRV_FETCH_NUMERIC);
-                            $companyId = $out2[0] ?? null;
-                            sqlsrv_free_stmt($stmtComp);
+            sqlsrv_commit($conn);
 
-                            // Commit
-                            sqlsrv_commit($conn);
+            if (!$companyId) redirect_fail('COMP_COMP_NO_ID', null, 302);
 
-                            // Login + redirect
-                            $_SESSION['user_logged_in'] = true;
-                            $_SESSION['user_email']     = $companyEmail;
-                            $_SESSION['user_id']        = $userId;
-                            $_SESSION['user_role']      = $role;
+            session_regenerate_id(true);
+            $_SESSION['user_logged_in'] = true;
+            $_SESSION['user_email']     = $companyEmail;
+            $_SESSION['user_id']        = $userId;
+            $_SESSION['user_role']      = $role;
 
-                            $cid = $companyId ?? $userId; // fallback
-                            header("Location: /payment.php?company_id={$cid}&plan={$paymentPlan}", true, 302);
-                            exit;
-                        }
-                    }
-                }
-            }
+            header("Location: /payment.php?company_id={$companyId}&plan={$paymentPlan}", true, 302);
+            exit;
         }
     }
 }
-
-// geen POST of $error -> render pagina
 ?>
 
 

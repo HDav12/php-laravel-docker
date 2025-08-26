@@ -1,128 +1,70 @@
 <?php
-session_start();
-include __DIR__ . '/database.php';
-
-// --- logging helpers ---
-function elog($m)
-{
-    $msg = str_replace(["\r", "\n"], ' ', (string) $m);
-    @file_put_contents('php://stderr', "[app] $msg\n");
-    if ((getenv('APP_DEBUG_LOG') ?? '0') === '1') {
-        header('X-App-Log: ' . substr($msg, 0, 180));
-    }
-}
-function hlog_post()
-{
-    if ((getenv('APP_DEBUG_LOG') ?? '0') === '1') {
-        foreach ($_POST as $k => $v) {
-            if (is_array($v))
-                $v = json_encode($v);
-            $k = preg_replace('/[^A-Za-z0-9_-]/', '', $k);
-            $v = str_replace(["\r", "\n"], ' ', (string) $v);
-            header('X-App-P-' . $k . ': ' . substr($v, 0, 120));
-        }
-    }
-}
-
-elog('BOOT register ' . ($_SERVER['REQUEST_METHOD'] ?? 'CLI'));
-if ($_SERVER['REQUEST_METHOD'] === 'POST')
-    hlog_post();
+require __DIR__.'/bootstrap.php';
 
 $error = '';
-$success = '';
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $accountType = $_POST['account-type'] ?? '';
     if ($accountType === 'company') {
-        elog('REDIRECT company-registration');
-        header('Location: /company-registration.php');
+        header('Location: /company-registration.php', true, 302);
         exit;
     }
 
-    $email = trim($_POST['user_email'] ?? '');
-    $password = $_POST['password'] ?? '';
-    $confirm = $_POST['confirm_password'] ?? '';
-    $username = trim($_POST['username'] ?? '');
-    $address = trim($_POST['address'] ?? '');
-    $city = trim($_POST['city'] ?? '');
-    $gender = trim($_POST['gender'] ?? '');
-    $ageRaw = $_POST['age'] ?? '';
-    $age = ($ageRaw === '' ? null : (int) $ageRaw);
-    $role = 'gebruiker';
+    $email    = trim($_POST['user_email']       ?? '');
+    $password =        $_POST['password']       ?? '';
+    $confirm  =        $_POST['confirm_password'] ?? '';
+    $username = trim($_POST['username']         ?? '');
+    $address  = trim($_POST['address']          ?? '');
+    $city     = trim($_POST['city']             ?? '');
+    $gender   = trim($_POST['gender']           ?? '');
+    $ageRaw   =        $_POST['age']            ?? '';
+    $age      = ($ageRaw === '' ? null : (int)$ageRaw);
+    $role     = 'gebruiker';
 
-    if ($email === '' || $password === '' || $confirm === '' || $age === null) {
+    if ($email==='' || $password==='' || $confirm==='' || $age===null) {
         $error = 'Vul alle verplichte velden in.';
-        elog('VALIDATION fail email/psw/age');
     } elseif ($password !== $confirm) {
         $error = 'Wachtwoorden komen niet overeen.';
-        elog('VALIDATION passwords_mismatch');
     } else {
-        // 1) Bestaat e-mailadres al?
-        $sqlCheck = "SELECT 1 FROM dbo.Users WHERE user_email = ?";
-        $stmtCheck = sqlsrv_prepare($conn, $sqlCheck, [&$email]);
-        if ($stmtCheck === false) {
-            elog('prepare check FAILED: ' . print_r(sqlsrv_errors(), true));
-            $error = 'Database fout (prepare check).';
-        } elseif (!sqlsrv_execute($stmtCheck)) {
-            elog('execute check FAILED: ' . print_r(sqlsrv_errors(), true));
-            $error = 'Database fout (execute check).';
+        $sqlC  = "SELECT 1 FROM dbo.Users WHERE user_email = ?";
+        $stmtC = sqlsrv_prepare($conn, $sqlC, [ &$email ]);
+        if ($stmtC === false) redirect_fail('REG_CHECK_PREP', sqlsrv_errors(), 302);
+        if (!sqlsrv_execute($stmtC)) redirect_fail('REG_CHECK_EXEC', sqlsrv_errors(), 302);
+        $exists = sqlsrv_fetch_array($stmtC, SQLSRV_FETCH_NUMERIC) ? true : false;
+        sqlsrv_free_stmt($stmtC);
+
+        if ($exists) {
+            $error = 'Dit e-mailadres is al in gebruik.';
         } else {
-            $exists = sqlsrv_fetch_array($stmtCheck, SQLSRV_FETCH_NUMERIC) ? true : false;
-            sqlsrv_free_stmt($stmtCheck);
-            elog('CHECK exists=' . ($exists ? 1 : 0));
-
-            if ($exists) {
-                $error = 'Dit e-mailadres is al in gebruik. Probeer opnieuw.';
-            } else {
-                // 2) Insert (code-only fix met computed id + transactie)
-                $hashed = password_hash($password, PASSWORD_DEFAULT);
-
-                // start transactie (atomic + voorkomt race conditions)
-                sqlsrv_begin_transaction($conn);
-
-                $sqlIns = "
+            $hashed = password_hash($password, PASSWORD_DEFAULT);
+            sqlsrv_begin_transaction($conn);
+            $sqlIns = "
 INSERT INTO dbo.Users (id, user_email, [password], username, address, city, gender, age, role)
 OUTPUT INSERTED.id
 SELECT ISNULL(MAX(id),0)+1, ?,?,?,?,?,?,?,?
 FROM dbo.Users WITH (TABLOCKX, HOLDLOCK);
 ";
-                $paramsIns = [&$email, &$hashed, &$username, &$address, &$city, &$gender, &$age, &$role];
-                $stmtIns = sqlsrv_prepare($conn, $sqlIns, $paramsIns);
+            $params = [ &$email, &$hashed, &$username, &$address, &$city, &$gender, &$age, &$role ];
+            $stmt   = sqlsrv_prepare($conn, $sqlIns, $params);
+            if ($stmt === false) { sqlsrv_rollback($conn); redirect_fail('REG_INS_PREP', sqlsrv_errors(), 302); }
+            if (!sqlsrv_execute($stmt)) { sqlsrv_rollback($conn); redirect_fail('REG_INS_EXEC', sqlsrv_errors(), 302); }
+            $out    = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_NUMERIC);
+            $userId = $out[0] ?? null;
+            sqlsrv_free_stmt($stmt);
+            sqlsrv_commit($conn);
 
-                if ($stmtIns === false) {
-                    elog('prepare insert FAILED: ' . print_r(sqlsrv_errors(), true));
-                    sqlsrv_rollback($conn);
-                    $error = 'Database fout (prepare insert).';
-                } elseif (!sqlsrv_execute($stmtIns)) {
-                    elog('execute insert FAILED: ' . print_r(sqlsrv_errors(), true));
-                    sqlsrv_rollback($conn);
-                    $error = 'Fout bij aanmaken account.';
-                } else {
-                    // haal nieuwe id uit OUTPUT INSERTED.id
-                    $out = sqlsrv_fetch_array($stmtIns, SQLSRV_FETCH_NUMERIC);
-                    $userId = $out[0] ?? null;
-                    sqlsrv_free_stmt($stmtIns);
+            if (!$userId) redirect_fail('REG_NO_ID', null, 302);
 
-                    // commit
-                    sqlsrv_commit($conn);
+            session_regenerate_id(true);
+            $_SESSION['user_logged_in'] = true;
+            $_SESSION['user_id']        = $userId;
+            $_SESSION['user_email']     = $email;
+            $_SESSION['user_role']      = $role;
 
-                    // 3) Sessions + redirect
-                    $_SESSION['user_logged_in'] = true;
-                    $_SESSION['user_email'] = $email;
-                    $_SESSION['user_id'] = $userId;
-                    $_SESSION['user_role'] = $role;
-
-                    elog("REGISTER OK email=$email id=" . ($userId ?? 'null'));
-                    sqlsrv_close($conn);
-                    header("Location: /payment.php?user_id={$userId}&plan=premium", true, 302);
-                    exit;
-                }
-            }
+            header('Location: /payment.php?plan=premium', true, 302);
+            exit;
         }
     }
 }
-
-sqlsrv_close($conn);
 ?>
 
 
