@@ -197,7 +197,15 @@ $companyPlace  = 'Den Haag';
 
 
   <!-- Optioneel: include je site-footer -->
-  <?php // include __DIR__ . '/partials/footer.php'; ?>
+  <footer class="contact-info" style="text-align:center;">
+    <p>
+      <strong>KVK:</strong> 96433647 · <strong>Den Haag</strong><br>
+      <strong>Tel:</strong> +31 6 36270282 · <strong>Email:</strong> info@pinterpal.com
+    </p>
+    <p>
+      <a href="/terms-coditions.php" style="color: inherit; text-decoration: none;">📄 Terms &amp; Conditions</a>
+    </p>
+  </footer>
 
 </body>
 </html>

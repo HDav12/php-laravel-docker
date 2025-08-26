@@ -215,17 +215,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
     </div>
 
      <!-- Footer -->
-  <footer class="contact-info">
+  <footer class="contact-info" style="text-align:center;">
     <p>
-      <strong>KVK:</strong> 96433647<br>
-      <strong>Address:</strong> Den Haag<br>
-      <strong>Telephone:</strong> +31 6 36270282<br>
-      <strong>Email:</strong> info@pinterpal.com
+      <strong>KVK:</strong> 96433647 · <strong>Den Haag</strong><br>
+      <strong>Tel:</strong> +31 6 36270282 · <strong>Email:</strong> info@pinterpal.com
     </p>
     <p>
-      <a href="/terms-coditions.php" style="color: inherit; text-decoration: none;">
-        📄 Terms &amp; Conditions
-      </a>
+      <a href="/terms-coditions.php" style="color: inherit; text-decoration: none;">📄 Terms &amp; Conditions</a>
     </p>
   </footer>
 
