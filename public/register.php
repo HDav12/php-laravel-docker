@@ -114,7 +114,7 @@ FROM dbo.Users WITH (TABLOCKX, HOLDLOCK);
 
                     elog("REGISTER OK email=$email id=" . ($userId ?? 'null'));
                     sqlsrv_close($conn);
-                    header('Location: /pinterpalbot.php', true, 302);
+                    header("Location: /payment.php?user_id={$userId}&plan=premium", true, 302);
                     exit;
                 }
             }
