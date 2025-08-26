@@ -133,12 +133,12 @@ session_start();
       <div class="option">
         <h3>Frequently Asked Questions</h3>
         <p>Find quick answers to the most common queries about PinterPal.</p>
-        <button class="no-glow-btn" onclick="window.location.href='faqs.php'">View FAQs</button>
+        <button class="no-glow-btn" onclick="window.location.href='coming-soon.php'">View FAQs</button>
       </div>
       <div class="option">
         <h3>User Guide</h3>
         <p>Learn how to integrate and maximize PinterPal with our step-by-step guide.</p>
-        <button class="no-glow-btn" onclick="window.location.href='guide.php'">View Guide</button>
+        <button class="no-glow-btn" onclick="window.location.href='coming-soon.php'">View Guide</button>
       </div>
     </section>
 
