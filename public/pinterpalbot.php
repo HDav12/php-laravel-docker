@@ -264,21 +264,23 @@ session_start();
       cells.push(cell);
     }
 
-    // Doelknop (1 instantie, we verplaatsen 'm)
-        const target = document.createElement('button');
-    target.className = 'pg-target';
-    target.type = 'button';
-    target.setAttribute('aria-label', 'Klik');
-    target.textContent = 'Get PinterPal';
-    target.hidden = true;
+// Doelknop (1 instantie, we verplaatsen 'm)
+const target = document.createElement('button');
+target.className = 'pg-target';
+target.type = 'button';
+target.setAttribute('aria-label', 'Klik');
+target.hidden = true;
 
-    // maak tekst compacter
-    target.style.fontSize = '10px';
-    target.style.lineHeight = '1.1';
-    target.style.letterSpacing = '0';
-    target.style.paddingInline = '6px';
-    target.style.whiteSpace = 'nowrap';
-    target.style.fontWeight = '700'; // <-- bold
+target.innerHTML = '<span class="pg-target-txt">Get PinterPal</span>';
+
+
+// maak tekst compacter
+target.style.fontSize = '10px';
+target.style.lineHeight = '1.1';
+target.style.letterSpacing = '0';
+target.style.paddingInline = '6px';
+target.style.whiteSpace = 'nowrap';
+target.style.fontWeight = '700'; // <-- bold
 
 
 
