@@ -15,13 +15,15 @@ if (strpos(base_url(), 'http://') === 0) {
     // exit;
 }
 
+// ==== API key kiezen (test vs live) ====
 function api_key() {
     return (getenv('APP_ENV') === 'production') ? (getenv('MOLLIE_API_KEY_LIVE') ?: '') : (getenv('MOLLIE_API_KEY_TEST') ?: '');
 }
 $apiKey = api_key();
 if ($apiKey === '') { http_response_code(500); echo "Mollie API key mist."; exit; }
 
-$profileId = getenv('MOLLIE_PROFILE_ID') ?: null;
+// (LET OP: GEEN profileId gebruiken bij API key auth)
+// $profileId = getenv('MOLLIE_PROFILE_ID') ?: null;
 
 // ==== user context ====
 $userId    = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : null;
@@ -30,7 +32,6 @@ $role      = $_SESSION['user_role'] ?? null;
 // we accepteren optioneel company_id uit query, maar alleen meenemen als ingelogd
 $companyId = isset($_GET['company_id']) ? (int)$_GET['company_id'] : null;
 if (!$userId && !$companyId) {
-    // je kunt ook redirecten naar login
     http_response_code(401); echo "Login vereist om te betalen."; exit;
 }
 
@@ -63,6 +64,9 @@ $metadata = [
   'company_id' => $companyId,
 ];
 
+// optioneel: locale (API hint)
+$locale = getenv('PAYMENT_LOCALE') ?: 'nl_NL';
+
 // ==== call Mollie ====
 $payload = [
   'amount'      => ['currency' => $currency, 'value' => $amount],
@@ -70,9 +74,10 @@ $payload = [
   'redirectUrl' => $redirectUrl,
   'webhookUrl'  => $webhookUrl,
   'metadata'    => $metadata,
+  'locale'      => $locale,
   // 'method'   => ['ideal','creditcard'], // optioneel beperken
 ];
-if ($profileId) $payload['profileId'] = $profileId;
+// GEEN $payload['profileId'] hier!
 
 $ch = curl_init('https://api.mollie.com/v2/payments');
 curl_setopt_array($ch, [
