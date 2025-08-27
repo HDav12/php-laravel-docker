@@ -1,6 +1,6 @@
 <?php
 // Start de sessie om gebruikersgegevens op te halen
-session_start();
+require __DIR__.'/bootstrap.php';;
 
 // Controleer of de gebruiker is ingelogd
 if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true) {

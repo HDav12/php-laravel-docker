@@ -1,5 +1,5 @@
 <?php
-session_start();
+require __DIR__.'/bootstrap.php';;
 include __DIR__ . '/database.php';
 
 function elog($m){
