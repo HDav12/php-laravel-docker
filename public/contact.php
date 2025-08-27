@@ -228,7 +228,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <a href="pricing.php">PRICING</a>
   <a href="assistance.php">ASSISTANCE</a>
   <a href="about.php">ABOUT US</a>
-  <a href="contact.php" class="active" aria-current="page">CONTACT</a>
 </nav>
 
 <main class="content">

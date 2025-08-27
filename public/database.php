@@ -14,7 +14,7 @@ $connectionInfo = [
     'UID'           => $user,
     'PWD'           => $pass,
     'CharacterSet'  => 'UTF-8',
-    'LoginTimeout'  => 8,
+    'LoginTimeout'  => 3000,
     'Encrypt'       => $encrypt ? 1 : 0,
     'TrustServerCertificate' => $trust ? 1 : 0,
 ];
