@@ -161,10 +161,10 @@ session_start();
     <section class="cs-countdown" aria-labelledby="countdown-title">
       <h2 id="countdown-title" class="sr-only">Countdown tot lancering</h2>
       <div class="cd-grid" id="countdown" aria-live="polite">
-        <div class="cd-cell"><div class="cd-num" id="cd-days">--</div><div class="cd-label">Dagen</div></div>
-        <div class="cd-cell"><div class="cd-num" id="cd-hours">--</div><div class="cd-label">Uren</div></div>
-        <div class="cd-cell"><div class="cd-num" id="cd-mins">--</div><div class="cd-label">Minuten</div></div>
-        <div class="cd-cell"><div class="cd-num" id="cd-secs">--</div><div class="cd-label">Seconden</div></div>
+        <div class="cd-cell"><div class="cd-num" id="cd-days">20</div><div class="cd-label">Dagen</div></div>
+        <div class="cd-cell"><div class="cd-num" id="cd-hours">10</div><div class="cd-label">Uren</div></div>
+        <div class="cd-cell"><div class="cd-num" id="cd-mins">05</div><div class="cd-label">Minuten</div></div>
+        <div class="cd-cell"><div class="cd-num" id="cd-secs">59</div><div class="cd-label">Seconden</div></div>
       </div>
       <noscript><p style="text-align:center;margin:.5rem 0 0;">Lancering binnenkort. Schakel JavaScript in voor de live countdown.</p></noscript>
     </section>
