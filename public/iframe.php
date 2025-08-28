@@ -1,6 +1,6 @@
 <?php
 // Start sessie (voor toegang tot $_SESSION['user_logged_in'])
-session_start();
+require __DIR__.'/bootstrap.php';;
 ?>
 <!DOCTYPE html>
 <html lang="en">

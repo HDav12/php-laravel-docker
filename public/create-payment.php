@@ -1,5 +1,5 @@
 <?php
-session_start(); // bovenaan, na require
+require __DIR__.'/bootstrap.php';; // bovenaan, na require
 
 // ... na $payment = $mollie->payments->create([...]);
 $_SESSION['last_payment_id'] = $payment->id;  // onthouden voor bedankt.php
