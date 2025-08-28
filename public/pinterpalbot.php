@@ -62,7 +62,7 @@ session_start();
 
     <h2>
       Make every webshop feel like a helpful shop assistant —
-      asking the right questions.
+      bring your assortiment to life.
     </h2>
     <br>
 
