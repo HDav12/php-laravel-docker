@@ -1171,3 +1171,21 @@ main {
   .header h1 { font-size: 18px; }
 }
 
+/* Responsive label voor de target-knop */
+.pg-target {
+  /* wat ademruimte die mee schaalt met de celgrootte */
+  padding-inline: clamp(4px, calc(var(--cell) / 18), 10px);
+}
+
+.pg-target .pg-target-txt{
+  display: block;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: .2px;
+  text-transform: uppercase;          /* zoals in je screenshot */
+  text-align: center;
+  white-space: normal;                /* mag afbreken naar 2 regels indien nodig */
+  overflow-wrap: anywhere;            /* voorkom overflow */
+  /* schaal met de celmaat; valt terug op min/max */
+  font-size: clamp(10px, calc(var(--cell) / 8.5), 16px);
+}

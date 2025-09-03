@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
   <section class="intro4">
     <div class="intro-flex">
 
-    <h2>Help your website visitors find what they want in minutes with PinterPal Ai. Powered by your catalog.... See for yourself ↓</h2>
+    <h2>Boost your online sales by assisting your customers.... See for yourself ↓</h2>
     </div>
 <!-- Container die video + knop onder elkaar zet -->
 <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
