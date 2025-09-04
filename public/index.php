@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
     class="promo-video"
     style="width: 100%; max-width: 1000px; height: auto; cursor: pointer;"
   >
-    <source src="videos/pp-demo-vid.mp4" type="video/mp4" />
+    <source src="videos/pp-vid-demo.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
 </div>
