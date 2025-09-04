@@ -65,21 +65,21 @@ session_start();
 
     <!-- PinterPal block -->
     <div class="option">
-      <h3>PinterPal</h3>
-      <p>Take your webshop to the next level.</p>
-      <p><s>€49.90</s> → <strong>€29.90 per month</strong></p>
-      <br>
-      <button class="start-trial-btn" onclick="window.location.href='company-registration.php'">Start Now</button>
-    </div>
+  <h3>PinterPal</h3>
+  <p>Take your webshop to the next level.</p>
+  <p><s style="color:red;">€49.90</s> → <strong>€29.90 per month</strong></p>
+  <br>
+  <button class="start-trial-btn" onclick="window.location.href='company-registration.php'">Start Now</button>
+</div>
 
-    <!-- Personal Assistance block -->
-    <div class="option">
-      <h3>Personal Assistance</h3>
-      <p>We train the PinterPal bot on your product database for a fully customized experience.</p>
-      <p><s>€1000</s> → <strong>€799 one-time setup</strong></p>
-      <br>
-      <button class="start-trial-btn" onclick="window.location.href='contact.php'">Get Started</button>
-    </div>
+<!-- Personal Assistance block -->
+<div class="option">
+  <h3>Personal Assistance</h3>
+  <p>We train the PinterPal bot on your product database for a fully customized experience.</p>
+  <p><s style="color:red;">€1000</s> → <strong>€799 one-time setup</strong></p>
+  <br>
+  <button class="start-trial-btn" onclick="window.location.href='contact.php'">Get Started</button>
+</div>
 
   </section>
 </section>
