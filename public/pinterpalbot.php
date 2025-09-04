@@ -66,34 +66,15 @@ session_start();
     </h2>
     <br>
 
-    <p class="lead">
-      Stop scrolling. Start finding.<br>
-      Guided selling powered by your existing product data — zero extra maintenance.
-    </p>
+    
+<br><br>
 
-    <br><br>
-
-    <p><strong style="font-size:24px;">The Problem:</strong><br><br>
-      Choice overload kills conversion. Visitors bounce because search is generic and filters feel like work.
-    </p>
-
-    <br>
-
-    <p><strong style="font-size:24px;">The Solution:</strong><br><br>
-      PinterPal guides shoppers through 4–8 dynamic questions and instantly ranks the best-fit products —
-      with clear reasons they can trust.
-    </p>
-
-    <br>
-
-    <ul>
-      <li><strong>Boost conversion</strong> with real-time, personalized recommendations.</li>
-      <li><strong>Reduce drop-off</strong> by making shopping simple and intuitive.</li>
-      <li><strong>Cut support load</strong> — shoppers choose confidently on their own.</li>
-      <li><strong>Plug &amp; play</strong> — API-ready for Shopify, WooCommerce, and custom stacks.</li>
-    </ul>
-
-    <br>
+<!-- Afbeelding in plaats van Problem + Solution + bullets -->
+<div style="text-align:center; margin: 40px 0;">
+  <img src="/img/pinterpal-solves.png" 
+       alt="PinterPal widget solves choice overload with guided selling" 
+       style="max-width: 100%; height: auto;">
+</div>
 
     <p>GDPR-first · No PII stored · EU hosting options</p>
 
