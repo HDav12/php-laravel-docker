@@ -106,12 +106,6 @@ session_start();
   <section class="info-section" data-locked="true" id="pinterpal-info">
   <!-- Value Proposition / Hero -->
   <div class="value-prop" id="pinterpal-hero">
-    <h2>Make every webshop feel like a helpful shop assistant — bring your assortiment to life.</h2>
-    <p>
-      <strong>Stop scrolling. Start finding.</strong><br>
-      Guided selling powered by your existing product data — zero extra maintenance.
-    </p>
-  </div>
 
   
 
