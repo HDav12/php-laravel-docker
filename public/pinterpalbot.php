@@ -71,7 +71,7 @@ session_start();
 
 <!-- Afbeelding in plaats van Problem + Solution + bullets -->
 <div style="text-align:center; margin: 40px 0;">
-  <img src="/img/pinterpal-solves.png" 
+  <img src="img/pp-solves1.png" 
        alt="PinterPal widget solves choice overload with guided selling" 
        style="max-width: 100%; height: auto;">
 </div>
@@ -104,26 +104,63 @@ session_start();
 
   <!-- ———————————————————— INFO-SECTIE (VERVAAGD) ———————————————————— -->
   <section class="info-section" data-locked="true" id="pinterpal-info">
-    <!-- Introductie sectie -->
-    <div class="intro" id="pinterpal-copy">
-      <h2>What Is the PinterPal Bot?</h2>
-      <br>
-      <p>
-        PinterPal is a smart widget that helps your webshop visitors find their ideal product — fast. With a short, personalized questionnaire, the bot guides shoppers step-by-step to the product that fits their exact needs.
-      </p>
-      <br>
-      <p>
-        Whether they’re looking for a vacuum cleaner or a vacation, etc. The bot asks smart, dynamic questions based on your product range. For example: cordless or not? Budget-friendly? Silent? Thanks to AI, each shopper gets tailored suggestions that match their preferences.
-      </p>
-      <br>
-      <p>
-        The best part? The questions are auto-generated using your own product data — descriptions, specs, and details already on your site. No extra input needed from your side.
-      </p>
-      <br>
-      <p>
-        Seamlessly integrated via API and offered as a monthly subscription, PinterPal delivers a smoother shopping experience, reduces support questions, and increases conversion — across any product category.
-      </p>
-    </div>
+  <!-- Value Proposition / Hero -->
+  <div class="value-prop" id="pinterpal-hero">
+    <h2>Make every webshop feel like a helpful shop assistant — bring your assortiment to life.</h2>
+    <p>
+      <strong>Stop scrolling. Start finding.</strong><br>
+      Guided selling powered by your existing product data — zero extra maintenance.
+    </p>
+  </div>
+
+  <!-- Problem & Solution -->
+  <div class="problem-solution" id="pinterpal-problem-solution">
+    <h3>The Problem</h3>
+    <p>
+      Choice overload kills conversion. Visitors bounce because search is generic and filters feel like work.
+    </p>
+
+    <h3>The Solution</h3>
+    <p>
+      PinterPal guides shoppers through 4–8 dynamic questions and instantly ranks the best-fit products — with clear reasons they can trust.
+    </p>
+    <ul>
+      <li>Boost conversion with real-time, personalized recommendations.</li>
+      <li>Reduce drop-off by making shopping simple and intuitive.</li>
+      <li>Cut support load — shoppers choose confidently on their own.</li>
+      <li>Plug &amp; play — API-ready for Shopify, WooCommerce, and custom stacks.</li>
+    </ul>
+
+    <p class="privacy-note">GDPR-first · No PII stored · EU hosting options</p>
+
+    <p class="cta">
+      <strong>Ready to level up your webshop?</strong><br>
+      Click below and try it for yourself!
+    </p>
+    <!-- Optionele CTA-knop -->
+    <!-- <a href="#demo" class="btn btn-primary">Try the demo</a> -->
+  </div>
+
+  <!-- Introductie sectie (bestaande content) -->
+  <div class="intro" id="pinterpal-copy">
+    <h2>What Is the PinterPal Bot?</h2>
+    <br>
+    <p>
+      PinterPal is a smart widget that helps your webshop visitors find their ideal product — fast. With a short, personalized questionnaire, the bot guides shoppers step-by-step to the product that fits their exact needs.
+    </p>
+    <br>
+    <p>
+      Whether they’re looking for a vacuum cleaner or a vacation, etc. The bot asks smart, dynamic questions based on your product range. For example: cordless or not? Budget-friendly? Silent? Thanks to AI, each shopper gets tailored suggestions that match their preferences.
+    </p>
+    <br>
+    <p>
+      The best part? The questions are auto-generated using your own product data — descriptions, specs, and details already on your site. No extra input needed from your side.
+    </p>
+    <br>
+    <p>
+      Seamlessly integrated via API and offered as a monthly subscription, PinterPal delivers a smoother shopping experience, reduces support questions, and increases conversion — across any product category.
+    </p>
+  </div>
 
     <!-- overlay bovenop (niet vervaagd) -->
     <div class="lock-overlay" aria-hidden="true">

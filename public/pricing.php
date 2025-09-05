@@ -76,7 +76,7 @@ session_start();
 <div class="option">
   <h3>Personal Assistance</h3>
   <p>We train the PinterPal bot on your product database for a fully customized experience.</p>
-  <p><s style="color:red;">€1000</s> → <strong>€799 one-time setup</strong></p>
+  <p><s style="color:red;">€999</s> → <strong>€799 one-time setup</strong></p>
   <br>
   <button class="start-trial-btn" onclick="window.location.href='contact.php'">Get Started</button>
 </div>
