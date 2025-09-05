@@ -113,33 +113,7 @@ session_start();
     </p>
   </div>
 
-  <!-- Problem & Solution -->
-  <div class="problem-solution" id="pinterpal-problem-solution">
-    <h3>The Problem</h3>
-    <p>
-      Choice overload kills conversion. Visitors bounce because search is generic and filters feel like work.
-    </p>
-
-    <h3>The Solution</h3>
-    <p>
-      PinterPal guides shoppers through 4–8 dynamic questions and instantly ranks the best-fit products — with clear reasons they can trust.
-    </p>
-    <ul>
-      <li>Boost conversion with real-time, personalized recommendations.</li>
-      <li>Reduce drop-off by making shopping simple and intuitive.</li>
-      <li>Cut support load — shoppers choose confidently on their own.</li>
-      <li>Plug &amp; play — API-ready for Shopify, WooCommerce, and custom stacks.</li>
-    </ul>
-
-    <p class="privacy-note">GDPR-first · No PII stored · EU hosting options</p>
-
-    <p class="cta">
-      <strong>Ready to level up your webshop?</strong><br>
-      Click below and try it for yourself!
-    </p>
-    <!-- Optionele CTA-knop -->
-    <!-- <a href="#demo" class="btn btn-primary">Try the demo</a> -->
-  </div>
+  
 
   <!-- Introductie sectie (bestaande content) -->
   <div class="intro" id="pinterpal-copy">
