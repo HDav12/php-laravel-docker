@@ -71,7 +71,7 @@ session_start();
 
 <!-- Afbeelding in plaats van Problem + Solution + bullets -->
 <div style="text-align:center; margin: 40px 0;">
-  <img src="img/pp-solves2.png" 
+  <img src="img/pp-solves3.png" 
        alt="PinterPal widget solves choice overload with guided selling" 
        style="max-width: 100%; height: auto;">
 </div>
