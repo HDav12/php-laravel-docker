@@ -152,20 +152,10 @@ require __DIR__.'/bootstrap.php';
     </div>
   </main>
 
-  <!-- Widget -->
-<div id="widgetContainer" class="widget-toggle"></div>
+ 
 
-<!-- Contact Popup -->
-<div id="contactPopup" class="popup">
-  <div class="popup-content">
-    <span id="popupClose">&times;</span>
-    <img src="img/about-hidde.png" alt="Jouw naam" class="popup-photo">
-    <h3>Interested or questions?</h3>
-    <p>Call me or mail me:</p>
-    <a href="tel:+31636270282" class="popup-btn">Call Hidde</a>
-    <a href="davids@pinterpal.com" class="popup-btn">Mail Hidde</a>
-  </div>
-</div>
+<div id="contactPopup" class="popup"><span id="popupClose">&times;</span><img src="img/about-hidde.png" alt="Hidde" class="popup-photo"><h3>Interested or questions?</h3><p>Call me or mail me:</p><a href="tel:+31636270282" class="popup-btn">Call Hidde</a><a href="mailto:davids@pinterpal.com" class="popup-btn">Mail Hidde</a></div>
+
 
 
   <!-- Footer -->
