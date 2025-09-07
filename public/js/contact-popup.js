@@ -2,13 +2,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const popup = document.getElementById('contactPopup');
   const popupClose = document.getElementById('popupClose');
 
-  // Popup tonen na 15 seconden
+  if (!popup || !popupClose) return; // veiligheid als elementen ontbreken
+
+  // Popup tonen na 5 seconden
   setTimeout(() => {
-    popup.style.display = 'block';
+    popup.classList.add('open');
   }, 5000);
 
   // Popup sluiten
   popupClose.addEventListener('click', () => {
-    popup.style.display = 'none';
+    popup.classList.remove('open');
+  });
+
+  // Optioneel: sluiten met Escape-toets
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      popup.classList.remove('open');
+    }
   });
 });
