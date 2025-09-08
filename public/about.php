@@ -93,139 +93,118 @@ require __DIR__.'/bootstrap.php';
 </section>
 
 
-  <section class="team">
+<section class="team">
   <h2>PinterPal Team</h2>
   <div class="team-grid">
+    
     <!-- Hidde -->
     <div class="team-member">
-      <img src="img/about-hidde.png" alt="Hidde Davids" class="team-photo">
+      <div class="team-photo">
+        <img src="img/about-hidde.png" alt="Hidde Davids" class="photo default">
+        <img src="img/about-hidde-hover.png" alt="Hidde Davids fun" class="photo hover">
+      </div>
       <h3>Hidde Davids</h3>
       <p class="role">Founder &amp; Director</p>
       <p class="bio">
-        I’m Hidde Davids from The Hague, with a degree in Commercial Economics. I started my career at an accounting-software firm and then moved into cybersecurity, where I sharpened my analytical skills. Outside of work, I enjoy target shooting and spending quality time with friends and family. People know me for being reliable, respectful, and committed. I prefer a quick phone call over email or messaging, and I draw a lot of inspiration from my father and grandfather. Sitting still on vacation isn’t my style—I’m always looking for the next opportunity to learn and grow.<Br> <Br>
-Biggest fear: flying insects
-<Br>
-Favorite animals: dog and duck
-<Br>
-Biggest life lesson: you’re the maker of your own life
-<Br>
-Favorite foods: teppanyaki / döner / chicken chicharon
+        I’m Hidde Davids from The Hague, with a degree in Commercial Economics. I started my career at an accounting-software firm and then moved into cybersecurity, where I sharpened my analytical skills. Outside of work, I enjoy target shooting and spending quality time with friends and family. People know me for being reliable, respectful, and committed. I prefer a quick phone call over email or messaging, and I draw a lot of inspiration from my father and grandfather. Sitting still on vacation isn’t my style—I’m always looking for the next opportunity to learn and grow.<br><br>
+        Biggest fear: flying insects<br>
+        Favorite animals: dog and duck<br>
+        Biggest life lesson: you’re the maker of your own life<br>
+        Favorite foods: teppanyaki / döner / chicken chicharon
       </p>
-      <!-- onderaan binnen <div class="team-member"> … -->
-<a href="https://www.linkedin.com/in/hidde-davids-805149214/" target="_blank" rel="noopener noreferrer">
-  <img src="img/linkedin-icon.png" alt="LinkedIn profiel" class="linkedin-icon">
-</a>
-
+      <a href="https://www.linkedin.com/in/hidde-davids-805149214/" target="_blank" rel="noopener noreferrer">
+        <img src="img/linkedin-icon.png" alt="LinkedIn profiel" class="linkedin-icon">
+      </a>
     </div>
+
     <!-- Neo -->
     <div class="team-member">
-      <img src="img/about-neo3.png" alt="Neo Troenopawiro" class="team-photo">
+      <div class="team-photo">
+        <img src="img/about-neo3.png" alt="Neo Troenopawiro" class="photo default">
+        <img src="img/about-neo-hover.png" alt="Neo Troenopawiro fun" class="photo hover">
+      </div>
       <h3>Neo Troenopawiro</h3>
       <p class="role">Founder &amp; Head Developer</p>
       <p class="bio">
-        <Br> <Br>        <Br> <Br>
+        My name is Neo and I study at Rotterdam University of Applied Sciences. I’m the head programmer at PinterPal, which means I’m mainly responsible for writing and maintaining the code.<br><br>
+        A few things about me:<br>
+        I love gaming and binge-watching anime series.<br>
+        My biggest fear is thalassophobia (the fear of very large objects).<br>
+        My favorite animal is the cat.<br>
+        One of my biggest life lessons is that there are many roads to Rome—don’t give up if you hit a roadblock; just find another way to reach your goal.<br>
+        My favorite foods are sushi and pasta.
+      </p>
+      <a href="https://www.linkedin.com/in/neo-troenopawiro-729725198/" target="_blank" rel="noopener noreferrer">
+        <img src="img/linkedin-icon.png" alt="LinkedIn profiel" class="linkedin-icon">
+      </a>
+    </div>
 
-My name is Neo and I study at Rotterdam University of Applied Sciences. I’m the head programmer at PinterPal, which means I’m mainly responsible for writing and maintaining the code.
- <Br> <Br>
-A few things about me:
- <Br> 
-I love gaming and binge‑watching anime series.
- <Br> 
-My biggest fear is thalassophobia (the fear of very large objects).
- <Br> 
-My favorite animal is the cat.
- <Br> 
-One of my biggest life lessons is that there are many roads to Rome—don’t give up if you hit a roadblock; just find another way to reach your goal.
- <Br> 
-My favorite: foods are sushi and pasta.
-    <Br> <Br>
- 
-    </p>
-    <!-- onderaan binnen <div class="team-member"> … -->
-<a href="https://www.linkedin.com/in/neo-troenopawiro-729725198/" target="_blank" rel="noopener noreferrer">
-  <img src="img/linkedin-icon.png" alt="LinkedIn profiel" class="linkedin-icon">
-</a>
-
-</div>
-    <!-- Neo -->
+    <!-- Ayah -->
     <div class="team-member">
-      <img src="img/about-ayah.png" alt="Ayah" class="team-photo">
+      <div class="team-photo">
+        <img src="img/about-ayah.png" alt="Ayah" class="photo default">
+        <img src="img/about-ayah-hover.png" alt="Ayah fun" class="photo hover">
+      </div>
       <h3>Ayah</h3>
       <p class="role">Nap Operations Lead</p>
       <p class="bio">
-        <Br> <Br>        <Br> <Br>
-
-Hi, I’m Aya, I’m 10 years old and I love sleeping and getting attention. I’m originally from Hungary.
-<br><br>
-A few things about me:
-<br>
-My absolute favorite activities are sleeping and eating.
-<br>
-My biggest fear is going outside when it’s raining.
-<br>
-Favorite animal: The Pigeon. I love chasing them around.
-<br>
-When it comes to food, I enjoy almost everything… but cookies are the best.
-<br>
-My biggest life lesson? If you stare at someone long enough, you’ll always get what you want.
-    <Br> <Br>
- 
-    </p>
-    <!-- onderaan binnen <div class="team-member"> … -->
-<a href="https://www.linkedin.com/groups/1897093/" target="_blank" rel="noopener noreferrer">
-  <img src="img/linkedin-icon.png" alt="LinkedIn profiel" class="linkedin-icon">
-</a>
-
+        Hi, I’m Aya, I’m 10 years old and I love sleeping and getting attention. I’m originally from Hungary.<br><br>
+        A few things about me:<br>
+        My absolute favorite activities are sleeping and eating.<br>
+        My biggest fear is going outside when it’s raining.<br>
+        Favorite animal: The Pigeon. I love chasing them around.<br>
+        When it comes to food, I enjoy almost everything… but cookies are the best.<br>
+        My biggest life lesson? If you stare at someone long enough, you’ll always get what you want.
+      </p>
+      <a href="https://www.linkedin.com/groups/1897093/" target="_blank" rel="noopener noreferrer">
+        <img src="img/linkedin-icon.png" alt="LinkedIn profiel" class="linkedin-icon">
+      </a>
     </div>
+
     <!-- Dion -->
     <div class="team-member">
-      <img src="img/about-dion.png" alt="Dion Westeneng" class="team-photo">
+      <div class="team-photo">
+        <img src="img/about-dion.png" alt="Dion Westeneng" class="photo default">
+        <img src="img/about-dion-hover.png" alt="Dion Westeneng fun" class="photo hover">
+      </div>
       <h3>Dion Westeneng</h3>
       <p class="role">Developer & Head of Security</p>
-     <p class="bio">
-  Dion (26, Baarn) ships the front-end and guards our stack. ICT graduate with almost 5 years in the security domain — he makes PinterPal fast, safe, and smooth.<br><br>
-  Loves: techno & house, the gym, a good party, and riding motorcycles.<br><br>
-  Biggest fear: the day Pegassi stops making music.<br>
-  Favorite animal: cat.<br>
-  Biggest life lesson: always keep smiling.<br>
-  Favorite foods: tapas.
-</p>
-
-    <!-- onderaan binnen <div class="team-member"> … -->
-<a href="https://www.linkedin.com/in/dion-westeneng-7b729b16a/" target="_blank" rel="noopener noreferrer">
-  <img src="img/linkedin-icon.png" alt="LinkedIn profiel" class="linkedin-icon">
-</a>
-
+      <p class="bio">
+        Dion (26, Baarn) ships the front-end and guards our stack. ICT graduate with almost 5 years in the security domain — he makes PinterPal fast, safe, and smooth.<br><br>
+        Loves: techno & house, the gym, a good party, and riding motorcycles.<br><br>
+        Biggest fear: the day Pegassi stops making music.<br>
+        Favorite animal: cat.<br>
+        Biggest life lesson: always keep smiling.<br>
+        Favorite foods: tapas.
+      </p>
+      <a href="https://www.linkedin.com/in/dion-westeneng-7b729b16a/" target="_blank" rel="noopener noreferrer">
+        <img src="img/linkedin-icon.png" alt="LinkedIn profiel" class="linkedin-icon">
+      </a>
     </div>
+
     <!-- Michaël -->
     <div class="team-member">
-      <img src="img/about-michael.png" alt="Michaël Vogel" class="team-photo">
+      <div class="team-photo">
+        <img src="img/about-michael.png" alt="Michaël Vogel" class="photo default">
+        <img src="img/about-michael-hover.png" alt="Michaël Vogel fun" class="photo hover">
+      </div>
       <h3>Michaël Vogel</h3>
       <p class="role">Sales</p>
       <p class="bio">
-      <Br>
-      Hi, I'm Michaël, a young, sometimes overly enthusiastic guy who focuses on getting the most out of relationships.
-      <Br>      <Br>
-
-My biggest fear is best described with a scene from Coach Carter: Our deepest fear is not that we are inadequate, our deepest fear is that we are powerful beyond measure.
-<Br>
-My favorite animal is a dog because of its endless loyalty.
-<Br>
-The biggest lesson I've learned so far is that no matter how fast a lie is, the truth will always catch up.
-
-<Br>
-My favorite food has to be pizza, because you can do anything with it depending on what you're craving in the moment.
-
-<Br>
+        Hi, I'm Michaël, a young, sometimes overly enthusiastic guy who focuses on getting the most out of relationships.<br><br>
+        My biggest fear is best described with a scene from Coach Carter: Our deepest fear is not that we are inadequate, our deepest fear is that we are powerful beyond measure.<br>
+        My favorite animal is a dog because of its endless loyalty.<br>
+        The biggest lesson I've learned so far is that no matter how fast a lie is, the truth will always catch up.<br>
+        My favorite food has to be pizza, because you can do anything with it depending on what you're craving in the moment.
       </p>
-      <!-- onderaan binnen <div class="team-member"> … -->
-<a href="https://www.linkedin.com/in/micha%C3%ABl-vogel/" target="_blank" rel="noopener noreferrer">
-  <img src="img/linkedin-icon.png" alt="LinkedIn profiel" class="linkedin-icon">
-</a>
-
+      <a href="https://www.linkedin.com/in/micha%C3%ABl-vogel/" target="_blank" rel="noopener noreferrer">
+        <img src="img/linkedin-icon.png" alt="LinkedIn profiel" class="linkedin-icon">
+      </a>
     </div>
+
   </div>
 </section>
+
 
 
     <script></script>

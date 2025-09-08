@@ -819,60 +819,99 @@ body.iframe-page .navbar a.active {
 
 
 /* ===== TEAM-SECTIE ===== */
-.team {
-  padding: 2rem 1rem;
+.team{
+  padding:2rem 1rem;
 }
-
-.team h2 {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 2rem;
+.team h2{
+  text-align:center;
+  font-size:2rem;
+  margin-bottom:2rem;
 }
 
 /* Grid: 2 kolommen, responsive */
-.team-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-  max-width: 2000px;
-  margin: 0 auto;
+.team-grid{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:2rem;
+  max-width:2000px;
+  margin:0 auto;
 }
-
 /* Op kleinere schermen 1 kolom */
-@media (max-width: 600px) {
-  .team-grid {
-    grid-template-columns: 1fr;
-  }
+@media (max-width:600px){
+  .team-grid{ grid-template-columns:1fr; }
 }
 
-/* Vakje styling */
-.team-member {
-  background-color: #0a7082;
-  padding: 1.5rem;
-  border-radius: 1rem;
-  color: #fff;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+/* Kaartje */
+.team-member{
+  background-color:#0a7082;
+  padding:1.5rem;
+  border-radius:1rem;
+  color:#fff;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  box-shadow:0 4px 8px rgba(0,0,0,.1);
 }
 
-/* Foto rond en uniform formaat */
-.team-photo {
-  width: 300px;
-  height: 300px;
-  object-fit: cover;
-  border-radius: 0;  
-  border: 3px solid #ffc107;
-  margin-bottom: 1rem;
+/* Foto-container (bevat 2 img's: .default en .hover) */
+.team-photo{
+  position:relative;
+  width:300px;
+  height:300px;
+  margin:0 auto 1rem;
+}
+@media (max-width:600px){
+  .team-photo{ width:220px; height:220px; }
 }
 
-/* Naam */
-.team-member h3 {
-  margin: 0.5rem 0 0.25rem;
-  font-size: 1.3rem;
+/* Afbeeldingen overlappen perfect en faden */
+.team-photo img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:50%;
+  border:3px solid #ffc107;
+  transition:opacity .3s ease;
 }
+.team-photo img.default{ opacity:1; }
+.team-photo img.hover{ opacity:0; }
+.team-photo:hover img.default{ opacity:0; }
+.team-photo:hover img.hover{ opacity:1; }
+
+/* Naam, rol, bio */
+.team-member h3{
+  margin:.5rem 0 .25rem;
+  font-size:1.3rem;
+}
+.team-member .role{
+  margin:0 0 .5rem;
+  font-weight:600;
+  opacity:.9;
+}
+.team-member .bio{
+  margin:.5rem 0 1rem;
+  line-height:1.6;
+  text-align:left;
+  max-width:70ch;
+}
+
+/* LinkedIn icoon */
+.linkedin-icon{
+  width:28px;
+  height:28px;
+  display:inline-block;
+  margin-top:.5rem;
+  filter:drop-shadow(0 1px 1px rgba(0,0,0,.2));
+  transition:transform .15s ease, filter .15s ease;
+}
+.linkedin-icon:hover{
+  transform:translateY(-1px);
+  filter:drop-shadow(0 3px 6px rgba(0,0,0,.25));
+}
+
 
 /* Rol */
 .role {
