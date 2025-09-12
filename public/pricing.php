@@ -74,7 +74,7 @@ session_start();
 
 <!-- Personal Assistance block -->
 <div class="option">
-  <h3>Personalize PinerPal bot on you database</h3>
+  <h3>Train the PinerPal bot on your database</h3>
   <p>We train the PinterPal bot on your product database for a fully customized experience.</p>
   <p><s style="color:red;">€999</s> → <strong>€799 one-time setup</strong></p>
   <br>
@@ -85,7 +85,7 @@ session_start();
 </section>
 </main>
 
-<div id="contactPopup" class="popup"><span id="popupClose">&times;</span><img src="img/about-hidde.png" alt="Hidde" class="popup-photo"><h3>Interested or questions?</h3><p>Call me or mail me:</p><a href="tel:+31636270282" class="popup-btn">Call Hidde</a><a href="mailto:davids@pinterpal.com" class="popup-btn">Mail Hidde</a></div>
+<div id="contactPopup" class="popup"><span id="popupClose">&times;</span><img src="img/about-hidde.png" alt="Hidde" class="popup-photo"><h3>Interested or questions?</h3><p>Call me or mail me:</p><a href="tel:+31636270282" class="popup-btn">+31636270282</a><a href="mailto:davids@pinterpal.com" class="popup-btn">Mail Hidde</a></div>
 <script src="js/contact-popup.js" defer></script>
 
       <!-- Footer -->
