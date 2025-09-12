@@ -71,7 +71,7 @@ require __DIR__.'/bootstrap.php';
 
         <div class="image-row">
             <div class="image-container">
-                <img src="img/team-photo2.jpg" alt="Process 1" class="process1-image">
+                <img src="pp-squad.png" alt="Process 1" class="process1-image">
             </div>
             <div class="image-container">
                 <img src="img/podcast-afbeelding.png" alt="Process 2" class="process2-image">
