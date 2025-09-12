@@ -69,20 +69,17 @@ require __DIR__.'/bootstrap.php';
 
         </div>
 
-        <div class="image-row">
-            <div class="image-container">
-                <img src="pp-squad.png" alt="Process 1" class="process1-image">
-            </div>
-            <div class="image-container">
-                <img src="img/podcast-afbeelding.png" alt="Process 2" class="process2-image">
-            </div>
-            <div class="image-container">
-                <img src="img/nl-vlag.gif" alt="Dutch Flag" class="flag-image">
-            </div>
-        </div>
-    </div>
-
-       </div>
+           <div class="image-row">
+  <div class="image-container">
+    <img id="slideshow" src="img/pp-squad.png" alt="Process 1" class="process1-image">
+  </div>
+  <div class="image-container">
+    <img src="img/podcast-afbeelding.png" alt="Process 2" class="process2-image">
+  </div>
+  <div class="image-container">
+    <img src="img/nl-vlag.gif" alt="Dutch Flag" class="flag-image">
+  </div>
+</div>
 
 <!-- Losse container voor de goals-afbeelding -->
 <section class="goals-container" aria-labelledby="goals-visual-title">
@@ -230,6 +227,27 @@ require __DIR__.'/bootstrap.php';
         });
 
     </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const slideshow = document.getElementById('slideshow');
+
+    // lijst met afbeeldingen voor de slideshow
+    const images = [
+      "img/pp-squad.png",
+      "img/team-photo1.jpg",
+      "img/m&d.png",
+      "img/team-photo2.jpg"
+    ];
+
+    let index = 0;
+
+    setInterval(() => {
+      index = (index + 1) % images.length;
+      slideshow.src = images[index];
+    }, 3000); // elke 3 seconden
+  });
+</script>
 
 </body>
 </html>
