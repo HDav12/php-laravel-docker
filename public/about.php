@@ -238,6 +238,7 @@ require __DIR__.'/bootstrap.php';
       "img/team-photo1.jpg",
       "img/m&d.png",
       "img/team-photo2.jpg"
+      "img/nathan.png"
     ];
 
     let index = 0;
