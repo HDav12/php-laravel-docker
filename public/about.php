@@ -237,7 +237,7 @@ require __DIR__.'/bootstrap.php';
       "img/pp-squad.png",
       "img/team-photo1.jpg",
       "img/m&d.png",
-      "img/team-photo2.jpg"
+      "img/team-photo2.jpg",
       "img/nathan.png"
     ];
 
