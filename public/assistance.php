@@ -154,8 +154,22 @@ require __DIR__.'/bootstrap.php';
 
  
 
-<div id="contactPopup" class="popup"><span id="popupClose">&times;</span><img src="img/about-hidde.png" alt="Hidde" class="popup-photo"><h3>Interested or questions?</h3><p>Call me or mail me:</p><a href="tel:+31636270282" class="popup-btn">+31636270282</a><a href="mailto:davids@pinterpal.com" class="popup-btn">Mail Hidde</a></div>
+<div id="contactPopup" class="popup">
+  <span id="popupClose">&times;</span>
+
+  <img src="img/about-hidde.png" alt="Hidde" class="popup-photo">
+  <h3>Interested or questions?</h3>
+  <p>Call me or mail me:</p>
+
+  <a href="tel:+31636270282" class="popup-btn">+31636270282</a>
+  <a href="mailto:davids@pinterpal.com" class="popup-btn">Mail Hidde</a>
+
+  <!-- NEW: plan demo -->
+  <a href="/demo.php" class="popup-btn popup-btn-primary">Plan demo</a>
+</div>
+
 <script src="js/contact-popup.js" defer></script>
+
 
 
 

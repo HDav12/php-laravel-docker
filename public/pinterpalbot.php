@@ -76,7 +76,7 @@ session_start();
        style="max-width: 100%; height: auto;">
 </div>
 
-    <p>GDPR-first · No PII stored · EU hosting options</p>
+    <p>No technical skills needed</p>
 
     <br>
 
