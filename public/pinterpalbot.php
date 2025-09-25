@@ -194,6 +194,23 @@ session_start();
 
   <!-- Widget JS -->
 <script src="js/widget.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const navToggle = document.querySelector(".nav-toggle");
+    const nav = document.getElementById("mainNav");
+
+    // optioneel: markeer body zodat CSS weet dat er een hamburger is
+    document.body.classList.add("has-hamburger");
+
+    if (navToggle && nav) {
+      navToggle.addEventListener("click", () => {
+        const expanded = navToggle.getAttribute("aria-expanded") === "true";
+        navToggle.setAttribute("aria-expanded", String(!expanded));
+        nav.classList.toggle("open");
+      });
+    }
+  });
+</script>
 
 </body>
 </html>

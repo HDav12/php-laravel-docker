@@ -127,24 +127,21 @@ session_start();
   </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Get the current page from the URL (only the last part)
-            const currentPage = window.location.pathname.split('/').pop();
-    
-            // Select all links in the navigation bar
-            const navbarLinks = document.querySelectorAll('.navbar a');
-    
-            // Remove 'active' class from all links initially
-            navbarLinks.forEach(link => link.classList.remove('active'));
-    
-            // Add 'active' class to the correct link based on the href match
-            navbarLinks.forEach(link => {
-                const linkPage = link.getAttribute('href');
-                if (linkPage === currentPage || (linkPage === "index.php" && currentPage === "")) {
-                    link.classList.add('active');
-                }
-            });
-        });
-    </script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const navToggle = document.querySelector(".nav-toggle");
+    const nav = document.getElementById("mainNav");
+
+    // optioneel: markeer body zodat CSS weet dat er een hamburger is
+    document.body.classList.add("has-hamburger");
+
+    if (navToggle && nav) {
+      navToggle.addEventListener("click", () => {
+        const expanded = navToggle.getAttribute("aria-expanded") === "true";
+        navToggle.setAttribute("aria-expanded", String(!expanded));
+        nav.classList.toggle("open");
+      });
+    }
+  });
+</script>
 </body>
 </html>

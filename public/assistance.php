@@ -193,13 +193,21 @@ require __DIR__.'/bootstrap.php';
   </footer>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      // Active link highlighting
-      const currentPage = window.location.pathname.split('/').pop() || 'index.php';
-      document.querySelectorAll('.navbar a').forEach(a => {
-        a.classList.toggle('active', a.getAttribute('href') === currentPage);
+  document.addEventListener("DOMContentLoaded", function () {
+    const navToggle = document.querySelector(".nav-toggle");
+    const nav = document.getElementById("mainNav");
+
+    // optioneel: markeer body zodat CSS weet dat er een hamburger is
+    document.body.classList.add("has-hamburger");
+
+    if (navToggle && nav) {
+      navToggle.addEventListener("click", () => {
+        const expanded = navToggle.getAttribute("aria-expanded") === "true";
+        navToggle.setAttribute("aria-expanded", String(!expanded));
+        nav.classList.toggle("open");
       });
-    });
-  </script>
+    }
+  });
+</script>
 </body>
 </html>
