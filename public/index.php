@@ -36,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
 </head>
 <body>
 
-<!-- Header -->
 <header class="header">
   <div class="logo-wrap">
     <img src="img/pinterpal-header.png" alt="PinterPal Logo" class="header-logo">
@@ -45,23 +44,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
     </a>
   </div>
 
-     <!-- MIDDEN: Start Now -->
-    <div class="header-cta">
-      <button class="start-trial-btn" onclick="window.location.href='/company-registration.php'">
-        Start Now
-      </button>
-    </div>
+  <!-- Hamburger voor mobiel -->
+  <button class="nav-toggle" aria-controls="mainNav" aria-expanded="false" aria-label="Menu">
+    <span class="nav-toggle__bar"></span>
+    <span class="nav-toggle__bar"></span>
+    <span class="nav-toggle__bar"></span>
+  </button>
 
-  <!-- Dynamische login-/signup of uitlog-knoppen -->
+  <div class="header-cta">
+    <button class="start-trial-btn" onclick="window.location.href='/company-registration.php'">Start Now</button>
+  </div>
+
   <div class="login-signup">
     <?php include 'navbar.php'; ?>
   </div>
 </header>
 
-
-    
 <!-- Navigatiebalk -->
-<nav class="navbar" aria-label="Hoofdnavigatie">
+<nav id="mainNav" class="navbar" aria-label="Hoofdnavigatie">
   <a href="index.php" class="active">HOME</a>
   <a href="pinterpalbot.php">PINTERPAL BOT</a>
   <a href="iframe.php">TRY ME</a>
@@ -255,11 +255,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
 <!-- Widget JS -->
 <script src="js/widget.js"></script>
 
-<!-- Navigation Toggle JS -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const navToggle = document.querySelector(".nav-toggle");
     const nav = document.getElementById("mainNav");
+
+    // optioneel: markeer body zodat CSS weet dat er een hamburger is
+    document.body.classList.add("has-hamburger");
 
     if (navToggle && nav) {
       navToggle.addEventListener("click", () => {
@@ -270,6 +272,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
     }
   });
 </script>
+
 
 
 

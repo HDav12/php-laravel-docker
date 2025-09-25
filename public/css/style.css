@@ -1303,3 +1303,74 @@ main {
     width:auto;                 /* vult breedte tussen left/right */
   }
 }
+
+
+/* ===== HAMBURGER MENU – OVERRIDES ===== */
+
+/* Knop standaard verbergen (desktop), tonen op mobiel */
+.nav-toggle {
+  background: none;
+  border: 0;
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+.nav-toggle__bar {
+  width: 24px;
+  height: 2px;
+  background: #000;
+  display: block;
+}
+
+/* Nav desktop: zichtbaar als rij */
+#mainNav.navbar {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  background: var(--primary-color) !important;
+  border-top: 4px solid var(--secondary-color);
+  border-bottom: 4px solid var(--secondary-color);
+}
+
+/* Links */
+#mainNav.navbar a {
+  color: var(--font-color);
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 10px;
+  padding: .5rem 1rem;
+  background-color: #6c757d;
+  border: 2px solid var(--primary-color);
+}
+
+/* Mobiel gedrag */
+@media (max-width: 768px) {
+  .nav-toggle { display: flex; }
+
+  /* standaard dicht */
+  #mainNav.navbar {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  /* open-stand via JS */
+  #mainNav.navbar.open {
+    display: flex;
+    background: var(--primary-color) !important;
+  }
+
+  #mainNav.navbar a {
+    width: 90%;
+    text-align: center;
+    margin: 4px 0;
+  }
+}
+
+/* Kleine bugfixes van eerdere regels */
+.widget-toggle { background-color: var(--secondary-color) !important; } /* ipv 'IMPORTANT' */
+.navbar { background: var(--primary-color); } /* semicolon + geldige regel */
+
