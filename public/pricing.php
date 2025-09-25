@@ -12,7 +12,7 @@ session_start();
 </head>
 <body>
     
-<!-- Header -->
+
 <header class="header">
   <div class="logo-wrap">
     <img src="img/pinterpal-header.png" alt="PinterPal Logo" class="header-logo">
@@ -21,22 +21,31 @@ session_start();
     </a>
   </div>
 
- 
-  <!-- Dynamische login-/signup of uitlog-knoppen -->
+  <!-- Hamburger voor mobiel -->
+  <button class="nav-toggle" aria-controls="mainNav" aria-expanded="false" aria-label="Menu">
+    <span class="nav-toggle__bar"></span>
+    <span class="nav-toggle__bar"></span>
+    <span class="nav-toggle__bar"></span>
+  </button>
+
+  <div class="header-cta">
+    <button class="start-trial-btn" onclick="window.location.href='/company-registration.php'">Start Now</button>
+  </div>
+
   <div class="login-signup">
     <?php include 'navbar.php'; ?>
   </div>
 </header>
 
-    <!-- Navigatiebalk -->
-    <nav class="navbar">
-        <a href="index.php">HOME</a>
-        <a href="pinterpalbot.php" class="active">PINTERPAL BOT</a>
-        <a href="iframe.php">TRY ME</a>
-        <a href="pricing.php">PRICING</a>
-        <a href="assistance.php">ASSISTANCE</a>
-        <a href="about.php">ABOUT US</a>
-    </nav>
+<!-- Navigatiebalk -->
+<nav id="mainNav" class="navbar" aria-label="Hoofdnavigatie">
+  <a href="index.php" class="active">HOME</a>
+  <a href="pinterpalbot.php">PINTERPAL BOT</a>
+  <a href="iframe.php">TRY ME</a>
+  <a href="pricing.php">PRICING</a>
+  <a href="assistance.php">ASSISTANCE</a>
+  <a href="about.php">ABOUT US</a>
+</nav>
 
     
     
