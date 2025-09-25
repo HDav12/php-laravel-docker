@@ -96,7 +96,7 @@ session_start();
   <a href="mailto:davids@pinterpal.com" class="popup-btn">Mail Hidde</a>
 
   <!-- NEW: plan demo -->
-  <a href="/demo.php" class="popup-btn popup-btn-primary">Plan demo</a>
+  <a href="/demo.php" class="popup-btn popup-btn-primary">Plan free demo</a>
 </div>
 
 <script src="js/contact-popup.js" defer></script>
