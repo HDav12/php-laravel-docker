@@ -1346,6 +1346,30 @@ main {
   border: 2px solid var(--primary-color);
 }
 
+/* === NAV HOVER: geel zoals voorheen === */
+#mainNav.navbar a {
+  transition: background-color .2s ease, color .2s ease, transform .02s ease;
+}
+
+/* Hover + focus (toetsenbord) */
+#mainNav.navbar a:hover,
+#mainNav.navbar a:focus-visible {
+  background-color: var(--secondary-color) !important; /* geel */
+  color: var(--font-color) !important;                 /* zwarte tekst */
+}
+
+/* Actieve pagina mag ook geel blijven */
+#mainNav.navbar a.active {
+  background-color: var(--secondary-color) !important;
+  color: var(--font-color) !important;
+}
+
+/* Kleine ‘tap’ feedback op mobiel */
+#mainNav.navbar a:active {
+  transform: scale(0.985);
+}
+
+
 /* Mobiel gedrag */
 @media (max-width: 768px) {
   .nav-toggle { display: flex; }
