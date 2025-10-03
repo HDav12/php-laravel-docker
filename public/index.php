@@ -80,7 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
 <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
 
 <!-- Promo video -->
-<div class="promo-video-container" style="width: 100%; display: flex; justify-content: center;">
+<div class="promo-video-container"
+     style="width:100%; max-width:700px; margin:0 auto; display:flex; justify-content:center;">
   <video
     id="promo-video"
     muted
@@ -88,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
     playsinline
     preload="metadata"
     class="promo-video"
-    style="width: 100%; max-width: 1000px; height: auto; cursor: pointer;"
+    style="width:100%; height:auto; cursor:pointer;">
   >
     <source src="videos/ppdemo-2.mov" type="video/mp4" />
     Your browser does not support the video tag.
