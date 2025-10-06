@@ -56,7 +56,7 @@ session_start();
   </div>
   <div class="image-container2">
     <p class="image-text">2. Interact</p>
-    <img src="img/input-w.png" alt="Proces 2" class="static-image">
+    <img src="img/interac-2.png" alt="Proces 2" class="static-image">
   </div>
   <div class="image-container2">
     <p class="image-text">3. Result</p>
