@@ -13,7 +13,6 @@ require __DIR__.'/bootstrap.php';
 <body>
   
 <!-- Header -->
-
 <header class="header">
   <div class="logo-wrap">
     <img src="img/pinterpal-header.png" alt="PinterPal Logo" class="header-logo">
@@ -22,31 +21,32 @@ require __DIR__.'/bootstrap.php';
     </a>
   </div>
 
-  <!-- Hamburger voor mobiel -->
-  <button class="nav-toggle" aria-controls="mainNav" aria-expanded="false" aria-label="Menu">
-    <span class="nav-toggle__bar"></span>
-    <span class="nav-toggle__bar"></span>
-    <span class="nav-toggle__bar"></span>
-  </button>
 
-  <div class="header-cta">
-    <button class="start-trial-btn" onclick="window.location.href='/company-registration.php'">Start Now</button>
-  </div>
-
+  <!-- Dynamische login-/signup of uitlog-knoppen -->
   <div class="login-signup">
     <?php include 'navbar.php'; ?>
   </div>
 </header>
 
-<!-- Navigatiebalk -->
-<nav id="mainNav" class="navbar" aria-label="Hoofdnavigatie">
-  <a href="index.php" class="active">HOME</a>
-  <a href="pinterpalbot.php">PINTERPAL BOT</a>
-  <a href="iframe.php">TRY ME</a>
-  <a href="pricing.php">PRICING</a>
-  <a href="assistance.php">ASSISTANCE</a>
-  <a href="about.php">ABOUT US</a>
-</nav>
+<header class="topbar">
+  <a class="brand" href="index.php">PINTERPAL</a>
+
+  <!-- Hamburger toggle -->
+  <button id="navToggle" class="burger" aria-label="Menu" aria-controls="navMenu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
+  <!-- your menu -->
+  <nav id="navMenu" class="navbar">
+    <a href="index.php">HOME</a>
+    <a href="pinterpalbot.php">PINTERPAL BOT</a>
+    <a href="iframe.php">TRY ME</a>
+    <a href="pricing.php">PRICING</a>
+    <a href="assistance.php">ASSISTANCE</a>
+    <a href="about.php" class="active">ABOUT US</a>
+  </nav>
+</header>
+
     
     <div class="content">
         <div class="intro3">
@@ -218,22 +218,26 @@ require __DIR__.'/bootstrap.php';
     <script></script>
 
     <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const navToggle = document.querySelector(".nav-toggle");
-    const nav = document.getElementById("mainNav");
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get the current page from the URL (only the last part)
+            const currentPage = window.location.pathname.split('/').pop();
+    
+            // Select all links in the navigation bar
+            const navbarLinks = document.querySelectorAll('.navbar a');
+    
+            // Remove 'active' class from all links initially
+            navbarLinks.forEach(link => link.classList.remove('active'));
+    
+            // Add 'active' class to the correct link based on the href match
+            navbarLinks.forEach(link => {
+                const linkPage = link.getAttribute('href');
+                if (linkPage === currentPage || (linkPage === "index.php" && currentPage === "")) {
+                    link.classList.add('active');
+                }
+            });
+        });
 
-    // optioneel: markeer body zodat CSS weet dat er een hamburger is
-    document.body.classList.add("has-hamburger");
-
-    if (navToggle && nav) {
-      navToggle.addEventListener("click", () => {
-        const expanded = navToggle.getAttribute("aria-expanded") === "true";
-        navToggle.setAttribute("aria-expanded", String(!expanded));
-        nav.classList.toggle("open");
-      });
-    }
-  });
-</script>
+    </script>
 
 <div id="contactPopup" class="popup">
   <span id="popupClose">&times;</span>
@@ -272,6 +276,31 @@ require __DIR__.'/bootstrap.php';
     }, 3000); // elke 3 seconden
   });
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const navToggle = document.getElementById('navToggle');
+  const navMenu   = document.getElementById('navMenu');
+
+  if (navToggle && navMenu) {
+    navToggle.addEventListener('click', () => {
+      const open = navMenu.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    // auto-close on link click (mobile)
+    navMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          navMenu.classList.remove('open');
+          navToggle.setAttribute('aria-expanded','false');
+        }
+      });
+    });
+  }
+});
+</script>
+
 
 </body>
 </html>
