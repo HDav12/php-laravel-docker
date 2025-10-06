@@ -29,7 +29,6 @@ require __DIR__.'/bootstrap.php';
 </header>
 
 <header class="topbar">
-  <a class="brand" href="index.php">PINTERPAL</a>
 
   <!-- Hamburger toggle -->
   <button id="navToggle" class="burger" aria-label="Menu" aria-controls="navMenu" aria-expanded="false">
