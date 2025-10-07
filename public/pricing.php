@@ -39,10 +39,10 @@ session_start();
 
 <!-- Navigatiebalk -->
 <nav id="mainNav" class="navbar" aria-label="Hoofdnavigatie">
-  <a href="index.php" class="active">HOME</a>
+  <a href="index.php">HOME</a>
   <a href="pinterpalbot.php">PINTERPAL BOT</a>
   <a href="iframe.php">TRY ME</a>
-  <a href="pricing.php">PRICING</a>
+  <a href="pricing.php" class="active">PRICING</a>
   <a href="assistance.php">ASSISTANCE</a>
   <a href="about.php">ABOUT US</a>
 </nav>
