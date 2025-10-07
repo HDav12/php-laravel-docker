@@ -26,6 +26,7 @@ require __DIR__.'/bootstrap.php';
   <div class="login-signup">
     <?php include 'navbar.php'; ?>
   </div>
+  
 </header>
 
 <header class="topbar">
@@ -136,7 +137,7 @@ require __DIR__.'/bootstrap.php';
         My name is Neo and I study at Rotterdam University of Applied Sciences. I’m the head programmer at PinterPal, which means I’m mainly responsible for writing and maintaining the code.<br><br>
         A few things about me:<br>
         I love gaming and binge-watching anime series.<br>
-        My biggest fear is thalassophobia (the fear of very large objects).<br>
+        My biggest fear is flying cockroaches<br>
         My favorite animal is the cat.<br>
         One of my biggest life lessons is that there are many roads to Rome—don’t give up if you hit a roadblock; just find another way to reach your goal.<br>
         My favorite foods are sushi and pasta.
