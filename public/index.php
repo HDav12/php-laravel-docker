@@ -204,7 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
 </div>
 
 
-    <small class="onepager-meta">Updated: Aug 2025 • 1 page • PDF</small>
+    <small class="onepager-meta">Updated: Aug 2025 • 1 page • DOCX</small>
   </div>
 
 </div>
