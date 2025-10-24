@@ -84,7 +84,7 @@ session_start();
 
 <!-- Personal Assistance block -->
 <div class="option">
-  <h3>Train the PinerPal bot on your database</h3>
+  <h3>Train the PinterPal bot on your database</h3>
   <p>We train the PinterPal bot on your product database for a fully customized experience.</p>
   <p><s style="color:red;">€999</s> → <strong>€799 one-time setup</strong></p>
   <br>
