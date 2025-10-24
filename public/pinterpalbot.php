@@ -22,13 +22,6 @@ session_start();
     </a>
   </div>
 
-  <!-- Hamburger voor mobiel -->
-  <button class="nav-toggle" aria-controls="mainNav" aria-expanded="false" aria-label="Menu">
-    <span class="nav-toggle__bar"></span>
-    <span class="nav-toggle__bar"></span>
-    <span class="nav-toggle__bar"></span>
-  </button>
-
   <div class="header-cta">
     <button class="start-trial-btn" onclick="window.location.href='/company-registration.php'">Start Now</button>
   </div>
@@ -36,6 +29,13 @@ session_start();
   <div class="login-signup">
     <?php include 'navbar.php'; ?>
   </div>
+
+  <!-- Hamburger voor mobiel -->
+  <button class="nav-toggle" aria-controls="mainNav" aria-expanded="false" aria-label="Menu">
+    <span class="nav-toggle__bar"></span>
+    <span class="nav-toggle__bar"></span>
+    <span class="nav-toggle__bar"></span>
+  </button>
 </header>
 
 <!-- Navigatiebalk -->
