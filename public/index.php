@@ -75,8 +75,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
   <section class="intro4">
     <div class="intro-flex">
 
-  <h2>Boost sales with PinterPal—guide shoppers through your assortment in seconds ↓</h2>
-
+  <h2>Boost sales with PinterPal —guide shoppers through your assortment in seconds ↓</h2>
+<br>
 <!-- Video + overlay controls -->
 <div class="promo-video-wrap" style="position:relative; width:100%; max-width:700px; margin:0 auto;">
   <video
