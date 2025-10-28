@@ -71,26 +71,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
   <a href="about.php">ABOUT US</a>
 </nav>
     
-   <div class="content">
+ <div class="content">
   <section class="intro4">
     <div class="intro-flex">
+      <h2>Boost sales with PinterPal —guide shoppers through your assortment in seconds ↓</h2>
+    </div>
 
-  <h2>Boost sales with PinterPal —guide shoppers through your assortment in seconds ↓</h2>
-<br>
-<Div></Div>
-<!-- Video + overlay controls -->
-<div class="promo-video-wrap" style="position:relative; width:100%; max-width:700px; margin:0 auto;">
-  <video
-    id="promoVideo"
-    playsinline
-    preload="metadata"
-    muted
-    loop
-    style="width:100%; height:auto; display:block; cursor:pointer;"
-  >
-    <source src="videos/ppdemo-4.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
+    <!-- Video -->
+    <div class="promo-video-wrap" style="position:relative; width:100%; max-width:700px; margin:0 auto;">
+      <video
+        id="promoVideo"
+        playsinline
+        preload="metadata"
+        muted
+        loop
+        style="width:100%; height:auto; display:block; cursor:pointer;"
+      >
+        <source src="videos/ppdemo-4.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
 
   <!-- Center play/pause -->
   <button type="button" id="videoToggleBtn"

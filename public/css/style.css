@@ -1374,31 +1374,54 @@ main {
 .widget-toggle { background-color: var(--secondary-color) !important; } /* ipv 'IMPORTANT' */
 .navbar { background: var(--primary-color); } /* semicolon + geldige regel */
 
-/* Centered containers for both variants */
-.promo-video-container,
-.promo-video-container1 {
-  background: transparent;
+/* Zorg dat heading en video onder elkaar staan en centreren */
+.hero-stack,
+.intro-flex,
+.promo-video-container {
   width: 100%;
-  display: flex;
-  justify-content: center;
+  display: block;               /* forceer block i.p.v. row/column naast elkaar */
 }
 
-/* Shared video styling */
+.hero-stack {
+  max-width: 1000px;            /* zelfde breedte als je video */
+  margin: 0 auto;               /* centreer de hele stapel */
+}
+
+/* Titel netjes boven de video */
+.intro-flex {
+  position: static !important;  /* voorkom overlap door absolute posities */
+  float: none !important;       /* geen float naast video */
+  text-align: center;
+  margin: 0 0 16px;             /* ruimte onder de titel */
+  z-index: 1;
+}
+
+/* Video-container gecentreerd */
+.promo-video-container {
+  display: flex !important;     /* centreer de inhoud */
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+/* Video zelf */
 .promo-video,
 .promo-video1 {
-  display: block;         /* avoids inline gap */
+  display: block;
   width: 100%;
   max-width: 1000px;
   height: auto;
   object-fit: contain;
-  background: none;
-  border-radius: 12px;    /* zachte, afgeronde hoeken */
+  border-radius: 12px;
 }
 
-/* (Optioneel) iets compacter op mobiel */
+/* failsafe: als een ouder element toch flex-row gebruikt */
+.intro-flex, .promo-video-container {
+  flex: 0 0 100% !important;    /* neem hele rij in beslag => onder elkaar */
+  max-width: 100% !important;
+}
+
+/* Kleine extra marge op mobiel */
 @media (max-width: 768px) {
-  .promo-video,
-  .promo-video1 {
-    max-width: 700px;
-  }
+  .intro-flex { margin-bottom: 12px; }
 }
