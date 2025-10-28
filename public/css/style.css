@@ -1346,30 +1346,6 @@ main {
   border: 2px solid var(--primary-color);
 }
 
-/* === NAV HOVER: geel zoals voorheen === */
-#mainNav.navbar a {
-  transition: background-color .2s ease, color .2s ease, transform .02s ease;
-}
-
-/* Hover + focus (toetsenbord) */
-#mainNav.navbar a:hover,
-#mainNav.navbar a:focus-visible {
-  background-color: var(--secondary-color) !important; /* geel */
-  color: var(--font-color) !important;                 /* zwarte tekst */
-}
-
-/* Actieve pagina mag ook geel blijven */
-#mainNav.navbar a.active {
-  background-color: var(--secondary-color) !important;
-  color: var(--font-color) !important;
-}
-
-/* Kleine ‘tap’ feedback op mobiel */
-#mainNav.navbar a:active {
-  transform: scale(0.985);
-}
-
-
 /* Mobiel gedrag */
 @media (max-width: 768px) {
   .nav-toggle { display: flex; }
@@ -1398,3 +1374,31 @@ main {
 .widget-toggle { background-color: var(--secondary-color) !important; } /* ipv 'IMPORTANT' */
 .navbar { background: var(--primary-color); } /* semicolon + geldige regel */
 
+/* Centered containers for both variants */
+.promo-video-container,
+.promo-video-container1 {
+  background: transparent;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Shared video styling */
+.promo-video,
+.promo-video1 {
+  display: block;         /* avoids inline gap */
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
+  object-fit: contain;
+  background: none;
+  border-radius: 12px;    /* zachte, afgeronde hoeken */
+}
+
+/* (Optioneel) iets compacter op mobiel */
+@media (max-width: 768px) {
+  .promo-video,
+  .promo-video1 {
+    max-width: 700px;
+  }
+}
