@@ -75,66 +75,93 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback'])) {
   <section class="intro4">
     <div class="intro-flex">
 
-    <h2>Boost your online sales with the PinterPal widget by guiding your customers through your assortment — see for yourself ↓</h2>
-    </div>
-<!-- Container die video + knop onder elkaar zet -->
-<div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+  <h2>Boost sales with PinterPal—guide shoppers through your assortment in seconds ↓</h2>
 
-<!-- Promo video -->
-<div class="promo-video-container"
-     style="width:100%; max-width:700px; margin:0 auto; display:flex; justify-content:center;">
+<!-- Video + overlay controls -->
+<div class="promo-video-wrap" style="position:relative; width:100%; max-width:700px; margin:0 auto;">
   <video
-    id="promo-video"
-    muted
-    loop
+    id="promoVideo"
     playsinline
     preload="metadata"
-    class="promo-video"
-    style="width:100%; height:auto; cursor:pointer;">
+    muted
+    loop
+    style="width:100%; height:auto; display:block; cursor:pointer;"
   >
     <source src="videos/ppdemo-4.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
-</div>
 
-<!-- Play/Pause/Sound buttons -->
-<div style="margin-top: 10px; text-align: center;">
-  <button class="video-btn" id="play-pause-toggle">▶️</button>
-  <button class="video-btn" id="sound-toggle">🔇</button>
+  <!-- Center play/pause -->
+  <button type="button" id="videoToggleBtn"
+    aria-label="Play"
+    style="
+      position:absolute; inset:0; margin:auto; width:72px; height:72px;
+      border:0; border-radius:50%; display:grid; place-items:center;
+      background:rgba(0,0,0,.55); cursor:pointer; transition:opacity .18s, transform .18s;
+    ">
+    <svg viewBox="0 0 100 100" width="38" height="38" aria-hidden="true">
+      <polygon points="35,25 75,50 35,75" fill="white"></polygon>
+    </svg>
+  </button>
+
+  <!-- Mute toggle (top-right) -->
+  <button type="button" id="videoMuteBtn" aria-label="Mute/Unmute"
+    style="
+      position:absolute; top:10px; right:10px; border:0; border-radius:999px;
+      padding:8px 10px; background:rgba(0,0,0,.55); color:#fff; cursor:pointer;
+    ">🔇</button>
 </div>
 
 <script>
-  const video = document.getElementById('promo-video');
-  const playPauseBtn = document.getElementById('play-pause-toggle');
-  const soundBtn = document.getElementById('sound-toggle');
+  (function () {
+    const wrap  = document.querySelector('.promo-video-wrap');
+    const video = document.getElementById('promoVideo');
+    const btn   = document.getElementById('videoToggleBtn');
+    const mute  = document.getElementById('videoMuteBtn');
 
-  // Zorg dat video start gepauzeerd en geluid uit
-  video.pause();
-  video.muted = true;
+    const setIcon = (playing) => {
+      btn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+      btn.innerHTML = playing
+        ? '<svg viewBox="0 0 100 100" width="30" height="30" aria-hidden="true"><rect x="28" y="22" width="16" height="56" fill="white"></rect><rect x="56" y="22" width="16" height="56" fill="white"></rect></svg>'
+        : '<svg viewBox="0 0 100 100" width="38" height="38" aria-hidden="true"><polygon points="35,25 75,50 35,75" fill="white"></polygon></svg>';
+    };
 
-  // Play/pause via knop
-  function togglePlayPause() {
-    if (video.paused) {
-      video.play();
-      playPauseBtn.textContent = '⏸️';
-    } else {
-      video.pause();
-      playPauseBtn.textContent = '▶️';
-    }
-  }
+    const updateOverlayVisibility = () => {
+      // verberg knop tijdens afspelen; toon bij pauze of hover
+      if (!video.paused) {
+        btn.style.opacity = '0';
+        btn.style.pointerEvents = 'none';
+      } else {
+        btn.style.opacity = '1';
+        btn.style.pointerEvents = 'auto';
+      }
+    };
 
-  // Mute/unmute via knop
-  function toggleMute() {
-    video.muted = !video.muted;
-    soundBtn.textContent = video.muted ? '🔇' : '🔊';
-  }
+    const togglePlay = () => (video.paused ? video.play() : video.pause());
+    const toggleMute = () => {
+      video.muted = !video.muted;
+      mute.textContent = video.muted ? '🔇' : '🔊';
+    };
 
-  // Event listeners
-  playPauseBtn.addEventListener('click', togglePlayPause);
-  soundBtn.addEventListener('click', toggleMute);
+    // Events
+    btn.addEventListener('click', (e) => { e.stopPropagation(); togglePlay(); });
+    video.addEventListener('click', togglePlay);
+    mute.addEventListener('click', (e) => { e.stopPropagation(); toggleMute(); });
 
-  // Optioneel: ook klikken op de video zelf start/pauzeert ‘m
-  video.addEventListener('click', togglePlayPause);
+    video.addEventListener('play',  () => { setIcon(true);  updateOverlayVisibility(); });
+    video.addEventListener('pause', () => { setIcon(false); updateOverlayVisibility(); });
+    video.addEventListener('ended', () => { setIcon(false); updateOverlayVisibility(); });
+
+    // Hover: knop even laten zien
+    wrap.addEventListener('mouseenter', () => { if (!video.paused) { btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; }});
+    wrap.addEventListener('mouseleave', updateOverlayVisibility);
+
+    // Init
+    video.pause();        // start gepauzeerd
+    video.muted = true;   // start muted
+    setIcon(false);
+    updateOverlayVisibility();
+  })();
 </script>
 
 
