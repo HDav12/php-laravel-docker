@@ -41,8 +41,8 @@ require __DIR__.'/bootstrap.php';
   <a href="index.php">HOME</a>
   <a href="iframe.php">TRY ME</a>
   <a href="pricing.php">PRICING</a>
-  <a href="assistance.php" class="active">ASSISTANCE</a>
-  <a href="about.php">ABOUT US</a>
+  <a href="assistance.php">ASSISTANCE</a>
+  <a href="about.php" class="active">ABOUT US</a>
 </nav>
 
   <!-- Hamburger toggle -->
