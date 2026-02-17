@@ -50,15 +50,6 @@ require __DIR__.'/bootstrap.php';
     <span></span><span></span><span></span>
   </button>
 
-  <!-- your menu -->
-  <nav id="navMenu" class="navbar">
-    <a href="index.php">HOME</a>
-    <a href="iframe.php">TRY ME</a>
-    <a href="pricing.php">PRICING</a>
-    <a href="assistance.php">ASSISTANCE</a>
-    <a href="about.php" class="active">ABOUT US</a>
-  </nav>
-</header>
 
     
     <div class="content">
