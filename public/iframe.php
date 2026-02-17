@@ -70,7 +70,6 @@ require __DIR__.'/bootstrap.php';;
 <!-- Navigatiebalk (zelfde items, zelfde ids/classes) -->
 <nav id="mainNav" class="navbar" aria-label="Hoofdnavigatie">
   <a href="index.php">HOME</a>
-  <a href="pinterpalbot.php">PINTERPAL BOT</a>
   <a href="iframe.php" class="active">TRY ME</a>
   <a href="pricing.php">PRICING</a>
   <a href="assistance.php">ASSISTANCE</a>

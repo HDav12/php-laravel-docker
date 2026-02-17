@@ -39,7 +39,6 @@ require __DIR__.'/bootstrap.php';
   <!-- your menu -->
   <nav id="navMenu" class="navbar">
     <a href="index.php">HOME</a>
-    <a href="pinterpalbot.php">PINTERPAL BOT</a>
     <a href="iframe.php">TRY ME</a>
     <a href="pricing.php">PRICING</a>
     <a href="assistance.php">ASSISTANCE</a>
