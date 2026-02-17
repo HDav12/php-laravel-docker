@@ -12,7 +12,6 @@ require __DIR__.'/bootstrap.php';
 </head>
 <body>
   
-<!-- Header -->
 <header class="header">
   <div class="logo-wrap">
     <img src="img/pinterpal-header.png" alt="PinterPal Logo" class="header-logo">
@@ -21,15 +20,30 @@ require __DIR__.'/bootstrap.php';
     </a>
   </div>
 
+  <div class="header-cta">
+    <button class="start-trial-btn" onclick="window.location.href='/company-registration.php'">Start Now</button>
+  </div>
 
-  <!-- Dynamische login-/signup of uitlog-knoppen -->
   <div class="login-signup">
     <?php include 'navbar.php'; ?>
   </div>
-  
+
+    <!-- Hamburger voor mobiel -->
+  <button class="nav-toggle" aria-controls="mainNav" aria-expanded="false" aria-label="Menu">
+    <span class="nav-toggle__bar"></span>
+    <span class="nav-toggle__bar"></span>
+    <span class="nav-toggle__bar"></span>
+  </button>
 </header>
 
-<header class="topbar">
+<!-- Navigatiebalk -->
+<nav id="mainNav" class="navbar" aria-label="Hoofdnavigatie">
+  <a href="index.php">HOME</a>
+  <a href="iframe.php">TRY ME</a>
+  <a href="pricing.php">PRICING</a>
+  <a href="assistance.php" class="active">ASSISTANCE</a>
+  <a href="about.php">ABOUT US</a>
+</nav>
 
   <!-- Hamburger toggle -->
   <button id="navToggle" class="burger" aria-label="Menu" aria-controls="navMenu" aria-expanded="false">
