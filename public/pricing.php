@@ -61,11 +61,7 @@ session_start();
     </section>
 
 
-        <div class="gif-container">
-  <img
-    src="https://i0.wp.com/sifugadget.com/wp-content/uploads/2024/02/Arrows-3-pointing-down-arrow-down-animated.gif?ssl=1"
-    alt="Salute GIF"
-  />
+  
 </div>
 
 
